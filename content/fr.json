@@ -1,0 +1,370 @@
+{
+  "lang": "fr",
+  "site": {
+    "title": "Alexandre Guandalini, ingénieur DevOps / Cloud freelance",
+    "description": "Ingénieur DevOps / Cloud freelance : Kubernetes en GitOps, infrastructure en code, production. Huit études de cas, avec mon rôle exact.",
+    "author": "Alexandre Guandalini",
+    "url": "https://guandalinux.github.io/"
+  },
+  "nav": [
+    {"id": "cases", "label": "Études de cas"},
+    {"id": "offer", "label": "Prestations"},
+    {"id": "skills", "label": "Compétences"},
+    {"id": "approach", "label": "Méthode"},
+    {"id": "about", "label": "À propos"},
+    {"id": "contact", "label": "Contact"}
+  ],
+  "hero": {
+    "kicker": "Ingénieur DevOps / Cloud freelance",
+    "title": "Je mets vos applications sur Kubernetes et votre infrastructure dans Git",
+    "lead": "Ingénieur DevOps depuis octobre 2022 chez un éditeur de logiciels du secteur de la santé, j'écris des socles que mes collègues reprennent et étendent. Chaque étude de cas dit mon rôle exact, les dates et ce qui a été mesuré.",
+    "availability": "Disponible à partir du 20 janvier 2027",
+    "primaryCta": "Voir les études de cas",
+    "secondaryCta": "Me contacter"
+  },
+  "figures": [
+    {"value": "214 / 251", "label": "commits du premier dépôt GitOps de la plateforme Kubernetes sont de moi", "detail": "Hors fusions, soit 85 %. Seul auteur humain jusqu'au 31 mars 2026."},
+    {"value": "11 min", "label": "pour restaurer le serveur de fichiers d'une application de santé", "detail": "Et 9 min 40 pour la base de données, lors du test du 19 mars 2025."},
+    {"value": "6", "label": "dépôts d'infrastructure dont j'ai fait le premier commit", "detail": "Entre août 2024 et février 2026."},
+    {"value": "84", "label": "tickets de type incident m'ont été assignés", "detail": "De 2023 à 2026."},
+    {"value": "99 / 212", "label": "fichiers de la plateforme Kubernetes actuelle encore identiques aux miens", "detail": "Le dépôt commun a été créé par un collègue à partir de mes fichiers, puis étendu."},
+    {"value": "660", "label": "commits sous mes identités dans 8 dépôts d'infrastructure", "detail": "De 2022 à 2026, dont 381 en 2026."}
+  ],
+  "offer": {
+    "title": "Prestations",
+    "intro": "Cinq types de missions, chacune adossée à des études de cas. La documentation et le passage de relais font partie de chaque prestation.",
+    "items": [
+      {"title": "Migrer une application vers Kubernetes en GitOps", "text": "Sur infrastructure privée ou cloud privé : dépôt GitOps organisé par environnement, réseau, entrée, stockage, secrets dans un coffre, supervision, préproduction puis production.", "caseIds": ["cas-1", "cas-2"]},
+      {"title": "Poser un socle d'infrastructure en code que votre équipe reprendra", "text": "Gabarits Packer, modules Terraform, états distants, rôles Ansible, machines livrables. Chaque cible s'ajoute par un fichier de variables.", "caseIds": ["cas-2", "cas-5"]},
+      {"title": "Fiabiliser une production", "text": "Supervision et alertes, sauvegardes dont la restauration est testée, comptes rendus d'incident suivis d'un correctif écrit dans le code.", "caseIds": ["cas-3", "cas-4"]},
+      {"title": "Livrer un environnement de production sans Kubernetes", "text": "Machines en code, Ansible, déploiement bleu/vert, journaux, métriques, dossier d'architecture et job de déploiement pour les développeurs.", "caseIds": ["cas-7", "cas-4", "cas-6"]},
+      {"title": "Traiter une échéance de sécurité ou de fin de support", "text": "Relevé de l'existant, reconstruction en code, réduction de la surface exposée, pare-feu fermé par défaut, documentation pour le support.", "caseIds": ["cas-5", "cas-6"]}
+    ]
+  },
+  "cases": {
+    "title": "Études de cas",
+    "intro": "Huit réalisations, de 2023 à 2026. Chacune dit mon rôle exact, les dates, ce que d'autres ont fait ensuite, et un résultat seulement quand il a été mesuré.",
+    "roleLegend": {
+      "solo": "Seul auteur",
+      "initiator": "Initiateur, puis repris par d'autres",
+      "contributor": "Contributeur parmi d'autres"
+    },
+    "items": [
+      {
+        "id": "cas-1",
+        "slug": "migration-kubernetes-gitops",
+        "title": "Migrer un service d'authentification de machines virtuelles vers Kubernetes, en GitOps",
+        "summary": "J'ai écrit le dépôt GitOps qui a porté un service d'authentification de machines virtuelles vers Kubernetes, sans fournisseur de cloud public. Un collègue en a ensuite tiré un dépôt plateforme commun, qu'il a étendu à un nouveau produit.",
+        "period": "Mars 2025 à avril 2026 (dépôt construit du 8 janvier au 26 mars 2026)",
+        "roleKind": "initiator",
+        "role": "Initiateur, puis repris par d'autres. J'ai écrit 214 des 251 commits hors fusions du dépôt GitOps et j'en suis resté le seul auteur humain jusqu'au 31 mars 2026.",
+        "context": "Un service d'authentification tournait sur quatre machines virtuelles : deux en production, deux en préproduction. Il s'appuyait sur une base de données externe et sur des sessions partagées. La cible était Kubernetes sur une infrastructure privée, sans fournisseur de cloud public.",
+        "actions": [
+          "J'ai ouvert le chantier en mars 2025 et l'ai découpé en lots : infrastructure, application et supervision, puis CI/CD et sécurité en septembre 2025.",
+          "J'ai maquetté un cluster local de 3 machines virtuelles, puis monté une préproduction de 3 nœuds de contrôle et 3 nœuds de travail.",
+          "Le 8 janvier 2026, j'ai créé le dépôt GitOps : 141 fichiers, 13 composants d'infrastructure, trois générateurs d'applications ArgoCD, une base et des surcharges Kustomize par environnement.",
+          "Sans fournisseur de cloud, j'ai configuré la répartition de charge par annonces L2 et pools d'adresses du CNI, l'entrée par Gateway API avec Envoy Gateway (HTTP, HTTPS et TCP) et le stockage distribué Longhorn.",
+          "J'ai confié les secrets du cluster à un opérateur de secrets externes adossé à un coffre, puis remplacé son authentification par jeton par l'authentification Kubernetes.",
+          "J'ai rendu redondants les accès aux données et aux sessions (proxy SQL à 3 réplicas devant la base externe, Redis Sentinel derrière HAProxy) et réglé les sondes de santé et la mise à jour progressive de l'application.",
+          "J'ai préparé la livraison continue : le pipeline écrit le tag d'image dans Git, ArgoCD déploie, et l'agent d'intégration continue a son propre compte de service, avec des rôles limités à deux espaces de noms.",
+          "Le 10 mars 2026, j'ai ajouté en un commit de 99 fichiers l'environnement de production du socle et du service, puis, le 17 mars, basculé sa configuration de production sur le nom de domaine définitif."
+        ],
+        "stack": ["Kubernetes (RKE2)", "Rancher", "ArgoCD (ApplicationSets)", "Kustomize", "Helm", "Cilium", "Gateway API / Envoy Gateway", "Longhorn", "Vault", "External Secrets Operator", "ProxySQL", "Redis Sentinel"],
+        "result": "La production tournait sur Kubernetes avant le 23 avril 2026, et le retrait des 4 anciens serveurs a été planifié.",
+        "handover": "Un collègue a créé et restructuré le dépôt plateforme commun à partir de mes fichiers (130 des 138 fichiers importés identiques aux miens), l'a réorganisé par cluster, puis étendu à un nouveau produit à l'automne 2026. Nous l'avons enrichi à deux, ce collègue en assurant l'essentiel ; 99 des 212 fichiers actuels sont encore identiques à ceux que j'avais écrits. En juillet 2026, j'y ai raccordé un quatrième cluster en 19 fichiers de surcharges (5 composants), sans modifier les bases communes.",
+        "diagramId": "gitops-pipeline",
+        "note": ""
+      },
+      {
+        "id": "cas-2",
+        "slug": "gabarits-packer-socle-terraform",
+        "title": "De l'image de machine au cluster : gabarits Packer et socle Terraform repris par l'équipe",
+        "summary": "J'ai créé la chaîne qui fabrique les gabarits de machines virtuelles, puis les machines et les clusters Kubernetes, avec un fichier de variables par cible. Le socle Terraform est devenu un travail d'équipe : d'autres y ajoutent aujourd'hui serveurs et clusters.",
+        "period": "Mai 2025 à mars 2026 ; ajouts jusqu'en novembre 2026",
+        "roleKind": "initiator",
+        "role": "Initiateur des deux dépôts, puis contributeur parmi d'autres. J'ai écrit environ 95 % des lignes actuelles des gabarits, et 19 des 79 commits hors fusions du dépôt Terraform, dont les neuf qui ont posé le socle.",
+        "context": "Les clusters Kubernetes et les machines virtuelles tournent sur deux plateformes VMware : vSphere et un cloud privé Cloud Director. J'ai créé le dépôt de gabarits en mai 2025, puis le dépôt Terraform le 8 janvier 2026. Le but : passer d'une image de machine à un cluster raccordé au coffre de secrets et à ArgoCD, en code.",
+        "actions": [
+          "J'ai structuré le dépôt de gabarits autour de deux définitions Packer paramétrées, l'une pour les nœuds Kubernetes, l'autre pour les machines virtuelles.",
+          "Ces deux définitions produisent 14 variantes : deux versions de Debian, nœuds Kubernetes de calcul ou de stockage, machines applicatives, de base de données ou mixtes.",
+          "En janvier 2026, j'ai remplacé le fichier de secrets chiffré qui était versionné dans le dépôt par une lecture des secrets dans un coffre au moment du build.",
+          "J'ai rendu les gabarits exportables en OVF et prêts pour cloud-init, avec redimensionnement des volumes au premier démarrage et ajout de processeur et de mémoire à chaud.",
+          "Du 8 janvier au 4 mars 2026, j'ai posé le socle Terraform : modules de machines, de cluster, de raccordement au coffre et d'installation de l'outil GitOps.",
+          "J'ai placé les états Terraform sur un stockage objet interne, chiffrés et verrouillés, avec un espace de travail par cluster ou par serveur.",
+          "J'ai écrit le premier module de cluster du dépôt : réseau Cilium, adresse virtuelle du plan de contrôle, sauvegardes etcd toutes les 5 heures (5 conservées), mises à jour un nœud à la fois avec vidage préalable des nœuds de travail.",
+          "En octobre 2026, j'ai corrigé un échec d'import des gabarits dans le cloud privé en revoyant leurs tailles de disques."
+        ],
+        "stack": ["Packer", "Terraform", "Rancher / RKE2", "Cilium", "kube-vip", "cloud-init", "LVM", "Debian", "VMware vSphere", "VMware Cloud Director", "Vault", "ArgoCD"],
+        "result": "Au 18 novembre 2026, le dépôt Terraform déclare 7 clusters Kubernetes, dont 3 avec le module que j'ai écrit, et 37 fichiers de variables (un par cluster, serveur ou environnement, plus un fichier commun).",
+        "handover": "Huit jours après mon commit du 16 février 2026, un collègue a ajouté une seconde variante de module de cluster en reprenant la même disposition : Makefile, backend d'état, un fichier de variables par cible. Depuis, d'autres membres de l'équipe ajoutent des serveurs et des clusters, le plus souvent par de nouveaux fichiers de variables, et la majorité des commits viennent désormais d'eux.",
+        "diagramId": "image-factory",
+        "note": ""
+      },
+      {
+        "id": "cas-3",
+        "slug": "incidents-de-production",
+        "title": "Incidents de production : du diagnostic au correctif versionné",
+        "summary": "J'interviens sur les incidents avec l'équipe d'exploitation, je les documente selon un plan fixe et je termine, quand je le peux, par un correctif écrit dans le code. Exemple : un cluster MySQL dont j'avais écrit le rôle Ansible est tombé pendant une mise à jour, et j'ai traduit la cause en code dans ce même rôle.",
+        "period": "Février 2023 à octobre 2026",
+        "roleKind": "contributor",
+        "role": "Intervenant parmi d'autres dans l'équipe d'exploitation. J'ai rédigé les comptes rendus cités ici et écrit les correctifs versionnés cités.",
+        "context": "84 tickets de type incident m'ont été assignés de 2023 à 2026 : 32 en 2023, 21 en 2024, 8 en 2025 et 23 en 2026. Ils touchent des API, des proxys, un serveur d'intégration continue et des bases de données. Les causes se trouvent souvent entre l'application et l'infrastructure : limites système, requêtes anormales, mise à jour automatique.",
+        "actions": [
+          "Mes comptes rendus suivent un plan fixe (résumé, chronologie, cause racine, résolution, mesure préventive) : sur les 13 incidents qui m'ont été assignés au premier semestre 2023, j'en ai rédigé 11 sur ce modèle.",
+          "Sur un serveur d'intégration continue ralenti, j'ai relevé 4 944 fichiers ouverts pour une limite de 4 096, porté la limite à 30 000 dans l'unité systemd et écrit un mémo de diagnostic pour l'équipe.",
+          "Sur une API aux entrées-sorties anormales, j'ai trouvé une URL qui renvoyait plus de 140 000 éléments et l'ai fait répondre par un code de limitation dans le proxy.",
+          "Sur une API qui tombait, j'ai identifié avec un collègue, grâce aux traces, un appel paginé à 100 000 éléments qui épuisait la mémoire de la JVM, puis bloqué ces requêtes dans la configuration versionnée du répartiteur de charge.",
+          "Sur une API en erreurs 502, mémoire à 96 % et swap à 99 %, j'ai ramené le cache HTTP de plus de 10 Go à 6 Go, puis activé le cache de requêtes de la base et augmenté son tampon d'index pour absorber le vidage de ce cache.",
+          "Sur des erreurs 502 d'un reverse proxy, j'ai établi l'épuisement de ses connexions et corrigé dans le code d'infrastructure : connexions persistantes vers l'amont et exporteur de métriques.",
+          "En 2026, j'ai écrit le rôle Ansible d'un cluster MySQL InnoDB à 3 nœuds, avec un module Python maison qui crée le cluster ou y ajoute un nœud, et un laboratoire local de 3 machines virtuelles.",
+          "À l'automne 2026, ce cluster est tombé pendant une mise à jour automatique (un paquet tiers avait repris le fichier de configuration de la base) : j'ai traduit la cause dans mon rôle avec une configuration forcée, un redémarrage nœud par nœud qui refuse d'agir si un nœud n'est pas en ligne, un tampon mémoire ramené de 2 Go à 1 Go et un mode vérification utilisable."
+        ],
+        "stack": ["Linux (systemd)", "nginx", "HAProxy", "Varnish", "Tomcat", "MySQL InnoDB Cluster", "Python", "Ansible", "Vagrant", "Prometheus", "Datadog"],
+        "result": "Mesures incident par incident : limite de fichiers ouverts portée de 4 096 à 30 000 ; processeur de la base passé de plus de 400 % à moins de 200 % pendant le vidage du cache ; changement d'instance d'un proxy saturé avec 15 minutes de coupure, suivi d'une sonde et d'une règle d'alerte dédiées.",
+        "handover": "Le rôle MySQL est livré avec des inventaires séparés (local, préproduction, production) et un laboratoire local documenté, pour qu'un tiers puisse le tester seul.",
+        "diagramId": null,
+        "note": "Le correctif d'octobre 2026 a été écrit avec l'aide d'un assistant de code IA, ce que le commit mentionne."
+      },
+      {
+        "id": "cas-4",
+        "slug": "application-sante-bleu-vert",
+        "title": "Une application de santé conteneurisée sur cloud public : bleu/vert, sauvegarde verrouillée, restauration testée",
+        "summary": "Sur une application de santé en conteneurs, j'ai décrit chaque service par Ansible, remplacé la bascule bleu/vert manuelle par trois jobs et refait la chaîne de sauvegarde. J'ai testé la restauration : 11 minutes pour le serveur de fichiers, 9 minutes 40 pour la base de données.",
+        "period": "Avril 2024 à mars 2025 ; pare-feu applicatif en septembre et octobre 2026",
+        "roleKind": "initiator",
+        "role": "Initiateur, puis repris par d'autres. L'application, ses images et une première procédure bleu/vert existaient avant moi. J'ai créé le dépôt d'infrastructure et écrit 69 de ses 139 commits hors fusions.",
+        "context": "L'application tourne sous Docker Swarm sur AWS, et ses mises en production passaient par des commandes manuelles de bascule bleu/vert. Fin août 2024, un changement de rétention a fait resynchroniser au job de sauvegarde plus de quatre ans de fichiers, ce qui a fortement ralenti les disques de production ; le service a été arrêté. L'arrivée de plusieurs milliers d'utilisateurs a ensuite chargé le nœud principal.",
+        "actions": [
+          "En avril 2024, j'ai créé un stockage objet verrouillé contre la modification et la suppression, avec un rôle d'instance limité au dépôt de fichiers ; la copie régulière des sauvegardes y a été mise en service en septembre 2024.",
+          "En septembre 2024, j'ai documenté la cause du ralentissement et ajouté un playbook Ansible de copie des sauvegardes, puis en mars 2025 remplacé l'ancien service de sauvegarde par un playbook complet.",
+          "Après avoir constaté une interruption des sauvegardes restée inaperçue, j'ai redéployé le service et ajouté un contrôle quotidien de leur présence.",
+          "Le 16 janvier 2025, j'ai créé le dépôt d'infrastructure ; jusqu'à mi-mars, j'y ai décrit chaque service par Ansible : reverse proxy, services applicatifs, bases, sauvegarde, secrets et configurations par environnement.",
+          "J'ai remplacé les commandes manuelles de bascule par trois jobs (préparer la nouvelle couleur, basculer, nettoyer l'ancienne) et réécrit la procédure ; les deux premiers sont aussi proposés aux développeurs en préproduction.",
+          "J'ai ajouté des instantanés quotidiens du volume conservés 30 jours et écrit le guide de restauration pas à pas, y compris la panne rencontrée après restauration.",
+          "J'ai complété la supervision : exporteurs des conteneurs, de la base et du reverse proxy, sonde HTTP dédiée, journaux d'accès envoyés vers la plateforme de journaux centralisée.",
+          "En 2026, j'ai reconstruit l'image du reverse proxy avec un pare-feu applicatif : sources épinglées par somme de contrôle, règles OWASP, détection seule par défaut, journal d'audit coupé pour ne pas écrire de données de patients."
+        ],
+        "stack": ["AWS (EC2, EBS, S3 Object Lock, IAM)", "Docker Swarm", "Ansible", "Jenkins", "Rundeck", "nginx", "ModSecurity / OWASP CRS", "MongoDB", "Prometheus", "cAdvisor"],
+        "result": "Restauration testée le 19 mars 2025 : 11 minutes pour le serveur de fichiers, 9 minutes 40 pour la base de données. Lors de l'arrivée de plusieurs milliers d'utilisateurs, la charge processeur du nœud principal est passée de plus de 95 % à moins de 70 % après doublement d'un second nœud et déplacement de services vers lui, puis à moins de 40 % après désactivation du pare-feu applicatif, identifié comme la cause.",
+        "handover": "D'avril 2025 à juin 2026, l'exploitation courante du dépôt a été assurée principalement par d'autres, avec quelques interventions de ma part. À la demande de l'équipe de développement, j'ai permis à des développeurs de modifier eux-mêmes certaines configurations de développement et de préproduction, en bornant le reste par un fichier de propriétaires et un contrôle automatique des chemins modifiés. Le mode blocage du pare-feu applicatif a ensuite été activé en développement.",
+        "diagramId": "blue-green",
+        "note": ""
+      },
+      {
+        "id": "cas-5",
+        "slug": "fin-de-support-machines-virtuelles",
+        "title": "Système en fin de support : refaire en code les machines virtuelles d'un logiciel livré dans des établissements de santé",
+        "summary": "Un logiciel livré en machines virtuelles à des établissements de santé reposait sur un système en fin de support ; j'ai écrit la chaîne Packer et Ansible qui construit ces machines sur Debian 12, les configure et les exporte. En juin 2026, j'ai ajouté un pare-feu fermé par défaut et livré 8 gabarits avec leur documentation.",
+        "period": "Avril à décembre 2024 (réalisation du 20 novembre au 10 décembre) ; durcissement en juin 2026",
+        "roleKind": "initiator",
+        "role": "Auteur principal de l'ossature, puis repris par d'autres : 28 des 56 commits hors fusions et plus de 95 % des lignes actuelles. Je suis parti d'un modèle public sous licence libre, dont j'ai retiré l'essentiel pour reconstruire le dépôt.",
+        "context": "Le logiciel est livré sous forme de machines virtuelles installées dans des établissements de santé, et son système d'exploitation arrivait en fin de support. Un premier cadrage de l'équipe produit avait retenu Debian 11 ou 12, à confirmer. Le livrable devait rester une machine virtuelle exportable.",
+        "actions": [
+          "En prenant le chantier, j'ai retenu Debian 12 après échange avec un collègue, déployé en conteneur la base de données dont la version requise n'existait pas en paquet, et porté l'essentiel du suivi du ticket de cadrage (10 commentaires sur 13).",
+          "J'ai écrit la construction Packer d'un gabarit Debian 12 à 4 disques, avec un groupe de volumes par usage : système, application, données, journaux.",
+          "Les 21 et 22 novembre 2024, j'ai ajouté 11 rôles Ansible, écrits ou adaptés de rôles publics : base de données en conteneur, authentification unique, file de messages, serveur web, transfert de fichiers sécurisé, entre autres.",
+          "J'ai organisé deux projets Ansible en couches web, application et base, puis créé fin novembre 2024 les environnements de préproduction, de recette et de support.",
+          "J'ai automatisé la préparation du livrable : nettoyage des machines (identifiant de machine, clés d'hôte SSH, historiques), repris d'un modèle public et complété, puis export OVF.",
+          "J'ai contourné un blocage de l'installeur applicatif sur Debian 12 et écrit la procédure de reprise de la base de l'ancien système vers le nouveau, remise au responsable des déploiements.",
+          "J'ai rédigé, en m'appuyant sur un tutoriel public, le guide de raccordement d'un annuaire Active Directory en LDAPS à l'authentification unique, et préparé avec le responsable des déploiements une séance de mise en œuvre pour un établissement.",
+          "En juin 2026, j'ai ajouté un rôle de pare-feu qui bloque par défaut les flux entrants et documenté la matrice de flux."
+        ],
+        "stack": ["Packer", "Ansible", "Debian 12", "VMware vSphere", "OVF", "LVM", "Docker", "MongoDB", "Keycloak", "Active Directory (LDAPS)", "RabbitMQ", "UFW"],
+        "result": "Le 25 juin 2026, 8 gabarits avec pare-feu installé par défaut ont été livrés au responsable des déploiements avec leur documentation ; un collègue a confirmé la non-régression.",
+        "handover": "Après moi, au moins quatre autres personnes ont modifié le dépôt, ponctuellement, en 2025 et 2026. Sa documentation d'exploitation a été rédigée par un collègue.",
+        "diagramId": null,
+        "note": ""
+      },
+      {
+        "id": "cas-6",
+        "slug": "vulnerabilite-php-site-statique",
+        "title": "Répondre à une vulnérabilité PHP : remplacer un CMS par un site statique",
+        "summary": "Deux sites web tournaient sur un CMS PHP touché par une vulnérabilité ; j'ai reconstruit les serveurs en code puis, quand l'équipe produit a choisi un site statique, retiré PHP et la base de données. Le chantier a été ouvert le 22 et clos le 30 octobre 2026.",
+        "period": "Du 22 au 30 octobre 2026",
+        "roleKind": "solo",
+        "role": "Seul auteur des commits du chantier. La décision d'abandonner le CMS revient à l'équipe produit, et la reconstruction suivait les préconisations de sécurité d'un collègue.",
+        "context": "Deux sites web d'un produit tournaient sur un CMS PHP touché par une vulnérabilité. Un collègue avait rédigé des préconisations de sécurité pour reconstruire à neuf. Le site statique lui-même est fourni par les développeurs du produit.",
+        "actions": [
+          "J'ai relevé la configuration des serveurs exposés (système, serveur web, version de PHP, CMS et extensions) et reconstruit à neuf en suivant les préconisations de sécurité.",
+          "J'ai configuré par Ansible deux serveurs Debian 13 : SSH par clé uniquement, pare-feu où seul le web est public, bannissement automatique des tentatives SSH, exporteurs de métriques système et processus.",
+          "Une première phase a reconduit le CMS sur une version de PHP corrigée ; le jour même, l'équipe produit a choisi un site statique, et j'ai retiré des deux serveurs PHP, l'ancien serveur web et la base de données, après export des contenus et des données.",
+          "J'ai écrit le projet Ansible qui héberge le site statique : serveur web, politique de sécurité de contenu, redirections permanentes des anciennes adresses, page de maintenance.",
+          "J'ai écrit le playbook qui émet le certificat et le renouvelle automatiquement, renouvellement vérifié à blanc.",
+          "J'ai ajouté les deux sites au contrôle d'expiration des certificats, qui alerte 21 jours avant l'échéance, et corrigé la première alerte remontée en retirant un service de messagerie inutile qui échouait au démarrage.",
+          "J'ai préparé pour les développeurs une publication sans accès aux serveurs : un job d'intégration continue lance un job d'orchestration qui vérifie la liste des fichiers autorisés avant la copie et contrôle les pages après."
+        ],
+        "stack": ["Ansible", "Debian 13", "nginx", "Let's Encrypt", "fail2ban", "Prometheus", "Jenkins", "Rundeck", "DNS"],
+        "result": "La production a basculé vers les nouveaux serveurs le 28 octobre 2026, sans PHP ni base de données. Le chantier a été clos le 30 octobre 2026.",
+        "handover": "",
+        "diagramId": null,
+        "note": "Les huit commits de ce chantier ont été écrits avec un assistant IA, ce que chacun mentionne ; je les ai validés, signés et joués sur les serveurs."
+      },
+      {
+        "id": "cas-7",
+        "slug": "moteur-de-recherche-sans-kubernetes",
+        "title": "Préproduction et production d'un moteur de recherche conteneurisé, sans Kubernetes",
+        "summary": "J'ai mis en place en code la préproduction et la production d'un moteur de recherche (index, tableau de bord, API) sur des hôtes Docker, sans cluster Kubernetes. Les deux environnements ont été livrés en avril 2026, et le modèle a servi à un second moteur.",
+        "period": "Février à avril 2026 ; ajustements jusqu'en juillet 2026",
+        "roleKind": "initiator",
+        "role": "Seul auteur du projet d'exploitation à sa création, puis repris par d'autres. L'application est développée par une autre équipe.",
+        "context": "Une équipe de développement construisait un moteur de recherche : index, tableau de bord et API Python. Elle envisageait au départ de le faire tourner sous Kubernetes. Il lui fallait une préproduction et une production.",
+        "actions": [
+          "Après une réunion de cadrage avec l'équipe de développement, j'ai défini et documenté une architecture sur hôtes Docker : proxy, index de recherche et tableau de bord en conteneurs, API Python, collecte de journaux et de métriques.",
+          "J'ai créé les machines de préproduction et de production par Terraform.",
+          "J'ai écrit le projet Ansible initial : Docker et proxy, index de recherche en conteneur avec ses certificats, sa configuration de sécurité et ses secrets chiffrés, tableau de bord et API Python.",
+          "J'ai mis en place le déploiement bleu/vert de l'API (nouvelle instance, contrôle de santé, bascule du trafic, retrait de l'ancienne) avec un job pour les développeurs.",
+          "J'ai branché les journaux sur la chaîne centralisée avec un tableau de bord dédié, et collecté les métriques du système, des processus, des conteneurs, du proxy et du serveur applicatif.",
+          "J'ai rédigé la version 1.0 du dossier d'architecture destiné à l'hébergeur (déploiement, mise à jour, retour arrière), installé l'agent de sécurité et ajouté les règles de pare-feu de la zone exposée.",
+          "J'ai donné à l'équipe de développement l'accès en lecture aux secrets du projet stockés dans l'ordonnanceur de jobs."
+        ],
+        "stack": ["Terraform", "Ansible", "Docker", "OpenSearch", "OpenSearch Dashboards", "nginx", "Python (uWSGI)", "Filebeat", "ELK", "Prometheus", "cAdvisor", "Rundeck"],
+        "result": "Les deux environnements ont été livrés en avril 2026.",
+        "handover": "Le modèle a servi à un second moteur de recherche : j'ai créé le projet et découpé le chantier, un collègue l'a poursuivi. Après les retours de test de l'équipe de développement, j'y ai corrigé les permissions de deux rôles de l'index. Le projet d'exploitation initial a ensuite été repris par d'autres.",
+        "diagramId": null,
+        "note": ""
+      },
+      {
+        "id": "cas-8",
+        "slug": "plateforme-donnees-reseau-prive",
+        "title": "Plateforme de données en réseau privé sur un cloud public : Terraform, points d'accès privés, DNS hybride",
+        "summary": "Sur une plateforme de données Azure fermée à Internet, j'ai suivi le chantier Terraform de la préproduction et documenté les points d'accès privés, service par service. J'y ai expliqué en 9 étapes le parcours d'une requête DNS, du réseau de l'entreprise aux zones privées du cloud.",
+        "period": "Novembre 2023 à mars 2024",
+        "roleKind": "contributor",
+        "role": "Contributeur parmi d'autres, seul auteur de la documentation. Le code Terraform a été poussé sous un compte d'équipe et ses demandes de fusion ont été fusionnées par un collègue, sauf une ; l'architecture DNS d'origine est antérieure à mon arrivée.",
+        "context": "Une plateforme de données reposait sur des services managés Azure : stockage, orchestration, recherche, entrepôt et catalogue. Leurs points d'accès devaient être rendus privés et rester joignables par VPN depuis le réseau de l'entreprise. Tout dépendait de la résolution DNS entre ce réseau et le cloud.",
+        "actions": [
+          "J'ai vérifié que l'orchestrateur de données lisait le stockage par un point d'accès privé managé, puis je l'ai provisionné par Terraform.",
+          "J'ai ouvert et suivi les tickets de création des modules Terraform de la préproduction : réseau, stockage, orchestration, recherche, entrepôt.",
+          "J'ai relevé une limite d'abonnement sur les instances d'entrepôt et fait ouvrir le flux nécessaire à l'accès par VPN.",
+          "J'ai écrit 7 pages de documentation en huit jours, chacune illustrée d'un schéma d'architecture, recensant 15 points d'accès à rendre privés sur 5 services.",
+          "J'ai configuré et documenté pas à pas la mise en service du catalogue de données en accès privé, c'est-à-dire tout ce que Terraform ne sait pas configurer : droits, runtime d'intégration, points d'accès privés managés, raccordement et analyse du stockage.",
+          "J'ai ajouté à la documentation DNS existante le parcours d'une requête en 9 étapes, du DNS d'entreprise aux zones privées du cloud.",
+          "J'ai déployé en préproduction le conteneur applicatif qui consomme le stockage et la recherche, écrit son playbook et son job de déploiement, puis transmis ce job à l'équipe projet."
+        ],
+        "stack": ["Terraform (azurerm)", "Azure Data Lake Storage Gen2", "Azure Data Factory", "Azure AI Search", "Azure Synapse", "Microsoft Purview", "Private Endpoint", "Private DNS", "VPN", "Docker", "Rundeck"],
+        "result": "",
+        "handover": "",
+        "diagramId": "private-data-platform",
+        "note": ""
+      }
+    ]
+  },
+  "skills": {
+    "title": "Compétences",
+    "intro": "Chaque compétence renvoie aux études de cas qui la montrent.",
+    "groups": [
+      {
+        "name": "Kubernetes et GitOps",
+        "items": [
+          {"name": "Kubernetes sur infrastructure privée : RKE2, Rancher, Cilium, Gateway API, Longhorn, kube-vip", "proof": "Études 1 et 2"},
+          {"name": "GitOps : ArgoCD et ApplicationSets, Kustomize, Helm", "proof": "Étude 1 : 214 des 251 commits hors fusions du dépôt GitOps"},
+          {"name": "Kubernetes managé sur AWS", "proof": "En 2024 : recréation d'un cluster par Terraform, autoscaler, image de nœuds"}
+        ]
+      },
+      {
+        "name": "Infrastructure en code",
+        "items": [
+          {"name": "Terraform (vSphere, Cloud Director, Rancher, Vault, Helm, Azure) et états distants", "proof": "Études 2 et 8"},
+          {"name": "Images de machines : Packer, preseed, cloud-init, OVF, LVM", "proof": "Études 2 et 5"},
+          {"name": "Ansible : rôles, module Python maison, inventaires par environnement, Ansible Vault", "proof": "Études 3 à 7"}
+        ]
+      },
+      {
+        "name": "Conteneurs et livraison",
+        "items": [
+          {"name": "Docker, Docker Swarm, déploiement bleu/vert", "proof": "Études 4 et 7"},
+          {"name": "CI/CD et déploiements en libre-service : Jenkins, Rundeck, pull requests, propriétaires de code", "proof": "Études 1, 4 et 6"}
+        ]
+      },
+      {
+        "name": "Observabilité et incidents",
+        "items": [
+          {"name": "Prometheus, exporteurs, sondes, Grafana, Filebeat, OpenSearch, ELK, Datadog", "proof": "Études 1, 4 et 7"},
+          {"name": "Comptes rendus d'incident structurés, runbooks, dossiers d'architecture", "proof": "Études 3, 4 et 7"}
+        ]
+      },
+      {
+        "name": "Bases de données en exploitation",
+        "items": [
+          {"name": "MySQL InnoDB Cluster, ProxySQL, MongoDB, Redis Sentinel", "proof": "Études 3, 4 et 1"}
+        ]
+      },
+      {
+        "name": "Secrets et sécurité opérationnelle",
+        "items": [
+          {"name": "Vault, External Secrets Operator", "proof": "Études 1 et 2"},
+          {"name": "UFW, fail2ban, pare-feu applicatif ModSecurity, TLS", "proof": "Études 4, 5 et 6"}
+        ]
+      },
+      {
+        "name": "Cloud public et virtualisation",
+        "items": [
+          {"name": "AWS : EC2, EBS, S3 Object Lock, IAM, AWS Backup", "proof": "Étude 4"},
+          {"name": "Azure : points d'accès privés, DNS privé, services de données (2023 et 2024)", "proof": "Étude 8"},
+          {"name": "VMware vSphere, VMware Cloud Director, Debian", "proof": "Études 2 et 5"}
+        ]
+      }
+    ]
+  },
+  "approach": {
+    "title": "Méthode",
+    "intro": "Je construis pour que l'équipe puisse continuer sans moi. Voici ce qui le montre, faits à l'appui.",
+    "sections": [
+      {
+        "title": "Un socle que d'autres reprennent",
+        "text": "Le dépôt commun de la plateforme Kubernetes a été créé par un collègue à partir d'une copie de mes fichiers ; il l'a réorganisé par cluster, puis étendu à un nouveau produit à l'automne 2026. Sur le socle Terraform que j'ai posé, un collègue a ajouté une variante de module de cluster en reprenant son organisation, puis plusieurs personnes y ont ajouté des serveurs et des clusters par fichiers de variables. Deux projets Ansible que j'ai créés ont été poursuivis par des collègues."
+      },
+      {
+        "title": "Des chantiers découpés et documentés",
+        "text": "120 tickets que j'ai ouverts sont aujourd'hui portés par d'autres personnes : demandes reçues par courriel ou messagerie que j'ai qualifiées, chantiers découpés, tâches liées à la migration Kubernetes réparties entre cinq collègues. J'écris des guides pour ceux qui suivent : restauration pas à pas, raccordement d'un dépôt au serveur d'intégration, matrice de flux pour les déploiements chez les clients. J'ai livré un rôle Ansible de cluster de bases de données avec un laboratoire local et un README, et rédigé des dossiers d'architecture technique destinés à l'hébergeur."
+      },
+      {
+        "title": "De l'autonomie pour les équipes",
+        "text": "J'ai donné de l'autonomie à l'équipe de développement d'un produit : déploiements de recette en libre-service, périmètre de contribution borné, publication d'un site sans accès aux serveurs, accès aux journaux de recette. J'ai préparé une séance et envoyé la documentation de raccordement d'annuaire au responsable des déploiements d'un produit. J'ai livré à l'équipe de support 8 gabarits de machines virtuelles, avec pare-feu installé par défaut, et la documentation de ce pare-feu."
+      },
+      {
+        "title": "Ce que disent les études de cas",
+        "text": "Chaque étude porte une étiquette de rôle : seul auteur, initiateur puis repris par d'autres, ou contributeur parmi d'autres. Les chiffres viennent de l'historique Git et des tickets ; un commit n'est pas une mesure d'effort. Quand un assistant IA a co-signé des commits, l'étude le dit. Employeur, produits, clients et hébergeurs ne sont pas nommés."
+      }
+    ]
+  },
+  "about": {
+    "title": "À propos",
+    "paragraphs": [
+      "Je suis ingénieur DevOps depuis octobre 2022 chez un éditeur de logiciels du secteur de la santé. Je deviens freelance DevOps / Cloud le 20 janvier 2027.",
+      "J'y ai tenu la production, écrit l'infrastructure en code, industrialisé une application conteneurisée et posé le socle d'une plateforme Kubernetes en GitOps. Depuis mon arrivée, 1 082 tickets m'ont été assignés, dont 1 066 sont au statut terminé.",
+      "Je cherche des missions où il faut construire puis transmettre : migrer vers Kubernetes, mettre une infrastructure dans Git, fiabiliser une production."
+    ]
+  },
+  "contact": {
+    "title": "Contact",
+    "text": "Disponible à partir du 20 janvier 2027 pour des missions DevOps / Cloud. Écrivez-moi avec votre contexte et votre calendrier.",
+    "links": [
+      {"label": "GitHub", "href": "https://github.com/guandalinux"}
+    ],
+    "pending": ["Adresse e-mail", "LinkedIn"]
+  },
+  "footer": {
+    "note": "Employeur, produits, clients et hébergeurs ne sont pas nommés. Chaque étude de cas dit mon rôle exact."
+  },
+  "labels": {
+    "period": "Période",
+    "role": "Mon rôle",
+    "context": "Contexte",
+    "actions": "Ce que j'ai fait",
+    "stack": "Technologies",
+    "result": "Résultat",
+    "handover": "Suite et passage de relais",
+    "note": "À noter",
+    "readCase": "Lire l'étude de cas",
+    "allCases": "Toutes les études de cas",
+    "previousCase": "Étude précédente",
+    "nextCase": "Étude suivante",
+    "otherLanguage": "English",
+    "themeToggle": "Changer de thème",
+    "motionToggle": "Réduire les animations",
+    "skipToContent": "Aller au contenu",
+    "diagram": "Schéma",
+    "draftNotice": "Version de travail : certains éléments restent à compléter avant publication."
+  }
+}

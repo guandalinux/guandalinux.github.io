@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Préproduction et production d'un moteur de recherche conteneurisé, sans Kubernetes — Alexandre Guandalini</title>
+<meta name="description" content="J&#x27;ai mis en place en code la préproduction et la production d&#x27;un moteur de recherche (index, tableau de bord, API) sur des hôtes Docker, sans cluster Kubernetes. Les deux environnements ont été livrés en avril 2026, et le modèle a servi à un second moteur.">
+<meta name="author" content="Alexandre Guandalini">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f7f5ef" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121211" media="(prefers-color-scheme: dark)">
+<link rel="alternate" hreflang="fr" href="index.html">
+<link rel="alternate" hreflang="en" href="../../en/work/search-engine-without-kubernetes/index.html">
+<link rel="alternate" hreflang="x-default" href="index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Préproduction et production d&#x27;un moteur de recherche conteneurisé, sans Kubernetes — Alexandre Guandalini">
+<meta property="og:description" content="J&#x27;ai mis en place en code la préproduction et la production d&#x27;un moteur de recherche (index, tableau de bord, API) sur des hôtes Docker, sans cluster Kubernetes. Les deux environnements ont été livrés en avril 2026, et le modèle a servi à un second moteur.">
+<meta property="og:site_name" content="Alexandre Guandalini">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:locale:alternate" content="en_GB">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<script>(function(){var r=document.documentElement;try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")r.setAttribute("data-theme",t);if(localStorage.getItem("motion")==="off")r.setAttribute("data-motion","off")}catch(e){}try{var k="seen:"+location.pathname.replace(/index\.html$/,""),n=performance.getEntriesByType("navigation")[0];if(location.hash||(sessionStorage.getItem(k)&&!(n&&n.type==="reload")))r.classList.add("entered");sessionStorage.setItem(k,"1")}catch(e){}})();</script>
+<link rel="stylesheet" href="../../assets/css/site.css">
+<script src="../../assets/js/site.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Aller au contenu</a>
+<header class="site-header">
+  <div class="header-bar">
+    <a class="brand" href="../../index.html">Alexandre Guandalini</a>
+    <nav class="site-nav"><ul><li><a href="../../index.html#cases">Études de cas</a></li><li><a href="../../index.html#offer">Prestations</a></li><li><a href="../../index.html#skills">Compétences</a></li><li><a href="../../index.html#approach">Méthode</a></li><li><a href="../../index.html#about">À propos</a></li><li><a href="../../index.html#contact">Contact</a></li></ul></nav>
+    <div class="header-tools">
+      <a class="lang-switch" href="../../en/work/search-engine-without-kubernetes/index.html" hreflang="en" lang="en"><span class="lang-full">English</span> <span class="lang-code">EN</span></a>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Changer de thème" title="Changer de thème" hidden><svg class="icon icon-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><svg class="icon icon-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="main">
+<article class="case">
+  <div class="wrap">
+  <p class="crumb"><a href="../../index.html#cases"><span class="arrow" aria-hidden="true">←</span>Toutes les études de cas</a></p>
+  <header class="case-head">
+    <p class="case-index">07 / 08</p>
+    <h1 aria-label="Préproduction et production d&#x27;un moteur de recherche conteneurisé, sans Kubernetes"><span class="words" aria-hidden="true"><span class="w" style="--i:0">Préproduction</span> <span class="w" style="--i:1">et</span> <span class="w" style="--i:2">production</span> <span class="w" style="--i:3">d'un</span> <span class="w" style="--i:4">moteur</span> <span class="w" style="--i:5">de</span> <span class="w" style="--i:6">recherche</span> <span class="w" style="--i:7">conteneurisé,</span> <span class="w" style="--i:8">sans</span> <span class="w" style="--i:9">Kubernetes</span></span></h1>
+    <p class="case-lead">J'ai mis en place en code la préproduction et la production d'un moteur de recherche (index, tableau de bord, API) sur des hôtes Docker, sans cluster Kubernetes. Les deux environnements ont été livrés en avril 2026, et le modèle a servi à un second moteur.</p>
+    <dl class="facts">
+      <div class="fact fact-period"><dt>Période</dt><dd>Février à avril 2026 ; ajustements jusqu'en juillet 2026</dd></div>
+      <div class="fact fact-role"><dt>Mon rôle</dt><dd><span class="badge badge--initiator"><svg class="badge-mark" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><circle cx="6" cy="6" r="4.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M6 1.75a4.25 4.25 0 0 0 0 8.5z" fill="currentColor"/></svg>Initiateur, puis repris par d'autres</span><p>Seul auteur du projet d'exploitation à sa création, puis repris par d'autres. L'application est développée par une autre équipe.</p></dd></div>
+    </dl>
+  </header>
+  <div class="case-body">
+  <section class="case-section" aria-labelledby="context-title" data-reveal>
+    <h2 id="context-title">Contexte</h2>
+    <p>Une équipe de développement construisait un moteur de recherche : index, tableau de bord et API Python. Elle envisageait au départ de le faire tourner sous Kubernetes. Il lui fallait une préproduction et une production.</p>
+  </section>
+  <section class="case-section" aria-labelledby="actions-title" data-reveal>
+    <h2 id="actions-title">Ce que j'ai fait</h2>
+    <ol class="action-list">
+      <li>Après une réunion de cadrage avec l'équipe de développement, j'ai défini et documenté une architecture sur hôtes Docker : proxy, index de recherche et tableau de bord en conteneurs, API Python, collecte de journaux et de métriques.</li>
+      <li>J'ai créé les machines de préproduction et de production par Terraform.</li>
+      <li>J'ai écrit le projet Ansible initial : Docker et proxy, index de recherche en conteneur avec ses certificats, sa configuration de sécurité et ses secrets chiffrés, tableau de bord et API Python.</li>
+      <li>J'ai mis en place le déploiement bleu/vert de l'API (nouvelle instance, contrôle de santé, bascule du trafic, retrait de l'ancienne) avec un job pour les développeurs.</li>
+      <li>J'ai branché les journaux sur la chaîne centralisée avec un tableau de bord dédié, et collecté les métriques du système, des processus, des conteneurs, du proxy et du serveur applicatif.</li>
+      <li>J'ai rédigé la version 1.0 du dossier d'architecture destiné à l'hébergeur (déploiement, mise à jour, retour arrière), installé l'agent de sécurité et ajouté les règles de pare-feu de la zone exposée.</li>
+      <li>J'ai donné à l'équipe de développement l'accès en lecture aux secrets du projet stockés dans l'ordonnanceur de jobs.</li>
+    </ol>
+  </section>
+  <section class="case-section" aria-labelledby="stack-title" data-reveal>
+    <h2 id="stack-title">Technologies</h2>
+    <ul class="tags"><li>Terraform</li><li>Ansible</li><li>Docker</li><li>OpenSearch</li><li>OpenSearch Dashboards</li><li>nginx</li><li>Python (uWSGI)</li><li>Filebeat</li><li>ELK</li><li>Prometheus</li><li>cAdvisor</li><li>Rundeck</li></ul>
+  </section>
+  <section class="case-section case-result" aria-labelledby="result-title" data-reveal>
+    <h2 id="result-title">Résultat</h2>
+    <p>Les deux environnements ont été livrés en avril 2026.</p>
+  </section>
+  <section class="case-section" aria-labelledby="handover-title" data-reveal>
+    <h2 id="handover-title">Suite et passage de relais</h2>
+    <p>Le modèle a servi à un second moteur de recherche : j'ai créé le projet et découpé le chantier, un collègue l'a poursuivi. Après les retours de test de l'équipe de développement, j'y ai corrigé les permissions de deux rôles de l'index. Le projet d'exploitation initial a ensuite été repris par d'autres.</p>
+  </section>
+  </div>
+  <nav class="pager" aria-label="Études de cas">
+    <a class="pager-link pager-prev" rel="prev" href="../vulnerabilite-php-site-statique/index.html" data-reveal="tile"><span class="pager-dir"><span class="arrow" aria-hidden="true">←</span> Étude précédente</span><span class="pager-title">Répondre à une vulnérabilité PHP : remplacer un CMS par un site statique</span></a>
+<a class="pager-link pager-next" rel="next" href="../plateforme-donnees-reseau-prive/index.html" data-reveal="tile"><span class="pager-dir">Étude suivante <span class="arrow" aria-hidden="true">→</span></span><span class="pager-title">Plateforme de données en réseau privé sur un cloud public : Terraform, points d'accès privés, DNS hybride</span></a>
+  </nav>
+  </div>
+</article>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <p class="footer-author">Alexandre Guandalini</p>
+    <p class="footer-note">Employeur, produits, clients et hébergeurs ne sont pas nommés. Chaque étude de cas dit mon rôle exact.</p>
+    <div class="footer-tools">
+      <a class="footer-lang" href="../../en/work/search-engine-without-kubernetes/index.html" hreflang="en" lang="en">English</a>
+      <button class="motion-toggle" type="button" data-motion-toggle aria-pressed="false" hidden>Réduire les animations</button>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

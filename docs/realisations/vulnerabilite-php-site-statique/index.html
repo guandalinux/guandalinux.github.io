@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Répondre à une vulnérabilité PHP : remplacer un CMS par un site statique — Alexandre Guandalini</title>
+<meta name="description" content="Deux sites web tournaient sur un CMS PHP touché par une vulnérabilité ; j&#x27;ai reconstruit les serveurs en code puis, quand l&#x27;équipe produit a choisi un site statique, retiré PHP et la base de données. Le chantier a été ouvert le 22 et clos le 30 octobre 2026.">
+<meta name="author" content="Alexandre Guandalini">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f7f5ef" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121211" media="(prefers-color-scheme: dark)">
+<link rel="alternate" hreflang="fr" href="index.html">
+<link rel="alternate" hreflang="en" href="../../en/work/php-vulnerability-static-site/index.html">
+<link rel="alternate" hreflang="x-default" href="index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Répondre à une vulnérabilité PHP : remplacer un CMS par un site statique — Alexandre Guandalini">
+<meta property="og:description" content="Deux sites web tournaient sur un CMS PHP touché par une vulnérabilité ; j&#x27;ai reconstruit les serveurs en code puis, quand l&#x27;équipe produit a choisi un site statique, retiré PHP et la base de données. Le chantier a été ouvert le 22 et clos le 30 octobre 2026.">
+<meta property="og:site_name" content="Alexandre Guandalini">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:locale:alternate" content="en_GB">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<script>(function(){var r=document.documentElement;try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")r.setAttribute("data-theme",t);if(localStorage.getItem("motion")==="off")r.setAttribute("data-motion","off")}catch(e){}try{var k="seen:"+location.pathname.replace(/index\.html$/,""),n=performance.getEntriesByType("navigation")[0];if(location.hash||(sessionStorage.getItem(k)&&!(n&&n.type==="reload")))r.classList.add("entered");sessionStorage.setItem(k,"1")}catch(e){}})();</script>
+<link rel="stylesheet" href="../../assets/css/site.css">
+<script src="../../assets/js/site.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Aller au contenu</a>
+<header class="site-header">
+  <div class="header-bar">
+    <a class="brand" href="../../index.html">Alexandre Guandalini</a>
+    <nav class="site-nav"><ul><li><a href="../../index.html#cases">Études de cas</a></li><li><a href="../../index.html#offer">Prestations</a></li><li><a href="../../index.html#skills">Compétences</a></li><li><a href="../../index.html#approach">Méthode</a></li><li><a href="../../index.html#about">À propos</a></li><li><a href="../../index.html#contact">Contact</a></li></ul></nav>
+    <div class="header-tools">
+      <a class="lang-switch" href="../../en/work/php-vulnerability-static-site/index.html" hreflang="en" lang="en"><span class="lang-full">English</span> <span class="lang-code">EN</span></a>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Changer de thème" title="Changer de thème" hidden><svg class="icon icon-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><svg class="icon icon-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="main">
+<article class="case">
+  <div class="wrap">
+  <p class="crumb"><a href="../../index.html#cases"><span class="arrow" aria-hidden="true">←</span>Toutes les études de cas</a></p>
+  <header class="case-head">
+    <p class="case-index">06 / 08</p>
+    <h1 aria-label="Répondre à une vulnérabilité PHP : remplacer un CMS par un site statique"><span class="words" aria-hidden="true"><span class="w" style="--i:0">Répondre</span> <span class="w" style="--i:1">à</span> <span class="w" style="--i:2">une</span> <span class="w" style="--i:3">vulnérabilité</span> <span class="w" style="--i:4">PHP :</span> <span class="w" style="--i:5">remplacer</span> <span class="w" style="--i:6">un</span> <span class="w" style="--i:7">CMS</span> <span class="w" style="--i:8">par</span> <span class="w" style="--i:9">un</span> <span class="w" style="--i:10">site</span> <span class="w" style="--i:11">statique</span></span></h1>
+    <p class="case-lead">Deux sites web tournaient sur un CMS PHP touché par une vulnérabilité ; j'ai reconstruit les serveurs en code puis, quand l'équipe produit a choisi un site statique, retiré PHP et la base de données. Le chantier a été ouvert le 22 et clos le 30 octobre 2026.</p>
+    <dl class="facts">
+      <div class="fact fact-period"><dt>Période</dt><dd>Du 22 au 30 octobre 2026</dd></div>
+      <div class="fact fact-role"><dt>Mon rôle</dt><dd><span class="badge badge--solo"><svg class="badge-mark" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><circle cx="6" cy="6" r="4.5" fill="currentColor"/></svg>Seul auteur</span><p>Seul auteur des commits du chantier. La décision d'abandonner le CMS revient à l'équipe produit, et la reconstruction suivait les préconisations de sécurité d'un collègue.</p></dd></div>
+    </dl>
+  </header>
+  <div class="case-body">
+  <section class="case-section" aria-labelledby="context-title" data-reveal>
+    <h2 id="context-title">Contexte</h2>
+    <p>Deux sites web d'un produit tournaient sur un CMS PHP touché par une vulnérabilité. Un collègue avait rédigé des préconisations de sécurité pour reconstruire à neuf. Le site statique lui-même est fourni par les développeurs du produit.</p>
+  </section>
+  <section class="case-section" aria-labelledby="actions-title" data-reveal>
+    <h2 id="actions-title">Ce que j'ai fait</h2>
+    <ol class="action-list">
+      <li>J'ai relevé la configuration des serveurs exposés (système, serveur web, version de PHP, CMS et extensions) et reconstruit à neuf en suivant les préconisations de sécurité.</li>
+      <li>J'ai configuré par Ansible deux serveurs Debian 13 : SSH par clé uniquement, pare-feu où seul le web est public, bannissement automatique des tentatives SSH, exporteurs de métriques système et processus.</li>
+      <li>Une première phase a reconduit le CMS sur une version de PHP corrigée ; le jour même, l'équipe produit a choisi un site statique, et j'ai retiré des deux serveurs PHP, l'ancien serveur web et la base de données, après export des contenus et des données.</li>
+      <li>J'ai écrit le projet Ansible qui héberge le site statique : serveur web, politique de sécurité de contenu, redirections permanentes des anciennes adresses, page de maintenance.</li>
+      <li>J'ai écrit le playbook qui émet le certificat et le renouvelle automatiquement, renouvellement vérifié à blanc.</li>
+      <li>J'ai ajouté les deux sites au contrôle d'expiration des certificats, qui alerte 21 jours avant l'échéance, et corrigé la première alerte remontée en retirant un service de messagerie inutile qui échouait au démarrage.</li>
+      <li>J'ai préparé pour les développeurs une publication sans accès aux serveurs : un job d'intégration continue lance un job d'orchestration qui vérifie la liste des fichiers autorisés avant la copie et contrôle les pages après.</li>
+    </ol>
+  </section>
+  <section class="case-section" aria-labelledby="stack-title" data-reveal>
+    <h2 id="stack-title">Technologies</h2>
+    <ul class="tags"><li>Ansible</li><li>Debian 13</li><li>nginx</li><li>Let's Encrypt</li><li>fail2ban</li><li>Prometheus</li><li>Jenkins</li><li>Rundeck</li><li>DNS</li></ul>
+  </section>
+  <section class="case-section case-result" aria-labelledby="result-title" data-reveal>
+    <h2 id="result-title">Résultat</h2>
+    <p>La production a basculé vers les nouveaux serveurs le 28 octobre 2026, sans PHP ni base de données. Le chantier a été clos le 30 octobre 2026.</p>
+  </section>
+  <section class="case-section case-note" aria-labelledby="note-title" data-reveal>
+    <h2 id="note-title">À noter</h2>
+    <p>Les huit commits de ce chantier ont été écrits avec un assistant IA, ce que chacun mentionne ; je les ai validés, signés et joués sur les serveurs.</p>
+  </section>
+  </div>
+  <nav class="pager" aria-label="Études de cas">
+    <a class="pager-link pager-prev" rel="prev" href="../fin-de-support-machines-virtuelles/index.html" data-reveal="tile"><span class="pager-dir"><span class="arrow" aria-hidden="true">←</span> Étude précédente</span><span class="pager-title">Système en fin de support : refaire en code les machines virtuelles d'un logiciel livré dans des établissements de santé</span></a>
+<a class="pager-link pager-next" rel="next" href="../moteur-de-recherche-sans-kubernetes/index.html" data-reveal="tile"><span class="pager-dir">Étude suivante <span class="arrow" aria-hidden="true">→</span></span><span class="pager-title">Préproduction et production d'un moteur de recherche conteneurisé, sans Kubernetes</span></a>
+  </nav>
+  </div>
+</article>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <p class="footer-author">Alexandre Guandalini</p>
+    <p class="footer-note">Employeur, produits, clients et hébergeurs ne sont pas nommés. Chaque étude de cas dit mon rôle exact.</p>
+    <div class="footer-tools">
+      <a class="footer-lang" href="../../en/work/php-vulnerability-static-site/index.html" hreflang="en" lang="en">English</a>
+      <button class="motion-toggle" type="button" data-motion-toggle aria-pressed="false" hidden>Réduire les animations</button>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

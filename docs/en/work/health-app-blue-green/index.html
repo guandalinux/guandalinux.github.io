@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A containerised health application on public cloud: blue/green deployments, locked backups, tested restore — Alexandre Guandalini</title>
+<meta name="description" content="On a containerised health application, I described every service in Ansible, replaced the manual blue/green switch with three jobs, and rebuilt the backup chain. I tested the restore: 11 minutes for the file server, 9 minutes 40 for the database.">
+<meta name="author" content="Alexandre Guandalini">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f7f5ef" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121211" media="(prefers-color-scheme: dark)">
+<link rel="alternate" hreflang="fr" href="../../../realisations/application-sante-bleu-vert/index.html">
+<link rel="alternate" hreflang="en" href="index.html">
+<link rel="alternate" hreflang="x-default" href="../../../realisations/application-sante-bleu-vert/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A containerised health application on public cloud: blue/green deployments, locked backups, tested restore — Alexandre Guandalini">
+<meta property="og:description" content="On a containerised health application, I described every service in Ansible, replaced the manual blue/green switch with three jobs, and rebuilt the backup chain. I tested the restore: 11 minutes for the file server, 9 minutes 40 for the database.">
+<meta property="og:site_name" content="Alexandre Guandalini">
+<meta property="og:locale" content="en_GB">
+<meta property="og:locale:alternate" content="fr_FR">
+<link rel="icon" href="../../../assets/favicon.svg" type="image/svg+xml">
+<script>(function(){var r=document.documentElement;try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")r.setAttribute("data-theme",t);if(localStorage.getItem("motion")==="off")r.setAttribute("data-motion","off")}catch(e){}try{var k="seen:"+location.pathname.replace(/index\.html$/,""),n=performance.getEntriesByType("navigation")[0];if(location.hash||(sessionStorage.getItem(k)&&!(n&&n.type==="reload")))r.classList.add("entered");sessionStorage.setItem(k,"1")}catch(e){}})();</script>
+<link rel="stylesheet" href="../../../assets/css/site.css">
+<script src="../../../assets/js/site.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-bar">
+    <a class="brand" href="../../index.html">Alexandre Guandalini</a>
+    <nav class="site-nav"><ul><li><a href="../../index.html#cases">Case studies</a></li><li><a href="../../index.html#offer">Services</a></li><li><a href="../../index.html#skills">Skills</a></li><li><a href="../../index.html#approach">How I work</a></li><li><a href="../../index.html#about">About</a></li><li><a href="../../index.html#contact">Contact</a></li></ul></nav>
+    <div class="header-tools">
+      <a class="lang-switch" href="../../../realisations/application-sante-bleu-vert/index.html" hreflang="fr" lang="fr"><span class="lang-full">Français</span> <span class="lang-code">FR</span></a>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle theme" title="Toggle theme" hidden><svg class="icon icon-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><svg class="icon icon-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="main">
+<article class="case">
+  <div class="wrap">
+  <p class="crumb"><a href="../../index.html#cases"><span class="arrow" aria-hidden="true">←</span>All case studies</a></p>
+  <header class="case-head">
+    <p class="case-index">04 / 08</p>
+    <h1 aria-label="A containerised health application on public cloud: blue/green deployments, locked backups, tested restore"><span class="words" aria-hidden="true" style="--step:41ms"><span class="w" style="--i:0">A</span> <span class="w" style="--i:1">containerised</span> <span class="w" style="--i:2">health</span> <span class="w" style="--i:3">application</span> <span class="w" style="--i:4">on</span> <span class="w" style="--i:5">public</span> <span class="w" style="--i:6">cloud:</span> <span class="w" style="--i:7">blue/green</span> <span class="w" style="--i:8">deployments,</span> <span class="w" style="--i:9">locked</span> <span class="w" style="--i:10">backups,</span> <span class="w" style="--i:11">tested</span> <span class="w" style="--i:12">restore</span></span></h1>
+    <p class="case-lead">On a containerised health application, I described every service in Ansible, replaced the manual blue/green switch with three jobs, and rebuilt the backup chain. I tested the restore: 11 minutes for the file server, 9 minutes 40 for the database.</p>
+    <dl class="facts">
+      <div class="fact fact-period"><dt>Period</dt><dd>April 2024 to March 2025; web application firewall in September and October 2026</dd></div>
+      <div class="fact fact-role"><dt>My role</dt><dd><span class="badge badge--initiator"><svg class="badge-mark" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><circle cx="6" cy="6" r="4.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M6 1.75a4.25 4.25 0 0 0 0 8.5z" fill="currentColor"/></svg>Initiator, later taken over by others</span><p>Initiator, later taken over by others. The application, its images and a first blue/green procedure existed before me. I created the infrastructure repository and wrote 69 of its 139 non-merge commits.</p></dd></div>
+    </dl>
+  </header>
+  <div class="case-body">
+  <section class="case-section" aria-labelledby="context-title" data-reveal>
+    <h2 id="context-title">Context</h2>
+    <p>The application runs on Docker Swarm on AWS, and releases relied on manual blue/green switch commands. In late August 2024, a retention change made the backup job resync more than four years of files, which badly slowed the production disks; the service was stopped. The arrival of several thousand users then loaded the main node.</p>
+  </section>
+  <section class="case-section" aria-labelledby="actions-title" data-reveal>
+    <h2 id="actions-title">What I did</h2>
+    <ol class="action-list">
+      <li>In April 2024 I created object storage locked against modification and deletion, with an instance role limited to uploading files; regular copying of backups to it went live in September 2024.</li>
+      <li>In September 2024 I documented the cause of the slowdown and added an Ansible playbook to copy backups, then in March 2025 replaced the old backup service with a full playbook.</li>
+      <li>After spotting a backup outage that had gone unnoticed, I redeployed the service and added a daily check that backups exist.</li>
+      <li>On 16 January 2025 I created the infrastructure repository; by mid-March I had described every service in Ansible: reverse proxy, application services, databases, backup, secrets and per-environment configuration.</li>
+      <li>I replaced the manual switch commands with three jobs (prepare the new colour, switch, clean up the old one) and rewrote the procedure; the first two are also available to developers in pre-production.</li>
+      <li>I added daily volume snapshots kept for 30 days and wrote the step-by-step restore guide, including the failure encountered after a restore.</li>
+      <li>I extended monitoring: exporters for the containers, the database and the reverse proxy, a dedicated HTTP probe, and reverse proxy access logs shipped to the central logging platform.</li>
+      <li>In 2026 I rebuilt the reverse proxy image with a web application firewall: sources pinned by checksum, OWASP rules, detection-only by default, and audit logging turned off so no patient data gets written.</li>
+    </ol>
+  </section>
+  <section class="case-section" aria-labelledby="stack-title" data-reveal>
+    <h2 id="stack-title">Technologies</h2>
+    <ul class="tags"><li>AWS (EC2, EBS, S3 Object Lock, IAM)</li><li>Docker Swarm</li><li>Ansible</li><li>Jenkins</li><li>Rundeck</li><li>nginx</li><li>ModSecurity / OWASP CRS</li><li>MongoDB</li><li>Prometheus</li><li>cAdvisor</li></ul>
+  </section>
+  <section class="case-section case-diagram" aria-labelledby="diagram-title" data-reveal>
+    <h2 id="diagram-title">Diagram</h2>
+    <figure class="diagram">
+      <div class="diagram-scroll" tabindex="0" role="region" aria-label="Blue/green deployment behind a reverse proxy">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 476" width="880" height="476" role="img" aria-labelledby="blue-green-title blue-green-desc" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" lang="en">
+<title id="blue-green-title">Blue/green deployment behind a reverse proxy</title>
+<desc id="blue-green-desc">Users go through an nginx reverse proxy that runs on a different host from the one holding the database and the file server. The proxy sends traffic to the active color; the new color is prepared alongside and only takes traffic after the switch. Three Jenkins jobs replace the manual commands: prepare the new color, switch, clean up the old one.</desc>
+<style>
+.dg-fg{fill:var(--diagram-fg,#1c2330)}
+.dg-mu{fill:var(--diagram-muted,#5b6676)}
+.dg-box{fill:var(--diagram-surface,#ffffff);stroke:var(--diagram-border,#c4ccd8);stroke-width:1.5}
+.dg-acc{fill:var(--diagram-accent-soft,#e6effc);stroke:var(--diagram-accent,#2a6fdb);stroke-width:2}
+.dg-zone{fill:none;stroke:var(--diagram-border,#c4ccd8);stroke-width:1.5;stroke-dasharray:6 4}
+.dg-ln{fill:none;stroke:var(--diagram-fg,#1c2330);stroke-width:1.5}
+.dg-lna{fill:none;stroke:var(--diagram-accent,#2a6fdb);stroke-width:2.5}
+.dg-dash{stroke-dasharray:5 4}
+.dg-mk{fill:var(--diagram-fg,#1c2330)}
+.dg-mka{fill:var(--diagram-accent,#2a6fdb)}
+.dg-pill{fill:var(--diagram-surface,#ffffff);stroke:var(--diagram-fg,#1c2330);stroke-width:1.5}
+.dg-chip{fill:var(--diagram-surface,#ffffff);stroke:var(--diagram-accent,#2a6fdb);stroke-width:1.5}
+</style>
+<defs><marker id="blue-green-h" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dg-mk"/></marker><marker id="blue-green-ha" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dg-mka"/></marker></defs>
+<rect x="8" y="8" width="864" height="292" rx="10" class="dg-zone"/><text x="22" y="32" font-size="16" font-weight="700" class="dg-fg">Production on a public cloud</text>
+<rect x="166" y="48" width="186" height="236" rx="10" class="dg-zone"/><text x="180" y="72" font-size="16" font-weight="700" class="dg-fg">Proxy host</text>
+<rect x="648" y="48" width="216" height="236" rx="10" class="dg-zone"/><text x="662" y="72" font-size="16" font-weight="700" class="dg-fg">Data host</text>
+<rect x="8" y="316" width="864" height="112" rx="10" class="dg-zone"/><text x="22" y="340" font-size="16" font-weight="700" class="dg-fg">Blue/green switch: three Jenkins jobs</text>
+<path d="M154,148 H183" class="dg-lna" marker-end="url(#blue-green-ha)"/>
+<path d="M334,140 H363 V92 H391" class="dg-lna" marker-end="url(#blue-green-ha)"/>
+<path d="M334,156 H363 V204 H391" class="dg-ln dg-dash" marker-end="url(#blue-green-h)"/>
+<path d="M622,92 H647" class="dg-ln" marker-end="url(#blue-green-h)"/>
+<path d="M622,204 H647" class="dg-ln dg-dash" marker-end="url(#blue-green-h)"/>
+<path d="M280,384 H311" class="dg-ln" marker-end="url(#blue-green-h)"/>
+<path d="M568,384 H599" class="dg-ln" marker-end="url(#blue-green-h)"/>
+<rect x="24" y="120" width="130" height="56" rx="8" class="dg-box"/><text x="89" y="152.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Users</text>
+<rect x="184" y="120" width="150" height="56" rx="8" class="dg-acc"/><text x="259" y="143.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Reverse proxy</text><text x="259" y="161.5" font-size="14" text-anchor="middle" class="dg-mu">nginx</text>
+<rect x="392" y="64" width="230" height="56" rx="8" class="dg-acc"/><text x="507" y="87.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Active color (green)</text><text x="507" y="105.5" font-size="14" text-anchor="middle" class="dg-mu">serves the traffic</text>
+<rect x="392" y="168" width="230" height="72" rx="8" class="dg-box dg-dash"/><text x="507" y="190.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">New color (blue)</text><text x="507" y="208.5" font-size="14" text-anchor="middle" class="dg-mu">ready, takes traffic</text><text x="507" y="226.5" font-size="14" text-anchor="middle" class="dg-mu">after the switch</text>
+<rect x="664" y="72" width="184" height="44" rx="8" class="dg-box"/><text x="756" y="98.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Database</text>
+<rect x="664" y="182" width="184" height="44" rx="8" class="dg-box"/><text x="756" y="208.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">File server</text>
+<rect x="24" y="356" width="256" height="56" rx="8" class="dg-box"/><text x="152" y="379.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">1. Prepare</text><text x="152" y="397.5" font-size="14" text-anchor="middle" class="dg-mu">start the new color</text>
+<rect x="312" y="356" width="256" height="56" rx="8" class="dg-acc"/><text x="440" y="379.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">2. Switch</text><text x="440" y="397.5" font-size="14" text-anchor="middle" class="dg-mu">send traffic to it</text>
+<rect x="600" y="356" width="256" height="56" rx="8" class="dg-box"/><text x="728" y="379.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">3. Clean up</text><text x="728" y="397.5" font-size="14" text-anchor="middle" class="dg-mu">stop the old color</text>
+<text x="24" y="456" font-size="14" text-anchor="start" class="dg-mu">Jobs 1 and 2 are also offered to developers, in staging.</text>
+</svg>
+      </div>
+      <figcaption><span class="diagram-title">Blue/green deployment behind a reverse proxy</span>The new version is prepared next to the old one, then the reverse proxy switches the traffic.</figcaption>
+    </figure>
+  </section>
+  <section class="case-section case-result" aria-labelledby="result-title" data-reveal>
+    <h2 id="result-title">Result</h2>
+    <p>Restore tested on 19 March 2025: 11 minutes for the file server, 9 minutes 40 for the database. When several thousand users arrived, CPU load on the main node went from over 95% to under 70% after doubling a second node and moving services onto it, then to under 40% after disabling the web application firewall, identified as the cause.</p>
+  </section>
+  <section class="case-section" aria-labelledby="handover-title" data-reveal>
+    <h2 id="handover-title">What happened next</h2>
+    <p>From April 2025 to June 2026, day-to-day operation of the repository was mainly handled by others, with occasional work from me. At the development team's request, I let developers change some development and pre-production settings themselves, with everything else fenced off by a code owners file and an automatic check of the paths changed in each merge request. Blocking mode for the web application firewall was later enabled in development.</p>
+  </section>
+  </div>
+  <nav class="pager" aria-label="Case studies">
+    <a class="pager-link pager-prev" rel="prev" href="../production-incidents/index.html" data-reveal="tile"><span class="pager-dir"><span class="arrow" aria-hidden="true">←</span> Previous case study</span><span class="pager-title">Production incidents: from diagnosis to a versioned fix</span></a>
+<a class="pager-link pager-next" rel="next" href="../end-of-support-virtual-machines/index.html" data-reveal="tile"><span class="pager-dir">Next case study <span class="arrow" aria-hidden="true">→</span></span><span class="pager-title">End-of-support OS: rebuilding, as code, the virtual machines of software delivered to healthcare facilities</span></a>
+  </nav>
+  </div>
+</article>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <p class="footer-author">Alexandre Guandalini</p>
+    <p class="footer-note">Employer, products, customers and hosting providers are not named. Each case study states my exact role.</p>
+    <div class="footer-tools">
+      <a class="footer-lang" href="../../../realisations/application-sante-bleu-vert/index.html" hreflang="fr" lang="fr">Français</a>
+      <button class="motion-toggle" type="button" data-motion-toggle aria-pressed="false" hidden>Reduce motion</button>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Incidents de production : du diagnostic au correctif versionné — Alexandre Guandalini</title>
+<meta name="description" content="J&#x27;interviens sur les incidents avec l&#x27;équipe d&#x27;exploitation, je les documente selon un plan fixe et je termine, quand je le peux, par un correctif écrit dans le code. Exemple : un cluster MySQL dont j&#x27;avais écrit le rôle Ansible est tombé pendant une mise à jour, et j&#x27;ai traduit la cause en code dans ce même rôle.">
+<meta name="author" content="Alexandre Guandalini">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f7f5ef" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121211" media="(prefers-color-scheme: dark)">
+<link rel="alternate" hreflang="fr" href="index.html">
+<link rel="alternate" hreflang="en" href="../../en/work/production-incidents/index.html">
+<link rel="alternate" hreflang="x-default" href="index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Incidents de production : du diagnostic au correctif versionné — Alexandre Guandalini">
+<meta property="og:description" content="J&#x27;interviens sur les incidents avec l&#x27;équipe d&#x27;exploitation, je les documente selon un plan fixe et je termine, quand je le peux, par un correctif écrit dans le code. Exemple : un cluster MySQL dont j&#x27;avais écrit le rôle Ansible est tombé pendant une mise à jour, et j&#x27;ai traduit la cause en code dans ce même rôle.">
+<meta property="og:site_name" content="Alexandre Guandalini">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:locale:alternate" content="en_GB">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<script>(function(){var r=document.documentElement;try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")r.setAttribute("data-theme",t);if(localStorage.getItem("motion")==="off")r.setAttribute("data-motion","off")}catch(e){}try{var k="seen:"+location.pathname.replace(/index\.html$/,""),n=performance.getEntriesByType("navigation")[0];if(location.hash||(sessionStorage.getItem(k)&&!(n&&n.type==="reload")))r.classList.add("entered");sessionStorage.setItem(k,"1")}catch(e){}})();</script>
+<link rel="stylesheet" href="../../assets/css/site.css">
+<script src="../../assets/js/site.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Aller au contenu</a>
+<header class="site-header">
+  <div class="header-bar">
+    <a class="brand" href="../../index.html">Alexandre Guandalini</a>
+    <nav class="site-nav"><ul><li><a href="../../index.html#cases">Études de cas</a></li><li><a href="../../index.html#offer">Prestations</a></li><li><a href="../../index.html#skills">Compétences</a></li><li><a href="../../index.html#approach">Méthode</a></li><li><a href="../../index.html#about">À propos</a></li><li><a href="../../index.html#contact">Contact</a></li></ul></nav>
+    <div class="header-tools">
+      <a class="lang-switch" href="../../en/work/production-incidents/index.html" hreflang="en" lang="en"><span class="lang-full">English</span> <span class="lang-code">EN</span></a>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Changer de thème" title="Changer de thème" hidden><svg class="icon icon-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><svg class="icon icon-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="main">
+<article class="case">
+  <div class="wrap">
+  <p class="crumb"><a href="../../index.html#cases"><span class="arrow" aria-hidden="true">←</span>Toutes les études de cas</a></p>
+  <header class="case-head">
+    <p class="case-index">03 / 08</p>
+    <h1 aria-label="Incidents de production : du diagnostic au correctif versionné"><span class="words" aria-hidden="true"><span class="w" style="--i:0">Incidents</span> <span class="w" style="--i:1">de</span> <span class="w" style="--i:2">production :</span> <span class="w" style="--i:3">du</span> <span class="w" style="--i:4">diagnostic</span> <span class="w" style="--i:5">au</span> <span class="w" style="--i:6">correctif</span> <span class="w" style="--i:7">versionné</span></span></h1>
+    <p class="case-lead">J'interviens sur les incidents avec l'équipe d'exploitation, je les documente selon un plan fixe et je termine, quand je le peux, par un correctif écrit dans le code. Exemple : un cluster MySQL dont j'avais écrit le rôle Ansible est tombé pendant une mise à jour, et j'ai traduit la cause en code dans ce même rôle.</p>
+    <dl class="facts">
+      <div class="fact fact-period"><dt>Période</dt><dd>Février 2023 à octobre 2026</dd></div>
+      <div class="fact fact-role"><dt>Mon rôle</dt><dd><span class="badge badge--contributor"><svg class="badge-mark" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><circle cx="6" cy="6" r="4.25" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>Contributeur parmi d'autres</span><p>Intervenant parmi d'autres dans l'équipe d'exploitation. J'ai rédigé les comptes rendus cités ici et écrit les correctifs versionnés cités.</p></dd></div>
+    </dl>
+  </header>
+  <div class="case-body">
+  <section class="case-section" aria-labelledby="context-title" data-reveal>
+    <h2 id="context-title">Contexte</h2>
+    <p>84 tickets de type incident m'ont été assignés de 2023 à 2026 : 32 en 2023, 21 en 2024, 8 en 2025 et 23 en 2026. Ils touchent des API, des proxys, un serveur d'intégration continue et des bases de données. Les causes se trouvent souvent entre l'application et l'infrastructure : limites système, requêtes anormales, mise à jour automatique.</p>
+  </section>
+  <section class="case-section" aria-labelledby="actions-title" data-reveal>
+    <h2 id="actions-title">Ce que j'ai fait</h2>
+    <ol class="action-list">
+      <li>Mes comptes rendus suivent un plan fixe (résumé, chronologie, cause racine, résolution, mesure préventive) : sur les 13 incidents qui m'ont été assignés au premier semestre 2023, j'en ai rédigé 11 sur ce modèle.</li>
+      <li>Sur un serveur d'intégration continue ralenti, j'ai relevé 4 944 fichiers ouverts pour une limite de 4 096, porté la limite à 30 000 dans l'unité systemd et écrit un mémo de diagnostic pour l'équipe.</li>
+      <li>Sur une API aux entrées-sorties anormales, j'ai trouvé une URL qui renvoyait plus de 140 000 éléments et l'ai fait répondre par un code de limitation dans le proxy.</li>
+      <li>Sur une API qui tombait, j'ai identifié avec un collègue, grâce aux traces, un appel paginé à 100 000 éléments qui épuisait la mémoire de la JVM, puis bloqué ces requêtes dans la configuration versionnée du répartiteur de charge.</li>
+      <li>Sur une API en erreurs 502, mémoire à 96 % et swap à 99 %, j'ai ramené le cache HTTP de plus de 10 Go à 6 Go, puis activé le cache de requêtes de la base et augmenté son tampon d'index pour absorber le vidage de ce cache.</li>
+      <li>Sur des erreurs 502 d'un reverse proxy, j'ai établi l'épuisement de ses connexions et corrigé dans le code d'infrastructure : connexions persistantes vers l'amont et exporteur de métriques.</li>
+      <li>En 2026, j'ai écrit le rôle Ansible d'un cluster MySQL InnoDB à 3 nœuds, avec un module Python maison qui crée le cluster ou y ajoute un nœud, et un laboratoire local de 3 machines virtuelles.</li>
+      <li>À l'automne 2026, ce cluster est tombé pendant une mise à jour automatique (un paquet tiers avait repris le fichier de configuration de la base) : j'ai traduit la cause dans mon rôle avec une configuration forcée, un redémarrage nœud par nœud qui refuse d'agir si un nœud n'est pas en ligne, un tampon mémoire ramené de 2 Go à 1 Go et un mode vérification utilisable.</li>
+    </ol>
+  </section>
+  <section class="case-section" aria-labelledby="stack-title" data-reveal>
+    <h2 id="stack-title">Technologies</h2>
+    <ul class="tags"><li>Linux (systemd)</li><li>nginx</li><li>HAProxy</li><li>Varnish</li><li>Tomcat</li><li>MySQL InnoDB Cluster</li><li>Python</li><li>Ansible</li><li>Vagrant</li><li>Prometheus</li><li>Datadog</li></ul>
+  </section>
+  <section class="case-section case-result" aria-labelledby="result-title" data-reveal>
+    <h2 id="result-title">Résultat</h2>
+    <p>Mesures incident par incident : limite de fichiers ouverts portée de 4 096 à 30 000 ; processeur de la base passé de plus de 400 % à moins de 200 % pendant le vidage du cache ; changement d'instance d'un proxy saturé avec 15 minutes de coupure, suivi d'une sonde et d'une règle d'alerte dédiées.</p>
+  </section>
+  <section class="case-section" aria-labelledby="handover-title" data-reveal>
+    <h2 id="handover-title">Suite et passage de relais</h2>
+    <p>Le rôle MySQL est livré avec des inventaires séparés (local, préproduction, production) et un laboratoire local documenté, pour qu'un tiers puisse le tester seul.</p>
+  </section>
+  <section class="case-section case-note" aria-labelledby="note-title" data-reveal>
+    <h2 id="note-title">À noter</h2>
+    <p>Le correctif d'octobre 2026 a été écrit avec l'aide d'un assistant de code IA, ce que le commit mentionne.</p>
+  </section>
+  </div>
+  <nav class="pager" aria-label="Études de cas">
+    <a class="pager-link pager-prev" rel="prev" href="../gabarits-packer-socle-terraform/index.html" data-reveal="tile"><span class="pager-dir"><span class="arrow" aria-hidden="true">←</span> Étude précédente</span><span class="pager-title">De l'image de machine au cluster : gabarits Packer et socle Terraform repris par l'équipe</span></a>
+<a class="pager-link pager-next" rel="next" href="../application-sante-bleu-vert/index.html" data-reveal="tile"><span class="pager-dir">Étude suivante <span class="arrow" aria-hidden="true">→</span></span><span class="pager-title">Une application de santé conteneurisée sur cloud public : bleu/vert, sauvegarde verrouillée, restauration testée</span></a>
+  </nav>
+  </div>
+</article>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <p class="footer-author">Alexandre Guandalini</p>
+    <p class="footer-note">Employeur, produits, clients et hébergeurs ne sont pas nommés. Chaque étude de cas dit mon rôle exact.</p>
+    <div class="footer-tools">
+      <a class="footer-lang" href="../../en/work/production-incidents/index.html" hreflang="en" lang="en">English</a>
+      <button class="motion-toggle" type="button" data-motion-toggle aria-pressed="false" hidden>Réduire les animations</button>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

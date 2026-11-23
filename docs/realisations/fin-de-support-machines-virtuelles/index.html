@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Système en fin de support : refaire en code les machines virtuelles d'un logiciel livré dans des établissements de santé — Alexandre Guandalini</title>
+<meta name="description" content="Un logiciel livré en machines virtuelles à des établissements de santé reposait sur un système en fin de support ; j&#x27;ai écrit la chaîne Packer et Ansible qui construit ces machines sur Debian 12, les configure et les exporte. En juin 2026, j&#x27;ai ajouté un pare-feu fermé par défaut et livré 8 gabarits avec leur documentation.">
+<meta name="author" content="Alexandre Guandalini">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f7f5ef" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121211" media="(prefers-color-scheme: dark)">
+<link rel="alternate" hreflang="fr" href="index.html">
+<link rel="alternate" hreflang="en" href="../../en/work/end-of-support-virtual-machines/index.html">
+<link rel="alternate" hreflang="x-default" href="index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Système en fin de support : refaire en code les machines virtuelles d&#x27;un logiciel livré dans des établissements de santé — Alexandre Guandalini">
+<meta property="og:description" content="Un logiciel livré en machines virtuelles à des établissements de santé reposait sur un système en fin de support ; j&#x27;ai écrit la chaîne Packer et Ansible qui construit ces machines sur Debian 12, les configure et les exporte. En juin 2026, j&#x27;ai ajouté un pare-feu fermé par défaut et livré 8 gabarits avec leur documentation.">
+<meta property="og:site_name" content="Alexandre Guandalini">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:locale:alternate" content="en_GB">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<script>(function(){var r=document.documentElement;try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")r.setAttribute("data-theme",t);if(localStorage.getItem("motion")==="off")r.setAttribute("data-motion","off")}catch(e){}try{var k="seen:"+location.pathname.replace(/index\.html$/,""),n=performance.getEntriesByType("navigation")[0];if(location.hash||(sessionStorage.getItem(k)&&!(n&&n.type==="reload")))r.classList.add("entered");sessionStorage.setItem(k,"1")}catch(e){}})();</script>
+<link rel="stylesheet" href="../../assets/css/site.css">
+<script src="../../assets/js/site.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Aller au contenu</a>
+<header class="site-header">
+  <div class="header-bar">
+    <a class="brand" href="../../index.html">Alexandre Guandalini</a>
+    <nav class="site-nav"><ul><li><a href="../../index.html#cases">Études de cas</a></li><li><a href="../../index.html#offer">Prestations</a></li><li><a href="../../index.html#skills">Compétences</a></li><li><a href="../../index.html#approach">Méthode</a></li><li><a href="../../index.html#about">À propos</a></li><li><a href="../../index.html#contact">Contact</a></li></ul></nav>
+    <div class="header-tools">
+      <a class="lang-switch" href="../../en/work/end-of-support-virtual-machines/index.html" hreflang="en" lang="en"><span class="lang-full">English</span> <span class="lang-code">EN</span></a>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Changer de thème" title="Changer de thème" hidden><svg class="icon icon-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><svg class="icon icon-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="main">
+<article class="case">
+  <div class="wrap">
+  <p class="crumb"><a href="../../index.html#cases"><span class="arrow" aria-hidden="true">←</span>Toutes les études de cas</a></p>
+  <header class="case-head">
+    <p class="case-index">05 / 08</p>
+    <h1 aria-label="Système en fin de support : refaire en code les machines virtuelles d&#x27;un logiciel livré dans des établissements de santé"><span class="words" aria-hidden="true" style="--step:28ms"><span class="w" style="--i:0">Système</span> <span class="w" style="--i:1">en</span> <span class="w" style="--i:2">fin</span> <span class="w" style="--i:3">de</span> <span class="w" style="--i:4">support :</span> <span class="w" style="--i:5">refaire</span> <span class="w" style="--i:6">en</span> <span class="w" style="--i:7">code</span> <span class="w" style="--i:8">les</span> <span class="w" style="--i:9">machines</span> <span class="w" style="--i:10">virtuelles</span> <span class="w" style="--i:11">d'un</span> <span class="w" style="--i:12">logiciel</span> <span class="w" style="--i:13">livré</span> <span class="w" style="--i:14">dans</span> <span class="w" style="--i:15">des</span> <span class="w" style="--i:16">établissements</span> <span class="w" style="--i:17">de</span> <span class="w" style="--i:18">santé</span></span></h1>
+    <p class="case-lead">Un logiciel livré en machines virtuelles à des établissements de santé reposait sur un système en fin de support ; j'ai écrit la chaîne Packer et Ansible qui construit ces machines sur Debian 12, les configure et les exporte. En juin 2026, j'ai ajouté un pare-feu fermé par défaut et livré 8 gabarits avec leur documentation.</p>
+    <dl class="facts">
+      <div class="fact fact-period"><dt>Période</dt><dd>Avril à décembre 2024 (réalisation du 20 novembre au 10 décembre) ; durcissement en juin 2026</dd></div>
+      <div class="fact fact-role"><dt>Mon rôle</dt><dd><span class="badge badge--initiator"><svg class="badge-mark" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><circle cx="6" cy="6" r="4.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M6 1.75a4.25 4.25 0 0 0 0 8.5z" fill="currentColor"/></svg>Initiateur, puis repris par d'autres</span><p>Auteur principal de l'ossature, puis repris par d'autres : 28 des 56 commits hors fusions et plus de 95 % des lignes actuelles. Je suis parti d'un modèle public sous licence libre, dont j'ai retiré l'essentiel pour reconstruire le dépôt.</p></dd></div>
+    </dl>
+  </header>
+  <div class="case-body">
+  <section class="case-section" aria-labelledby="context-title" data-reveal>
+    <h2 id="context-title">Contexte</h2>
+    <p>Le logiciel est livré sous forme de machines virtuelles installées dans des établissements de santé, et son système d'exploitation arrivait en fin de support. Un premier cadrage de l'équipe produit avait retenu Debian 11 ou 12, à confirmer. Le livrable devait rester une machine virtuelle exportable.</p>
+  </section>
+  <section class="case-section" aria-labelledby="actions-title" data-reveal>
+    <h2 id="actions-title">Ce que j'ai fait</h2>
+    <ol class="action-list">
+      <li>En prenant le chantier, j'ai retenu Debian 12 après échange avec un collègue, déployé en conteneur la base de données dont la version requise n'existait pas en paquet, et porté l'essentiel du suivi du ticket de cadrage (10 commentaires sur 13).</li>
+      <li>J'ai écrit la construction Packer d'un gabarit Debian 12 à 4 disques, avec un groupe de volumes par usage : système, application, données, journaux.</li>
+      <li>Les 21 et 22 novembre 2024, j'ai ajouté 11 rôles Ansible, écrits ou adaptés de rôles publics : base de données en conteneur, authentification unique, file de messages, serveur web, transfert de fichiers sécurisé, entre autres.</li>
+      <li>J'ai organisé deux projets Ansible en couches web, application et base, puis créé fin novembre 2024 les environnements de préproduction, de recette et de support.</li>
+      <li>J'ai automatisé la préparation du livrable : nettoyage des machines (identifiant de machine, clés d'hôte SSH, historiques), repris d'un modèle public et complété, puis export OVF.</li>
+      <li>J'ai contourné un blocage de l'installeur applicatif sur Debian 12 et écrit la procédure de reprise de la base de l'ancien système vers le nouveau, remise au responsable des déploiements.</li>
+      <li>J'ai rédigé, en m'appuyant sur un tutoriel public, le guide de raccordement d'un annuaire Active Directory en LDAPS à l'authentification unique, et préparé avec le responsable des déploiements une séance de mise en œuvre pour un établissement.</li>
+      <li>En juin 2026, j'ai ajouté un rôle de pare-feu qui bloque par défaut les flux entrants et documenté la matrice de flux.</li>
+    </ol>
+  </section>
+  <section class="case-section" aria-labelledby="stack-title" data-reveal>
+    <h2 id="stack-title">Technologies</h2>
+    <ul class="tags"><li>Packer</li><li>Ansible</li><li>Debian 12</li><li>VMware vSphere</li><li>OVF</li><li>LVM</li><li>Docker</li><li>MongoDB</li><li>Keycloak</li><li>Active Directory (LDAPS)</li><li>RabbitMQ</li><li>UFW</li></ul>
+  </section>
+  <section class="case-section case-result" aria-labelledby="result-title" data-reveal>
+    <h2 id="result-title">Résultat</h2>
+    <p>Le 25 juin 2026, 8 gabarits avec pare-feu installé par défaut ont été livrés au responsable des déploiements avec leur documentation ; un collègue a confirmé la non-régression.</p>
+  </section>
+  <section class="case-section" aria-labelledby="handover-title" data-reveal>
+    <h2 id="handover-title">Suite et passage de relais</h2>
+    <p>Après moi, au moins quatre autres personnes ont modifié le dépôt, ponctuellement, en 2025 et 2026. Sa documentation d'exploitation a été rédigée par un collègue.</p>
+  </section>
+  </div>
+  <nav class="pager" aria-label="Études de cas">
+    <a class="pager-link pager-prev" rel="prev" href="../application-sante-bleu-vert/index.html" data-reveal="tile"><span class="pager-dir"><span class="arrow" aria-hidden="true">←</span> Étude précédente</span><span class="pager-title">Une application de santé conteneurisée sur cloud public : bleu/vert, sauvegarde verrouillée, restauration testée</span></a>
+<a class="pager-link pager-next" rel="next" href="../vulnerabilite-php-site-statique/index.html" data-reveal="tile"><span class="pager-dir">Étude suivante <span class="arrow" aria-hidden="true">→</span></span><span class="pager-title">Répondre à une vulnérabilité PHP : remplacer un CMS par un site statique</span></a>
+  </nav>
+  </div>
+</article>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <p class="footer-author">Alexandre Guandalini</p>
+    <p class="footer-note">Employeur, produits, clients et hébergeurs ne sont pas nommés. Chaque étude de cas dit mon rôle exact.</p>
+    <div class="footer-tools">
+      <a class="footer-lang" href="../../en/work/end-of-support-virtual-machines/index.html" hreflang="en" lang="en">English</a>
+      <button class="motion-toggle" type="button" data-motion-toggle aria-pressed="false" hidden>Réduire les animations</button>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

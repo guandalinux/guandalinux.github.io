@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>End-of-support OS: rebuilding, as code, the virtual machines of software delivered to healthcare facilities — Alexandre Guandalini</title>
+<meta name="description" content="Software delivered as virtual machines to healthcare facilities ran on an operating system reaching end of support; I wrote the Packer and Ansible chain that builds these machines on Debian 12, configures them and exports them. In June 2026 I added a deny-by-default firewall and delivered 8 templates with their documentation.">
+<meta name="author" content="Alexandre Guandalini">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f7f5ef" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121211" media="(prefers-color-scheme: dark)">
+<link rel="alternate" hreflang="fr" href="../../../realisations/fin-de-support-machines-virtuelles/index.html">
+<link rel="alternate" hreflang="en" href="index.html">
+<link rel="alternate" hreflang="x-default" href="../../../realisations/fin-de-support-machines-virtuelles/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="End-of-support OS: rebuilding, as code, the virtual machines of software delivered to healthcare facilities — Alexandre Guandalini">
+<meta property="og:description" content="Software delivered as virtual machines to healthcare facilities ran on an operating system reaching end of support; I wrote the Packer and Ansible chain that builds these machines on Debian 12, configures them and exports them. In June 2026 I added a deny-by-default firewall and delivered 8 templates with their documentation.">
+<meta property="og:site_name" content="Alexandre Guandalini">
+<meta property="og:locale" content="en_GB">
+<meta property="og:locale:alternate" content="fr_FR">
+<link rel="icon" href="../../../assets/favicon.svg" type="image/svg+xml">
+<script>(function(){var r=document.documentElement;try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")r.setAttribute("data-theme",t);if(localStorage.getItem("motion")==="off")r.setAttribute("data-motion","off")}catch(e){}try{var k="seen:"+location.pathname.replace(/index\.html$/,""),n=performance.getEntriesByType("navigation")[0];if(location.hash||(sessionStorage.getItem(k)&&!(n&&n.type==="reload")))r.classList.add("entered");sessionStorage.setItem(k,"1")}catch(e){}})();</script>
+<link rel="stylesheet" href="../../../assets/css/site.css">
+<script src="../../../assets/js/site.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-bar">
+    <a class="brand" href="../../index.html">Alexandre Guandalini</a>
+    <nav class="site-nav"><ul><li><a href="../../index.html#cases">Case studies</a></li><li><a href="../../index.html#offer">Services</a></li><li><a href="../../index.html#skills">Skills</a></li><li><a href="../../index.html#approach">How I work</a></li><li><a href="../../index.html#about">About</a></li><li><a href="../../index.html#contact">Contact</a></li></ul></nav>
+    <div class="header-tools">
+      <a class="lang-switch" href="../../../realisations/fin-de-support-machines-virtuelles/index.html" hreflang="fr" lang="fr"><span class="lang-full">Français</span> <span class="lang-code">FR</span></a>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle theme" title="Toggle theme" hidden><svg class="icon icon-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><svg class="icon icon-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="main">
+<article class="case">
+  <div class="wrap">
+  <p class="crumb"><a href="../../index.html#cases"><span class="arrow" aria-hidden="true">←</span>All case studies</a></p>
+  <header class="case-head">
+    <p class="case-index">05 / 08</p>
+    <h1 aria-label="End-of-support OS: rebuilding, as code, the virtual machines of software delivered to healthcare facilities"><span class="words" aria-hidden="true" style="--step:38ms"><span class="w" style="--i:0">End-of-support</span> <span class="w" style="--i:1">OS:</span> <span class="w" style="--i:2">rebuilding,</span> <span class="w" style="--i:3">as</span> <span class="w" style="--i:4">code,</span> <span class="w" style="--i:5">the</span> <span class="w" style="--i:6">virtual</span> <span class="w" style="--i:7">machines</span> <span class="w" style="--i:8">of</span> <span class="w" style="--i:9">software</span> <span class="w" style="--i:10">delivered</span> <span class="w" style="--i:11">to</span> <span class="w" style="--i:12">healthcare</span> <span class="w" style="--i:13">facilities</span></span></h1>
+    <p class="case-lead">Software delivered as virtual machines to healthcare facilities ran on an operating system reaching end of support; I wrote the Packer and Ansible chain that builds these machines on Debian 12, configures them and exports them. In June 2026 I added a deny-by-default firewall and delivered 8 templates with their documentation.</p>
+    <dl class="facts">
+      <div class="fact fact-period"><dt>Period</dt><dd>April to December 2024 (built from 20 November to 10 December); hardening in June 2026</dd></div>
+      <div class="fact fact-role"><dt>My role</dt><dd><span class="badge badge--initiator"><svg class="badge-mark" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><circle cx="6" cy="6" r="4.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M6 1.75a4.25 4.25 0 0 0 0 8.5z" fill="currentColor"/></svg>Initiator, later taken over by others</span><p>Main author of the framework, later taken over by others: 28 of the 56 non-merge commits and more than 95% of the current code. I started from an open-source public template and stripped most of it out to rebuild the repository.</p></dd></div>
+    </dl>
+  </header>
+  <div class="case-body">
+  <section class="case-section" aria-labelledby="context-title" data-reveal>
+    <h2 id="context-title">Context</h2>
+    <p>The software is delivered as virtual machines installed in healthcare facilities, and its operating system was reaching end of support. An initial scoping by the product team had settled on Debian 11 or 12, to be confirmed. The deliverable had to remain an exportable virtual machine.</p>
+  </section>
+  <section class="case-section" aria-labelledby="actions-title" data-reveal>
+    <h2 id="actions-title">What I did</h2>
+    <ol class="action-list">
+      <li>When I took over the project, I chose Debian 12 after discussing it with a colleague, ran the database in a container because the required version was not packaged, and handled most of the follow-up on the scoping ticket (10 of 13 comments).</li>
+      <li>I wrote the Packer build for a Debian 12 template with 4 disks and one volume group per purpose: system, application, data, logs.</li>
+      <li>On 21 and 22 November 2024 I added 11 Ansible roles, written or adapted from public roles: containerised database, single sign-on, message queue, web server, secure file transfer, among others.</li>
+      <li>I organised two Ansible projects in web, application and database tiers, then created the pre-production, acceptance and support environments in late November 2024.</li>
+      <li>I automated preparation of the deliverable: machine clean-up (machine ID, SSH host keys, histories), taken from a public template and extended, followed by OVF export.</li>
+      <li>I worked around an application installer blocker on Debian 12 and wrote the procedure for migrating the database from the old system to the new one, handed to the deployment lead.</li>
+      <li>Building on a public tutorial, I wrote the guide for connecting an Active Directory over LDAPS to single sign-on, and prepared an implementation session for one facility with the deployment lead.</li>
+      <li>In June 2026 I added a firewall role that blocks inbound traffic by default and documented the flow matrix.</li>
+    </ol>
+  </section>
+  <section class="case-section" aria-labelledby="stack-title" data-reveal>
+    <h2 id="stack-title">Technologies</h2>
+    <ul class="tags"><li>Packer</li><li>Ansible</li><li>Debian 12</li><li>VMware vSphere</li><li>OVF</li><li>LVM</li><li>Docker</li><li>MongoDB</li><li>Keycloak</li><li>Active Directory (LDAPS)</li><li>RabbitMQ</li><li>UFW</li></ul>
+  </section>
+  <section class="case-section case-result" aria-labelledby="result-title" data-reveal>
+    <h2 id="result-title">Result</h2>
+    <p>On 25 June 2026, 8 templates with a firewall installed by default were delivered to the deployment lead with their documentation; a colleague confirmed there was no regression.</p>
+  </section>
+  <section class="case-section" aria-labelledby="handover-title" data-reveal>
+    <h2 id="handover-title">What happened next</h2>
+    <p>After me, at least four other people made occasional changes to the repository in 2025 and 2026. Its operations documentation was written by a colleague.</p>
+  </section>
+  </div>
+  <nav class="pager" aria-label="Case studies">
+    <a class="pager-link pager-prev" rel="prev" href="../health-app-blue-green/index.html" data-reveal="tile"><span class="pager-dir"><span class="arrow" aria-hidden="true">←</span> Previous case study</span><span class="pager-title">A containerised health application on public cloud: blue/green deployments, locked backups, tested restore</span></a>
+<a class="pager-link pager-next" rel="next" href="../php-vulnerability-static-site/index.html" data-reveal="tile"><span class="pager-dir">Next case study <span class="arrow" aria-hidden="true">→</span></span><span class="pager-title">Responding to a PHP vulnerability: replacing a CMS with a static site</span></a>
+  </nav>
+  </div>
+</article>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <p class="footer-author">Alexandre Guandalini</p>
+    <p class="footer-note">Employer, products, customers and hosting providers are not named. Each case study states my exact role.</p>
+    <div class="footer-tools">
+      <a class="footer-lang" href="../../../realisations/fin-de-support-machines-virtuelles/index.html" hreflang="fr" lang="fr">Français</a>
+      <button class="motion-toggle" type="button" data-motion-toggle aria-pressed="false" hidden>Reduce motion</button>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

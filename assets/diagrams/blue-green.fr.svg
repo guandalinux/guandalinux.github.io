@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 476" width="880" height="476" role="img" aria-labelledby="blue-green-title blue-green-desc" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" lang="fr">
+<title id="blue-green-title">Déploiement bleu/vert derrière un reverse proxy</title>
+<desc id="blue-green-desc">Les utilisateurs passent par un reverse proxy nginx, placé sur un hôte distinct de celui qui porte la base de données et le serveur de fichiers. Le proxy envoie le trafic vers la couleur active ; la nouvelle couleur est préparée à côté et ne reçoit le trafic qu'après la bascule. Trois jobs Jenkins remplacent les commandes manuelles : préparer la nouvelle couleur, basculer, nettoyer l'ancienne.</desc>
+<style>
+.dg-fg{fill:var(--diagram-fg,#1c2330)}
+.dg-mu{fill:var(--diagram-muted,#5b6676)}
+.dg-box{fill:var(--diagram-surface,#ffffff);stroke:var(--diagram-border,#c4ccd8);stroke-width:1.5}
+.dg-acc{fill:var(--diagram-accent-soft,#e6effc);stroke:var(--diagram-accent,#2a6fdb);stroke-width:2}
+.dg-zone{fill:none;stroke:var(--diagram-border,#c4ccd8);stroke-width:1.5;stroke-dasharray:6 4}
+.dg-ln{fill:none;stroke:var(--diagram-fg,#1c2330);stroke-width:1.5}
+.dg-lna{fill:none;stroke:var(--diagram-accent,#2a6fdb);stroke-width:2.5}
+.dg-dash{stroke-dasharray:5 4}
+.dg-mk{fill:var(--diagram-fg,#1c2330)}
+.dg-mka{fill:var(--diagram-accent,#2a6fdb)}
+.dg-pill{fill:var(--diagram-surface,#ffffff);stroke:var(--diagram-fg,#1c2330);stroke-width:1.5}
+.dg-chip{fill:var(--diagram-surface,#ffffff);stroke:var(--diagram-accent,#2a6fdb);stroke-width:1.5}
+</style>
+<defs><marker id="blue-green-h" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dg-mk"/></marker><marker id="blue-green-ha" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dg-mka"/></marker></defs>
+<rect x="8" y="8" width="864" height="292" rx="10" class="dg-zone"/><text x="22" y="32" font-size="16" font-weight="700" class="dg-fg">Production sur cloud public</text>
+<rect x="166" y="48" width="186" height="236" rx="10" class="dg-zone"/><text x="180" y="72" font-size="16" font-weight="700" class="dg-fg">Hôte du proxy</text>
+<rect x="648" y="48" width="216" height="236" rx="10" class="dg-zone"/><text x="662" y="72" font-size="16" font-weight="700" class="dg-fg">Hôte des données</text>
+<rect x="8" y="316" width="864" height="112" rx="10" class="dg-zone"/><text x="22" y="340" font-size="16" font-weight="700" class="dg-fg">Bascule bleu/vert : trois jobs Jenkins</text>
+<path d="M154,148 H183" class="dg-lna" marker-end="url(#blue-green-ha)"/>
+<path d="M334,140 H363 V92 H391" class="dg-lna" marker-end="url(#blue-green-ha)"/>
+<path d="M334,156 H363 V204 H391" class="dg-ln dg-dash" marker-end="url(#blue-green-h)"/>
+<path d="M622,92 H647" class="dg-ln" marker-end="url(#blue-green-h)"/>
+<path d="M622,204 H647" class="dg-ln dg-dash" marker-end="url(#blue-green-h)"/>
+<path d="M280,384 H311" class="dg-ln" marker-end="url(#blue-green-h)"/>
+<path d="M568,384 H599" class="dg-ln" marker-end="url(#blue-green-h)"/>
+<rect x="24" y="120" width="130" height="56" rx="8" class="dg-box"/><text x="89" y="152.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Utilisateurs</text>
+<rect x="184" y="120" width="150" height="56" rx="8" class="dg-acc"/><text x="259" y="143.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Reverse proxy</text><text x="259" y="161.5" font-size="14" text-anchor="middle" class="dg-mu">nginx</text>
+<rect x="392" y="64" width="230" height="56" rx="8" class="dg-acc"/><text x="507" y="87.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Couleur active (verte)</text><text x="507" y="105.5" font-size="14" text-anchor="middle" class="dg-mu">sert le trafic</text>
+<rect x="392" y="168" width="230" height="72" rx="8" class="dg-box dg-dash"/><text x="507" y="190.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Nouvelle couleur (bleue)</text><text x="507" y="208.5" font-size="14" text-anchor="middle" class="dg-mu">prête, reçoit le trafic</text><text x="507" y="226.5" font-size="14" text-anchor="middle" class="dg-mu">après la bascule</text>
+<rect x="664" y="72" width="184" height="44" rx="8" class="dg-box"/><text x="756" y="98.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Base de données</text>
+<rect x="664" y="182" width="184" height="44" rx="8" class="dg-box"/><text x="756" y="208.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Serveur de fichiers</text>
+<rect x="24" y="356" width="256" height="56" rx="8" class="dg-box"/><text x="152" y="379.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">1. Préparer</text><text x="152" y="397.5" font-size="14" text-anchor="middle" class="dg-mu">démarrer la nouvelle couleur</text>
+<rect x="312" y="356" width="256" height="56" rx="8" class="dg-acc"/><text x="440" y="379.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">2. Basculer</text><text x="440" y="397.5" font-size="14" text-anchor="middle" class="dg-mu">diriger le trafic vers elle</text>
+<rect x="600" y="356" width="256" height="56" rx="8" class="dg-box"/><text x="728" y="379.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">3. Nettoyer</text><text x="728" y="397.5" font-size="14" text-anchor="middle" class="dg-mu">arrêter l'ancienne couleur</text>
+<text x="24" y="456" font-size="14" text-anchor="start" class="dg-mu">Les jobs 1 et 2 sont aussi proposés aux développeurs, en préproduction.</text>
+</svg>

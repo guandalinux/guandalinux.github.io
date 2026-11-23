@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 680" width="880" height="680" role="img" aria-labelledby="k8s-platform-title k8s-platform-desc" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" lang="en">
+<title id="k8s-platform-title">Layered foundation of an on-premises Kubernetes platform</title>
+<desc id="k8s-platform-desc">Kubernetes cluster without a cloud provider: Cilium networking with L2 announcements and IP address pools, traffic entry through Envoy Gateway (Gateway API), an authentication service with health probes and rolling updates, ProxySQL in front of an external MySQL database and Redis Sentinel behind HAProxy, Longhorn storage, secrets synced from a vault by External Secrets Operator, delivery with ArgoCD and Kustomize, logs shipped to a central platform. Three control plane nodes and three worker nodes.</desc>
+<style>
+.dg-fg{fill:var(--diagram-fg,#1c2330)}
+.dg-mu{fill:var(--diagram-muted,#5b6676)}
+.dg-box{fill:var(--diagram-surface,#ffffff);stroke:var(--diagram-border,#c4ccd8);stroke-width:1.5}
+.dg-acc{fill:var(--diagram-accent-soft,#e6effc);stroke:var(--diagram-accent,#2a6fdb);stroke-width:2}
+.dg-zone{fill:none;stroke:var(--diagram-border,#c4ccd8);stroke-width:1.5;stroke-dasharray:6 4}
+.dg-ln{fill:none;stroke:var(--diagram-fg,#1c2330);stroke-width:1.5}
+.dg-lna{fill:none;stroke:var(--diagram-accent,#2a6fdb);stroke-width:2.5}
+.dg-dash{stroke-dasharray:5 4}
+.dg-mk{fill:var(--diagram-fg,#1c2330)}
+.dg-mka{fill:var(--diagram-accent,#2a6fdb)}
+.dg-pill{fill:var(--diagram-surface,#ffffff);stroke:var(--diagram-fg,#1c2330);stroke-width:1.5}
+.dg-chip{fill:var(--diagram-surface,#ffffff);stroke:var(--diagram-accent,#2a6fdb);stroke-width:1.5}
+</style>
+<defs><marker id="k8s-platform-h" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dg-mk"/></marker><marker id="k8s-platform-ha" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dg-mka"/></marker></defs>
+<rect x="12" y="36" width="628" height="634" rx="10" class="dg-zone"/><text x="26" y="60" font-size="16" font-weight="700" class="dg-fg">On-premises Kubernetes cluster</text>
+<rect x="652" y="36" width="216" height="634" rx="10" class="dg-zone"/><text x="666" y="60" font-size="16" font-weight="700" class="dg-fg">Outside cluster</text>
+<path d="M420,6 V75" class="dg-lna" marker-end="url(#k8s-platform-ha)"/>
+<path d="M420,128 V151" class="dg-lna" marker-end="url(#k8s-platform-ha)"/>
+<path d="M420,204 V227" class="dg-lna" marker-end="url(#k8s-platform-ha)"/>
+<path d="M420,280 V303" class="dg-ln" marker-end="url(#k8s-platform-h)"/>
+<path d="M624,330 H667" class="dg-ln" marker-end="url(#k8s-platform-h)"/>
+<path d="M624,454 H667" class="dg-ln" marker-end="url(#k8s-platform-h)"/>
+<path d="M624,578 H667" class="dg-ln" marker-end="url(#k8s-platform-h)"/>
+<rect x="28" y="76" width="596" height="52" rx="8" class="dg-box"/><text x="44" y="107.5" font-size="16" font-weight="700" class="dg-fg">Network</text><text x="242" y="97.5" font-size="14" font-weight="600" class="dg-fg">Cilium (CNI)</text><text x="242" y="115.5" font-size="14" class="dg-mu">L2 announcements and IP address pools</text>
+<rect x="28" y="152" width="596" height="52" rx="8" class="dg-box"/><text x="44" y="183.5" font-size="16" font-weight="700" class="dg-fg">Traffic entry</text><text x="242" y="173.5" font-size="14" font-weight="600" class="dg-fg">Envoy Gateway (Gateway API)</text><text x="242" y="191.5" font-size="14" class="dg-mu">HTTP, HTTPS and TCP</text>
+<rect x="28" y="228" width="596" height="52" rx="8" class="dg-acc"/><text x="44" y="259.5" font-size="16" font-weight="700" class="dg-fg">Application</text><text x="242" y="249.5" font-size="14" font-weight="600" class="dg-fg">Authentication service</text><text x="242" y="267.5" font-size="14" class="dg-mu">health probes, rolling updates</text>
+<rect x="28" y="304" width="596" height="52" rx="8" class="dg-box"/><text x="44" y="335.5" font-size="16" font-weight="700" class="dg-fg">Data services</text><text x="242" y="325.5" font-size="14" font-weight="600" class="dg-fg">ProxySQL (3 replicas) to the database</text><text x="242" y="343.5" font-size="14" class="dg-mu">Redis Sentinel behind HAProxy</text>
+<rect x="28" y="366" width="596" height="52" rx="8" class="dg-box"/><text x="44" y="397.5" font-size="16" font-weight="700" class="dg-fg">Storage</text><text x="242" y="387.5" font-size="14" font-weight="600" class="dg-fg">Longhorn</text><text x="242" y="405.5" font-size="14" class="dg-mu">distributed block storage</text>
+<rect x="28" y="428" width="596" height="52" rx="8" class="dg-box"/><text x="44" y="459.5" font-size="16" font-weight="700" class="dg-fg">Secrets</text><text x="242" y="449.5" font-size="14" font-weight="600" class="dg-fg">External Secrets Operator</text><text x="242" y="467.5" font-size="14" class="dg-mu">Kubernetes auth to the vault</text>
+<rect x="28" y="490" width="596" height="52" rx="8" class="dg-box"/><text x="44" y="521.5" font-size="16" font-weight="700" class="dg-fg">GitOps delivery</text><text x="242" y="511.5" font-size="14" font-weight="600" class="dg-fg">ArgoCD and ApplicationSets</text><text x="242" y="529.5" font-size="14" class="dg-mu">Kustomize overlays per environment</text>
+<rect x="28" y="552" width="596" height="52" rx="8" class="dg-box"/><text x="44" y="583.5" font-size="16" font-weight="700" class="dg-fg">Observability</text><text x="242" y="573.5" font-size="14" font-weight="600" class="dg-fg">Log collection</text><text x="242" y="591.5" font-size="14" class="dg-mu">with autodiscovery</text>
+<rect x="28" y="616" width="596" height="40" rx="8" class="dg-box"/><text x="326" y="640.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Nodes: 3 control plane, 3 workers</text>
+<rect x="668" y="304" width="186" height="52" rx="8" class="dg-box"/><text x="761" y="325.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">External MySQL</text><text x="761" y="343.5" font-size="14" text-anchor="middle" class="dg-mu">database</text>
+<rect x="668" y="428" width="186" height="52" rx="8" class="dg-box"/><text x="761" y="449.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Secrets vault</text><text x="761" y="467.5" font-size="14" text-anchor="middle" class="dg-mu">(Vault)</text>
+<rect x="668" y="552" width="186" height="52" rx="8" class="dg-box"/><text x="761" y="573.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Central log</text><text x="761" y="591.5" font-size="14" text-anchor="middle" class="dg-mu">platform</text>
+<text x="432" y="26" font-size="14" text-anchor="start" class="dg-mu">incoming traffic</text>
+</svg>

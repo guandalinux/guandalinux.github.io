@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 476" width="880" height="476" role="img" aria-labelledby="blue-green-title blue-green-desc" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" lang="en">
+<title id="blue-green-title">Blue/green deployment behind a reverse proxy</title>
+<desc id="blue-green-desc">Users go through an nginx reverse proxy that runs on a different host from the one holding the database and the file server. The proxy sends traffic to the active color; the new color is prepared alongside and only takes traffic after the switch. Three Jenkins jobs replace the manual commands: prepare the new color, switch, clean up the old one.</desc>
+<style>
+.dg-fg{fill:var(--diagram-fg,#1c2330)}
+.dg-mu{fill:var(--diagram-muted,#5b6676)}
+.dg-box{fill:var(--diagram-surface,#ffffff);stroke:var(--diagram-border,#c4ccd8);stroke-width:1.5}
+.dg-acc{fill:var(--diagram-accent-soft,#e6effc);stroke:var(--diagram-accent,#2a6fdb);stroke-width:2}
+.dg-zone{fill:none;stroke:var(--diagram-border,#c4ccd8);stroke-width:1.5;stroke-dasharray:6 4}
+.dg-ln{fill:none;stroke:var(--diagram-fg,#1c2330);stroke-width:1.5}
+.dg-lna{fill:none;stroke:var(--diagram-accent,#2a6fdb);stroke-width:2.5}
+.dg-dash{stroke-dasharray:5 4}
+.dg-mk{fill:var(--diagram-fg,#1c2330)}
+.dg-mka{fill:var(--diagram-accent,#2a6fdb)}
+.dg-pill{fill:var(--diagram-surface,#ffffff);stroke:var(--diagram-fg,#1c2330);stroke-width:1.5}
+.dg-chip{fill:var(--diagram-surface,#ffffff);stroke:var(--diagram-accent,#2a6fdb);stroke-width:1.5}
+</style>
+<defs><marker id="blue-green-h" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dg-mk"/></marker><marker id="blue-green-ha" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dg-mka"/></marker></defs>
+<rect x="8" y="8" width="864" height="292" rx="10" class="dg-zone"/><text x="22" y="32" font-size="16" font-weight="700" class="dg-fg">Production on a public cloud</text>
+<rect x="166" y="48" width="186" height="236" rx="10" class="dg-zone"/><text x="180" y="72" font-size="16" font-weight="700" class="dg-fg">Proxy host</text>
+<rect x="648" y="48" width="216" height="236" rx="10" class="dg-zone"/><text x="662" y="72" font-size="16" font-weight="700" class="dg-fg">Data host</text>
+<rect x="8" y="316" width="864" height="112" rx="10" class="dg-zone"/><text x="22" y="340" font-size="16" font-weight="700" class="dg-fg">Blue/green switch: three Jenkins jobs</text>
+<path d="M154,148 H183" class="dg-lna" marker-end="url(#blue-green-ha)"/>
+<path d="M334,140 H363 V92 H391" class="dg-lna" marker-end="url(#blue-green-ha)"/>
+<path d="M334,156 H363 V204 H391" class="dg-ln dg-dash" marker-end="url(#blue-green-h)"/>
+<path d="M622,92 H647" class="dg-ln" marker-end="url(#blue-green-h)"/>
+<path d="M622,204 H647" class="dg-ln dg-dash" marker-end="url(#blue-green-h)"/>
+<path d="M280,384 H311" class="dg-ln" marker-end="url(#blue-green-h)"/>
+<path d="M568,384 H599" class="dg-ln" marker-end="url(#blue-green-h)"/>
+<rect x="24" y="120" width="130" height="56" rx="8" class="dg-box"/><text x="89" y="152.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Users</text>
+<rect x="184" y="120" width="150" height="56" rx="8" class="dg-acc"/><text x="259" y="143.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Reverse proxy</text><text x="259" y="161.5" font-size="14" text-anchor="middle" class="dg-mu">nginx</text>
+<rect x="392" y="64" width="230" height="56" rx="8" class="dg-acc"/><text x="507" y="87.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Active color (green)</text><text x="507" y="105.5" font-size="14" text-anchor="middle" class="dg-mu">serves the traffic</text>
+<rect x="392" y="168" width="230" height="72" rx="8" class="dg-box dg-dash"/><text x="507" y="190.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">New color (blue)</text><text x="507" y="208.5" font-size="14" text-anchor="middle" class="dg-mu">ready, takes traffic</text><text x="507" y="226.5" font-size="14" text-anchor="middle" class="dg-mu">after the switch</text>
+<rect x="664" y="72" width="184" height="44" rx="8" class="dg-box"/><text x="756" y="98.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Database</text>
+<rect x="664" y="182" width="184" height="44" rx="8" class="dg-box"/><text x="756" y="208.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">File server</text>
+<rect x="24" y="356" width="256" height="56" rx="8" class="dg-box"/><text x="152" y="379.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">1. Prepare</text><text x="152" y="397.5" font-size="14" text-anchor="middle" class="dg-mu">start the new color</text>
+<rect x="312" y="356" width="256" height="56" rx="8" class="dg-acc"/><text x="440" y="379.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">2. Switch</text><text x="440" y="397.5" font-size="14" text-anchor="middle" class="dg-mu">send traffic to it</text>
+<rect x="600" y="356" width="256" height="56" rx="8" class="dg-box"/><text x="728" y="379.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">3. Clean up</text><text x="728" y="397.5" font-size="14" text-anchor="middle" class="dg-mu">stop the old color</text>
+<text x="24" y="456" font-size="14" text-anchor="start" class="dg-mu">Jobs 1 and 2 are also offered to developers, in staging.</text>
+</svg>

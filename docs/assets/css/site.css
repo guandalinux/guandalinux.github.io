@@ -1,0 +1,1552 @@
+/* Portfolio : feuille de style unique, sans ressource externe.
+   Direction : papier chaud, typographie d'Apple (San Francisco, titres en demi-gras serré),
+   panneaux arrondis, boutons en pilule,
+   un seul motif coloré (le panneau en dégradé de l'ouverture et du contact).
+   Jetons de couleur conçus pour chaque thème (clair / sombre), contrastes AA vérifiés par calcul. */
+
+/* police:debut */
+/* Inter, pour les appareils qui n'ont pas San Francisco : un seul fichier, servi par le site
+   (assets/fonts/, licence OFL à côté), variable en graisse (100 à 900) et en taille optique, limité à
+   l'alphabet latin. Un appareil Apple ne le télécharge pas : sa police système passe avant dans les
+   listes de polices plus bas. La page 404, autonome, perd ce bloc à la construction (c'est le rôle des
+   repères police:debut et police:fin, à ne pas retirer). */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../fonts/inter-latin-opsz-normal.woff2") format("woff2-variations"),
+       url("../fonts/inter-latin-opsz-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308,
+                 U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Polices d'attente. Le temps qu'Inter arrive (première visite, connexion lente), le texte s'affiche
+   dans une police de l'appareil ; elle est ramenée ici à la largeur et aux hauteurs d'Inter, pour que
+   rien ne saute quand Inter la remplace. C'est Arial, ou ses jumelles de mêmes largeurs sous Linux et
+   Chrome OS. Les rapports sont mesurés sur les textes du site : texte courant à 17 px, gras courant,
+   titres en grand corps (Inter y est plus étroite qu'Arial gras). Les hauteurs sont celles d'Inter
+   (96,9 % et 24,1 %) divisées par le rapport de largeur. Un appareil sans ces polices (Android) prend
+   la suite de la liste, sans réglage. */
+@font-face {
+  font-family: "Inter attente";
+  font-weight: 100 500;
+  src: local("Arial"), local("ArialMT"), local("Liberation Sans"), local("LiberationSans"), local("Arimo"),
+       local("Arimo Regular"), local("Arimo-Regular");
+  size-adjust: 105.2%;
+  ascent-override: 92.1%;
+  descent-override: 22.9%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Inter attente";
+  font-weight: 600 900;
+  src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"), local("LiberationSans-Bold"),
+       local("Arimo Bold"), local("Arimo-Bold");
+  size-adjust: 100.4%;
+  ascent-override: 96.5%;
+  descent-override: 24%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Inter attente titres";
+  font-weight: 100 900;
+  src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"), local("LiberationSans-Bold"),
+       local("Arimo Bold"), local("Arimo-Bold");
+  size-adjust: 94.4%;
+  ascent-override: 102.6%;
+  descent-override: 25.6%;
+  line-gap-override: 0%;
+}
+/* police:fin */
+
+:root {
+  color-scheme: light;
+  --bg: #f7f5ef;
+  --surface: #ffffff;
+  --surface-2: #efece3;
+  --text: #1b1b19;
+  --muted: #5c5952;
+  --border: #e2ded3;
+  --border-strong: #8a867b;
+  --accent: #2f5068;
+  --accent-hover: #213a4d;
+  --accent-soft: #e3eaee;
+  --on-accent: #ffffff;
+  --selection: #cfdde6;
+  --bar-bg: rgba(255, 255, 255, 0.84);
+  --shadow-bar: 0 1px 2px rgba(27, 27, 25, 0.04), 0 12px 32px -14px rgba(27, 27, 25, 0.16);
+  --shadow-lift: 0 2px 4px rgba(27, 27, 25, 0.04), 0 22px 44px -20px rgba(27, 27, 25, 0.24);
+
+  /* Panneau en dégradé : le texte y est toujours crème, sur la seule zone bleue.
+     La lueur chaude reste dans la bande basse, où aucun texte n'est posé. */
+  --art-top: #3f5c75;
+  --art-bottom: #4f6d86;
+  --art-ink: #fbf9f4;
+  --art-shade: rgba(13, 22, 29, 0.3);
+  --art-glow-1: 242, 191, 134;
+  --art-glow-2: 232, 169, 143;
+  --art-glow-3: 185, 203, 214;
+
+  --diagram-canvas: #ffffff;
+  --diagram-fg: #1b1b19;
+  --diagram-muted: #5c5952;
+  --diagram-surface: #faf8f3;
+  --diagram-border: #8a867b;
+  --diagram-accent: #2f5068;
+  --diagram-accent-soft: #e3eaee;
+
+  /* Police d'Apple : San Francisco n'existe que sur les appareils Apple, qui la fournissent eux-mêmes
+     (sa licence interdit de la servir depuis un site). « -apple-system » et « BlinkMacSystemFont » la
+     désignent sur Mac, iPhone et iPad, où elle choisit seule sa coupe (Text ou Display) selon le corps.
+     Ailleurs le site sert Inter, une police libre très proche (bloc @font-face en tête de fichier). Les
+     noms qui la suivent ne servent que le temps de son chargement (d'abord la police d'attente, réglée
+     à sa mesure), pour les rares signes qu'elle n'a pas (les flèches) et sur la page 404. */
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Inter attente titres", "Segoe UI Variable Display", "Segoe UI", system-ui, Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Inter attente", "Segoe UI Variable Text", "Segoe UI", system-ui, Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  /* Titres à la manière d'Apple : demi-gras, approche un peu serrée en grand corps. En petit corps on
+     garde celle de la police, que San Francisco règle elle-même selon la taille. */
+  --weight-display: 600;
+  --tracking-display: -0.015em;
+  --tracking-title: 0em;
+
+  --step--2: 0.8125rem;
+  --step--1: 0.9375rem;
+  --step-0: 1.0625rem;
+  --step-1: 1.25rem;
+  --display-s: clamp(1.375rem, 1.25rem + 0.55vw, 1.625rem);
+  --display-m: clamp(1.625rem, 1.35rem + 1.2vw, 2.25rem);
+  /* Le grand titre (xl) reste au-dessus des titres de section (l) à toute largeur d'écran. */
+  --display-l: clamp(1.75rem, 1.15rem + 3vw, 3.5rem);
+  --display-xl: clamp(2.125rem, 1.2rem + 4vw, 4.25rem);
+
+  /* Largeurs de lecture en « em » et non en « ch » : le « ch » suit la largeur du zéro, qui change
+     d'une police à l'autre, alors que le texte doit garder ses coupures quand Inter remplace la police
+     d'attente. Chaque valeur est l'ancienne, en ch, multipliée par le zéro d'Inter (0,63 em en texte
+     courant, 0,64 em en titre). */
+  --measure: 41.44em;
+  --radius: 0.75rem;
+  --radius-l: 1.25rem;
+  --radius-xl: clamp(1.25rem, 2.6vw, 2rem);
+  --edge: clamp(0.5rem, 1.6vw, 1rem);
+  --gutter: clamp(1.25rem, 4vw, 2.75rem);
+  --inset: clamp(1rem, 3vw, 2rem); /* toujours plus petit que --gutter */
+  --header-h: 6.5rem;
+
+  /* Mouvement : départ doux et longue décélération pour les apparitions, courbe plus vive au survol. */
+  --ease-out: cubic-bezier(0.4, 0.2, 0, 1);
+  --ease-hover: cubic-bezier(0.22, 0.61, 0.36, 1);
+  /* Rien n'attend à l'opacité 0 (voir la rubrique Mouvement) : un millième suffit à être invisible. */
+  --faint: 0.001;
+  /* Lumière qui suit la souris sur une tuile : lueur sous le contenu, trait le long du bord. */
+  --tile-glow: rgba(242, 191, 134, 0.22);
+  --tile-edge: #df9550;
+  --tile-edge-soft: rgba(47, 80, 104, 0.4);
+  --arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 11'%3E%3Cpath d='M1 5.5h10.5M7.5 1.5l4 4-4 4' fill='none' stroke='%23000' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #121211;
+  --surface: #1b1b19;
+  --surface-2: #242421;
+  --text: #f1eee6;
+  --muted: #aaa69b;
+  --border: #2d2c28;
+  --border-strong: #77736a;
+  --accent: #a3c2d4;
+  --accent-hover: #c2d7e3;
+  --accent-soft: #1d2a32;
+  --on-accent: #101314;
+  --selection: #2f4657;
+  --bar-bg: rgba(27, 27, 25, 0.82);
+  --shadow-bar: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 32px -14px rgba(0, 0, 0, 0.6);
+  --shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.3), 0 22px 44px -20px rgba(0, 0, 0, 0.7);
+  --art-top: #1c2b38;
+  --art-bottom: #263746;
+  --art-glow-1: 201, 138, 85;
+  --art-glow-2: 176, 112, 95;
+  --art-glow-3: 91, 127, 150;
+  --tile-glow: rgba(201, 138, 85, 0.14);
+  --tile-edge: #f2bf86;
+  --tile-edge-soft: rgba(163, 194, 212, 0.45);
+  --diagram-canvas: #1b1b19;
+  --diagram-fg: #f1eee6;
+  --diagram-muted: #aaa69b;
+  --diagram-surface: #242421;
+  --diagram-border: #77736a;
+  --diagram-accent: #a3c2d4;
+  --diagram-accent-soft: #1d2a32;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #121211;
+    --surface: #1b1b19;
+    --surface-2: #242421;
+    --text: #f1eee6;
+    --muted: #aaa69b;
+    --border: #2d2c28;
+    --border-strong: #77736a;
+    --accent: #a3c2d4;
+    --accent-hover: #c2d7e3;
+    --accent-soft: #1d2a32;
+    --on-accent: #101314;
+    --selection: #2f4657;
+    --bar-bg: rgba(27, 27, 25, 0.82);
+    --shadow-bar: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 32px -14px rgba(0, 0, 0, 0.6);
+    --shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.3), 0 22px 44px -20px rgba(0, 0, 0, 0.7);
+    --art-top: #1c2b38;
+    --art-bottom: #263746;
+    --art-glow-1: 201, 138, 85;
+    --art-glow-2: 176, 112, 95;
+    --art-glow-3: 91, 127, 150;
+    --tile-glow: rgba(201, 138, 85, 0.14);
+    --tile-edge: #f2bf86;
+    --tile-edge-soft: rgba(163, 194, 212, 0.45);
+    --diagram-canvas: #1b1b19;
+    --diagram-fg: #f1eee6;
+    --diagram-muted: #aaa69b;
+    --diagram-surface: #242421;
+    --diagram-border: #77736a;
+    --diagram-accent: #a3c2d4;
+    --diagram-accent-soft: #1d2a32;
+  }
+  :root:not([data-theme="light"]) .icon-sun { display: block; }
+  :root:not([data-theme="light"]) .icon-moon { display: none; }
+}
+
+/* ---------- Base ---------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--step-0);
+  line-height: 1.65;
+  font-kerning: normal;
+  overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection { background: var(--selection); color: var(--text); }
+
+h1, h2, h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-variant-numeric: lining-nums;
+  line-height: 1.12;
+  letter-spacing: var(--tracking-display);
+  text-wrap: balance;
+}
+/* Titres de cartes et de rubriques : petit corps, sans resserrement. */
+.case-card-title, .offer-item h3, .skill-group h3, .approach-item h3, .case-section h2 {
+  letter-spacing: var(--tracking-title);
+}
+
+p { margin: 0; text-wrap: pretty; }
+p + p { margin-top: 1em; }
+
+/* Titres découpés en mots (apparition mot à mot) et flèches qui glissent au survol :
+   des blocs en ligne, pour pouvoir être déplacés. */
+.w, .arrow { display: inline-block; }
+/* Sur les plus petits écrans, un mot plus large que sa ligne (police d'interface large) se coupe dans
+   sa boîte au lieu d'élargir la page : par une césure si le navigateur en connaît pour la langue, sinon
+   où il peut. Au-delà de 360 px tous les mots tiennent, et la règle reste éteinte : un navigateur qui
+   arrondirait mal la largeur d'un mot ne peut donc pas y couper un mot qui tient. */
+@media (max-width: 22.5rem) {
+  .w { -webkit-hyphens: auto; hyphens: auto; overflow-wrap: anywhere; }
+}
+
+a {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--border-strong);
+  text-underline-offset: 0.2em;
+}
+a:hover { text-decoration-color: currentColor; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Zone de l'en-tête réservée quand le navigateur amène à l'écran une ancre ou un élément du contenu
+   qui reçoit le focus. Pas de scroll-padding sur la page entière : il ferait défiler la page à chaque
+   focus posé dans l'en-tête collant. */
+[id], main a, main button, main [tabindex] { scroll-margin-top: calc(var(--header-h) + 1rem); }
+
+.vh {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 76rem;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Panneau : bloc arrondi posé sur le papier, un peu plus large que le texte courant. */
+.panel {
+  width: calc(100% - 2 * var(--edge));
+  max-width: 76rem;
+  margin-inline: auto;
+  padding: clamp(2.5rem, 7vw, 5rem) var(--gutter);
+  border-radius: var(--radius-xl);
+  background: var(--surface);
+}
+
+.skip-link {
+  position: absolute;
+  top: -5rem;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.6rem 1.1rem;
+  border-radius: 999px;
+  background: var(--text);
+  color: var(--bg);
+  font-weight: 600;
+  text-decoration: none;
+}
+.skip-link:focus { top: 0.75rem; }
+
+/* ---------- Panneau en dégradé (ouverture, contact) ---------- */
+
+.art {
+  --glow-h: clamp(5.5rem, 11vw, 8.5rem);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-bottom: calc(var(--glow-h) + 1rem);
+  background: linear-gradient(180deg, var(--art-top) 0%, var(--art-bottom) 100%);
+  color: var(--art-ink);
+  text-align: center;
+}
+/* Deux nappes de lueur, qui dérivent en sens contraire. Chacune s'éteint à 70 % de la hauteur
+   de la bande, et la dérive ne l'étire jamais de plus de 6 % : rien ne déborde sur le texte. */
+.art::before,
+.art::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: auto -12% 0;
+  height: var(--glow-h);
+  transform-origin: 50% 100%;
+}
+.art::before {
+  background: radial-gradient(ellipse 62% 72% at 50% 100%, rgba(var(--art-glow-3), 0.55) 0%, rgba(var(--art-glow-3), 0) 70%);
+}
+.art::after {
+  background:
+    radial-gradient(ellipse 42% 100% at 22% 100%, rgba(var(--art-glow-1), 0.95) 0%, rgba(var(--art-glow-1), 0.5) 32%, rgba(var(--art-glow-1), 0) 70%),
+    radial-gradient(ellipse 40% 92% at 79% 100%, rgba(var(--art-glow-2), 0.9) 0%, rgba(var(--art-glow-2), 0.42) 32%, rgba(var(--art-glow-2), 0) 70%);
+}
+.art :focus-visible { outline-color: var(--art-ink); }
+.art ::selection { background: var(--art-ink); color: #1b1b19; }
+
+/* ---------- En-tête : barre flottante ---------- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding: var(--edge) var(--edge) 0;
+  pointer-events: none;
+}
+/* Effacé quand on descend la page (classe posée par site.js), jamais pendant une navigation au clavier.
+   Un clic ou un toucher ne l'épingle pas. */
+.site-header.is-hidden { transform: translate3d(0, calc(-100% - 2.5rem), 0); }
+.site-header:has(:focus-visible) { transform: none; }
+
+.header-bar {
+  pointer-events: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "brand tools" "nav nav";
+  align-items: center;
+  column-gap: 1rem;
+  width: 100%;
+  max-width: 76rem;
+  margin-inline: auto;
+  padding: 0.5rem 0.5rem 0.5rem 1.125rem;
+  border: 1px solid var(--border);
+  border-radius: 1.125rem;
+  background: var(--bar-bg);
+  box-shadow: var(--shadow-bar);
+  -webkit-backdrop-filter: saturate(1.5) blur(14px);
+  backdrop-filter: saturate(1.5) blur(14px);
+}
+
+.brand {
+  grid-area: brand;
+  font-size: clamp(1rem, 0.25rem + 3.4vw, 1.125rem);
+  font-weight: var(--weight-display);
+  letter-spacing: var(--tracking-title);
+  line-height: 1.4;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.site-nav {
+  position: relative;
+  grid-area: nav;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.site-nav::-webkit-scrollbar { display: none; }
+.site-nav ul {
+  display: flex;
+  gap: 1.375rem;
+  margin: 0;
+  padding: 0.375rem 0 0;
+  list-style: none;
+  white-space: nowrap;
+}
+.site-nav a {
+  position: relative;
+  display: inline-block;
+  padding-block: 0.3rem;
+  color: var(--muted);
+  font-size: var(--step--1);
+  text-decoration: none;
+}
+/* Soulignement qui se trace de gauche à droite, et s'efface vers la droite. */
+.site-nav a::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0.125rem;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: 100% 50%;
+}
+.site-nav a:hover,
+.site-nav a[aria-current] { color: var(--text); }
+.site-nav a:hover::after,
+.site-nav a[aria-current]::after { transform: scaleX(1); transform-origin: 0 50%; }
+
+.header-tools {
+  grid-area: tools;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
+  padding: 0 0.875rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  font-size: var(--step--1);
+  line-height: 1.2;
+  text-decoration: none;
+}
+.lang-switch:hover { background: var(--text); border-color: var(--text); color: var(--bg); }
+/* Petits téléphones : le code de la langue remplace son nom à l'écran, pour que le nom du site tienne
+   en entier. Celui des deux qui n'est pas affiché reste lu (même masquage que .vh) : le libellé
+   accessible, « English EN », contient toujours le texte visible. */
+@media not all and (max-width: 24rem) {
+  .lang-code { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+}
+@media (max-width: 24rem) {
+  .lang-full { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+}
+
+.theme-toggle {
+  display: inline-grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+}
+.theme-toggle[hidden] { display: none; }
+.theme-toggle:hover { border-color: var(--border-strong); }
+.icon-moon { display: block; }
+.icon-sun { display: none; }
+:root[data-theme="dark"] .icon-sun { display: block; }
+:root[data-theme="dark"] .icon-moon { display: none; }
+
+@media (min-width: 64rem) {
+  :root { --header-h: 4.75rem; }
+  /* Les colonnes du nom et des outils ne descendent jamais sous leur contenu : si la place manque
+     (police d'interface large), c'est le menu qui cède et défile, sans que rien ne se chevauche. */
+  .header-bar {
+    grid-template-columns: minmax(max-content, 1fr) auto minmax(max-content, 1fr);
+    grid-template-areas: "brand nav tools";
+    min-height: 3.5rem;
+    padding: 0 0.625rem 0 1.375rem;
+  }
+  .site-nav ul { padding: 0; gap: 1.75rem; }
+  .header-tools { justify-self: end; }
+}
+
+/* ---------- Boutons, badges ---------- */
+
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0.55rem 1.5rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: var(--step--1);
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none;
+}
+/* Au survol, le libellé glisse à gauche et une flèche entre par la droite : la taille du bouton ne bouge pas. */
+.btn-label { display: inline-block; }
+.btn::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0.8125rem;
+  width: 0.8125rem;
+  height: 0.6875rem;
+  margin-top: -0.34375rem;
+  background: currentColor;
+  -webkit-mask: var(--arrow) center / contain no-repeat;
+  mask: var(--arrow) center / contain no-repeat;
+  opacity: var(--faint);
+  transform: translate3d(-0.375rem, 0, 0);
+}
+.btn:hover .btn-label,
+.btn:focus-visible .btn-label { transform: translate3d(-0.5625rem, 0, 0); }
+.btn:hover::after,
+.btn:focus-visible::after { opacity: 1; transform: none; }
+.btn-primary { background: var(--text); color: var(--bg); }
+.btn-primary:hover { background: var(--accent); color: var(--on-accent); }
+.btn-secondary { border-color: var(--border-strong); }
+.btn-secondary:hover { border-color: var(--text); background: var(--text); color: var(--bg); }
+
+.art .btn-primary { background: var(--art-ink); color: #1b1b19; }
+.art .btn-primary:hover { background: #ffffff; color: #1b1b19; }
+.art .btn-secondary { border-color: rgba(251, 249, 244, 0.72); color: var(--art-ink); }
+.art .btn-secondary:hover { border-color: var(--art-ink); background: var(--art-shade); color: var(--art-ink); }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.75rem 0.25rem 0.55rem;
+  border: 1px solid;
+  border-radius: 999px;
+  font-size: var(--step--2);
+  font-weight: 500;
+  line-height: 1.35;
+}
+.badge-mark { width: 0.75rem; height: 0.75rem; flex: none; }
+.badge--solo { background: var(--text); border-color: var(--text); color: var(--bg); }
+.badge--initiator { background: var(--accent-soft); border-color: var(--accent-soft); color: var(--accent); }
+.badge--contributor { background: transparent; border-color: var(--border-strong); border-style: dashed; color: var(--text); }
+
+/* ---------- Accueil : ouverture ---------- */
+
+.hero { padding-top: var(--edge); }
+.hero .panel { padding-top: clamp(3rem, 6vw, 4.5rem); }
+
+.kicker {
+  margin-bottom: 1.25rem;
+  font-size: var(--step--1);
+  letter-spacing: 0.01em;
+}
+
+.hero h1 {
+  max-width: 13.39em;
+  margin-inline: auto;
+  font-size: var(--display-xl);
+  line-height: 1.05;
+  letter-spacing: calc(var(--tracking-display) - 0.005em);
+}
+
+.hero-lead {
+  max-width: 40.15em;
+  margin: 1.5rem auto 0;
+  font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.125rem);
+  line-height: 1.55;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.availability {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+  padding: 0.4rem 1rem 0.4rem 0.8rem;
+  border-radius: 999px;
+  background: var(--art-shade);
+  font-size: var(--step--1);
+  line-height: 1.4;
+  text-align: left;
+}
+.status-dot {
+  position: relative;
+  flex: none;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: rgb(var(--art-glow-1));
+  box-shadow: 0 0 0 4px rgba(var(--art-glow-1), 0.25);
+}
+.status-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgb(var(--art-glow-1));
+  opacity: var(--faint);
+}
+
+/* ---------- Chiffres clés ---------- */
+
+.figures-band { padding-block: clamp(3rem, 8vw, 5.5rem) clamp(1rem, 3vw, 2rem); }
+
+.figures {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0 2.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.figure {
+  padding: 1.375rem 0 2rem;
+  border-top: 1px solid var(--border-strong);
+}
+.figure-value {
+  font-family: var(--font-display);
+  font-size: var(--display-l);
+  font-weight: var(--weight-display);
+  font-variant-numeric: lining-nums;
+  letter-spacing: var(--tracking-display);
+  line-height: 1.05;
+}
+.figure-value .vh { -webkit-user-select: none; user-select: none; }
+/* Pendant le comptage, des chiffres de même largeur : le nombre ne tremble pas. Au repos, ceux de la
+   police, plus serrés. Entre les deux, site.js pose chaque chiffre dans une case (.digit) que la
+   rubrique Mouvement resserre en douceur, au lieu d'un saut. */
+.figure-num[data-counting] { font-variant-numeric: lining-nums tabular-nums; }
+.figure-num .digit { display: inline-block; text-align: center; }
+.figure p.figure-label {
+  max-width: 21.35em;
+  margin-top: 0.75rem;
+  line-height: 1.45;
+}
+.figure p.figure-detail {
+  max-width: 25.2em;
+  margin-top: 0.5rem;
+  color: var(--muted);
+  font-size: var(--step--1);
+  line-height: 1.5;
+}
+
+@media (min-width: 36rem) {
+  .figures { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 62rem) {
+  .figures { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 3rem; }
+}
+
+/* ---------- Sections de l'accueil ---------- */
+
+.section { padding-block: clamp(3rem, 7vw, 5.25rem); }
+.section--panel, .section--cta { padding-block: clamp(1.5rem, 4vw, 2.75rem); }
+
+.section-head {
+  max-width: 46rem;
+  margin-bottom: clamp(2rem, 5vw, 3.25rem);
+}
+.section-index {
+  margin-bottom: 1rem;
+  color: var(--muted);
+  font-size: var(--step--2);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.1em;
+}
+.section-head h2 { font-size: var(--display-l); line-height: 1.06; }
+.section-head p.section-intro {
+  max-width: 36.35em;
+  margin-top: 1.25rem;
+  color: var(--muted);
+  font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.1875rem);
+  line-height: 1.55;
+}
+
+/* Études de cas */
+
+.role-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.625rem;
+  margin: 0 0 1.75rem;
+  padding: 0;
+  list-style: none;
+}
+
+.case-list {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.case-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: clamp(1.375rem, 3vw, 2rem);
+  border-radius: var(--radius-l);
+  background: var(--surface);
+}
+.case-card:hover { box-shadow: var(--shadow-lift); }
+
+.case-card-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+}
+.case-num {
+  color: var(--muted);
+  font-size: var(--step--1);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.06em;
+}
+
+.case-card-title {
+  font-size: var(--display-s);
+  line-height: 1.18;
+}
+.card-link { text-decoration: none; }
+/* Le lien couvre toute la carte et reste au-dessus de son contenu, même pendant que celui-ci
+   s'anime (un élément en cours d'animation passerait sinon devant, et le clic ne suivrait plus le lien). */
+.card-link::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  border-radius: var(--radius-l);
+}
+.card-link:focus-visible { outline: none; }
+.card-link:focus-visible::after { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.case-card-summary { color: var(--muted); line-height: 1.6; }
+
+.case-card-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  margin-top: auto;
+  padding-top: 0.75rem;
+}
+.case-card-period {
+  flex: 1 1 12rem;
+  color: var(--muted);
+  font-size: var(--step--2);
+  line-height: 1.5;
+}
+.case-card-more {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.125rem;
+  padding: 0 0.95rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  font-size: var(--step--2);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.case-card:hover .case-card-more { background: var(--text); border-color: var(--text); color: var(--bg); }
+.case-card:hover .arrow,
+.case-card:focus-within .arrow,
+.pager-next:hover .arrow,
+.pager-next:focus-visible .arrow { transform: translate3d(0.25rem, 0, 0); }
+.crumb a:hover .arrow,
+.crumb a:focus-visible .arrow,
+.pager-prev:hover .arrow,
+.pager-prev:focus-visible .arrow { transform: translate3d(-0.25rem, 0, 0); }
+
+@media (min-width: 52rem) {
+  .case-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
+}
+
+/* Prestations */
+
+.offer-list {
+  display: grid;
+  gap: 0 3rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.offer-item {
+  padding: 1.5rem 0 2.25rem;
+  border-top: 1px solid var(--border);
+}
+.offer-item h3 { max-width: 16.8em; font-size: var(--display-s); line-height: 1.18; }
+.offer-item p.offer-text { max-width: 36.42em; margin-top: 0.875rem; color: var(--muted); }
+.offer-item p.offer-cases {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.375rem;
+  margin-top: 1.125rem;
+  font-size: var(--step--2);
+}
+.offer-cases-label { margin-right: 0.375rem; color: var(--muted); }
+.case-chip {
+  display: inline-grid;
+  place-items: center;
+  min-width: 2.5rem;
+  min-height: 2rem;
+  padding: 0 0.625rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  text-decoration: none;
+}
+.case-chip:hover { background: var(--text); border-color: var(--text); color: var(--bg); }
+
+@media (min-width: 52rem) {
+  .offer-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* Compétences */
+
+.skill-groups { column-gap: 1.25rem; }
+.skill-group {
+  break-inside: avoid;
+  margin-bottom: 1.25rem;
+  padding: clamp(1.375rem, 3vw, 1.875rem);
+  border-radius: var(--radius-l);
+  background: var(--surface);
+}
+.skill-group h3 { font-size: var(--display-s); line-height: 1.18; }
+.skill-list { margin: 0.875rem 0 0; padding: 0; list-style: none; }
+.skill-list li {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.875rem 0;
+  border-top: 1px solid var(--border);
+}
+.skill-list li:last-child { padding-bottom: 0; }
+.skill-name { line-height: 1.5; }
+.skill-proof { color: var(--muted); font-size: var(--step--1); line-height: 1.5; }
+
+@media (min-width: 52rem) {
+  .skill-groups { columns: 2; }
+}
+
+/* Méthode */
+
+.approach-grid { display: grid; gap: 0 3rem; }
+.approach-item { padding: 1.5rem 0 2.25rem; border-top: 1px solid var(--border-strong); }
+.approach-item h3 { margin-bottom: 0.875rem; font-size: var(--display-s); line-height: 1.18; }
+.approach-item p { max-width: 38.93em; color: var(--muted); }
+
+@media (min-width: 52rem) {
+  .approach-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* À propos : titre à gauche, texte à droite sur écran large */
+
+@media (min-width: 60rem) {
+  .section--split > .wrap {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    column-gap: 3rem;
+    align-items: start;
+  }
+  .section--split .section-head { margin-bottom: 0; }
+}
+
+.about-text { max-width: 50rem; }
+.about-text p { max-width: var(--measure); color: var(--muted); }
+.about-text p:first-child {
+  max-width: none;
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: var(--display-m);
+  font-weight: var(--weight-display);
+  font-variant-numeric: lining-nums;
+  letter-spacing: var(--tracking-title);
+  line-height: 1.22;
+}
+.about-text p:first-child + p { margin-top: 1.75rem; }
+
+/* Contact : second panneau en dégradé */
+
+.section--cta .section-head { margin-inline: auto; margin-bottom: 1.5rem; }
+.section--cta .section-index { color: inherit; }
+.contact-text {
+  max-width: 30.05em;
+  margin-inline: auto;
+  font-size: clamp(1.0625rem, 1rem + 0.4vw, 1.25rem);
+  line-height: 1.55;
+}
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 2rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.art .contact-links .btn-secondary { background: var(--art-ink); border-color: var(--art-ink); color: #1b1b19; }
+.art .contact-links .btn-secondary:hover { background: #ffffff; border-color: #ffffff; color: #1b1b19; }
+
+.draft-notice {
+  max-width: 34rem;
+  margin: 2rem auto 0;
+  padding: 0.875rem 1.25rem;
+  border: 1px dashed rgba(251, 249, 244, 0.6);
+  border-radius: var(--radius);
+  background: var(--art-shade);
+  font-size: var(--step--1);
+  text-align: left;
+}
+.draft-title { font-weight: 600; }
+.draft-notice ul { margin: 0.375rem 0 0; padding-left: 1.25rem; }
+
+/* ---------- Pied de page ---------- */
+
+.site-footer {
+  padding-block: 2.25rem 3rem;
+  color: var(--muted);
+  font-size: var(--step--1);
+}
+.footer-inner {
+  display: grid;
+  gap: 0.75rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+.footer-inner p + p { margin-top: 0; }
+.footer-author {
+  color: var(--text);
+  font-size: 1.125rem;
+  font-weight: var(--weight-display);
+  letter-spacing: var(--tracking-title);
+  line-height: 1.3;
+}
+.footer-note { max-width: 44.09em; }
+.footer-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.625rem 1.25rem;
+}
+/* Bouton à deux états : pastille vide = animations actives, pastille pleine = animations réduites. */
+.motion-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.25rem;
+  padding: 0 0.875rem 0 0.75rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: 1.2;
+  cursor: pointer;
+}
+.motion-toggle[hidden] { display: none; }
+.motion-toggle::before {
+  content: "";
+  flex: none;
+  width: 0.5rem;
+  height: 0.5rem;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+}
+.motion-toggle:hover,
+.motion-toggle[aria-pressed="true"] { border-color: var(--text); color: var(--text); }
+.motion-toggle[aria-pressed="true"]::before { background: currentColor; }
+/* Inutile quand le système demande déjà moins de mouvement : tout est alors à l'arrêt. */
+@media (prefers-reduced-motion: reduce) {
+  .motion-toggle { display: none; }
+}
+
+@media (min-width: 52rem) {
+  .footer-inner {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: baseline;
+    column-gap: 2.5rem;
+  }
+}
+
+/* ---------- Page d'étude de cas ---------- */
+
+.case { padding-block: clamp(1.75rem, 5vw, 3rem) clamp(3rem, 8vw, 5rem); }
+
+.crumb { margin-bottom: clamp(2.25rem, 6vw, 4rem); font-size: var(--step--1); }
+.crumb a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2.25rem;
+  padding: 0 1rem 0 0.875rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  text-decoration: none;
+}
+.crumb a:hover { background: var(--text); border-color: var(--text); color: var(--bg); }
+
+.case-index {
+  margin-bottom: 1.25rem;
+  color: var(--muted);
+  font-size: var(--step--1);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+}
+
+.case-head h1 {
+  max-width: 17.25em;
+  font-size: clamp(1.75rem, 1.05rem + 3.5vw, 3.5rem);
+  line-height: 1.06;
+}
+.case-head p.case-lead {
+  max-width: 37.57em;
+  margin-top: 1.75rem;
+  color: var(--muted);
+  font-size: clamp(1.0625rem, 1rem + 0.4vw, 1.25rem);
+  line-height: 1.55;
+}
+
+.facts {
+  display: grid;
+  gap: 1.5rem 3rem;
+  margin: clamp(2rem, 5vw, 3rem) 0 0;
+  padding: clamp(1.375rem, 3vw, 2rem);
+  border-radius: var(--radius-l);
+  background: var(--surface);
+}
+.fact dt {
+  margin-bottom: 0.5rem;
+  color: var(--muted);
+  font-size: var(--step--2);
+  letter-spacing: 0.02em;
+}
+.fact dd { margin: 0; }
+.fact-period dd { line-height: 1.5; }
+.fact-role p { max-width: 38.93em; margin-top: 0.875rem; }
+
+@media (min-width: 52rem) {
+  .facts { grid-template-columns: minmax(0, 17rem) minmax(0, 1fr); }
+}
+
+/* Rubriques : libellé en serif à gauche, contenu à droite sur écran large. */
+.case-body { margin-top: clamp(2.5rem, 6vw, 4rem); }
+.case-section {
+  display: grid;
+  gap: 1rem 3rem;
+  min-width: 0;
+  padding-block: clamp(1.75rem, 4vw, 2.5rem);
+  border-top: 1px solid var(--border);
+}
+.case-section h2 { font-size: var(--display-s); line-height: 1.18; }
+.case-section > :not(h2) { min-width: 0; max-width: var(--measure); }
+
+@media (min-width: 60rem) {
+  .case-section { grid-template-columns: 14rem minmax(0, 1fr); }
+}
+
+.action-list { margin: 0; padding: 0; list-style: none; counter-reset: step; }
+.action-list li {
+  position: relative;
+  padding: 0.875rem 0 0.875rem 3rem;
+  border-top: 1px solid var(--border);
+  counter-increment: step;
+}
+.action-list li:first-child { padding-top: 0; border-top: 0; }
+.action-list li:last-child { padding-bottom: 0; }
+.action-list li::before {
+  content: counter(step, decimal-leading-zero);
+  position: absolute;
+  top: 0.875rem;
+  left: 0;
+  color: var(--muted);
+  font-variant-numeric: lining-nums tabular-nums;
+  font-weight: var(--weight-display);
+}
+.action-list li:first-child::before { top: 0; }
+
+.tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
+.tags li {
+  padding: 0.3rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  font-size: var(--step--2);
+  line-height: 1.5;
+}
+
+.case-section.case-diagram > .diagram { max-width: none; }
+.diagram { margin: 0; }
+.diagram-scroll {
+  overflow-x: auto;
+  padding: clamp(0.875rem, 2.5vw, 1.75rem);
+  border-radius: var(--radius-l);
+  background: var(--diagram-canvas);
+}
+.diagram-scroll svg {
+  display: block;
+  width: 100%;
+  max-width: 55rem;
+  min-width: 40rem;
+  height: auto;
+  margin-inline: auto;
+  font-family: var(--font-sans);
+}
+.diagram figcaption {
+  max-width: var(--measure);
+  margin-top: 1rem;
+  color: var(--muted);
+  font-size: var(--step--1);
+  line-height: 1.55;
+}
+.diagram-title { display: block; margin-bottom: 0.125rem; color: var(--text); font-weight: 600; }
+
+.case-section.case-result,
+.case-section.case-note {
+  /* Le panneau déborde dans la marge : son texte reste aligné sur celui des autres rubriques. */
+  margin: 0.75rem calc(-1 * var(--inset));
+  padding-inline: var(--inset);
+  border-top: 0;
+  border-radius: var(--radius-l);
+}
+.case-result { background: var(--accent-soft); }
+.case-result p { font-size: clamp(1.0625rem, 1rem + 0.4vw, 1.25rem); line-height: 1.5; }
+.case-note { background: var(--surface-2); }
+.case-section.case-result + .case-section,
+.case-section.case-note + .case-section { border-top: 0; }
+
+.pager {
+  display: grid;
+  gap: 1rem;
+  margin-top: clamp(2.5rem, 7vw, 4.5rem);
+}
+.pager-link {
+  display: block;
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+  border-radius: var(--radius-l);
+  background: var(--surface);
+  text-decoration: none;
+}
+.pager-link:hover { box-shadow: var(--shadow-lift); }
+.pager-dir {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--muted);
+  font-size: var(--step--2);
+  letter-spacing: 0.02em;
+}
+.pager-title {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--display-s);
+  font-weight: var(--weight-display);
+  letter-spacing: var(--tracking-title);
+  line-height: 1.2;
+}
+
+@media (min-width: 44rem) {
+  .pager { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
+  .pager-next { grid-column: 2; text-align: right; }
+}
+
+/* ---------- 404 ---------- */
+
+.notfound { padding-block: clamp(4rem, 12vw, 8rem); text-align: center; }
+.notfound h1 { font-size: var(--display-xl); line-height: 1.05; }
+.notfound h2 { font-size: var(--display-m); }
+.notfound p { max-width: 32.65em; margin: 1rem auto 0; color: var(--muted); }
+.notfound p.notfound-action { margin-top: 1.75rem; }
+.notfound-alt { margin-top: 3.5rem; padding-top: 2.5rem; border-top: 1px solid var(--border); }
+
+/* ---------- Mouvement ----------
+   Quatre familles :
+   1. entrée de page, en CSS seul, jouée la première fois qu'une page s'ouvre dans un onglet ;
+   2. apparition au défilement : site.js pose .reveal-wait sur les blocs situés sous la fenêtre,
+      puis .reveal-in quand ils y entrent ; les tuiles se redressent, leur contenu suit dans l'ordre ;
+   3. effets liés au défilement (l'ouverture recule, les panneaux avancent), là où le navigateur le permet ;
+   4. pointeur : une lumière suit la souris sur les tuiles, les cartes cliquables penchent vers elle,
+      la lueur des panneaux s'en écarte.
+   Rien ne joue à l'impression, ni quand le système ou le visiteur demande moins de mouvement, sauf la
+   lumière sous le pointeur, qui n'est pas un mouvement. Sans JavaScript, aucun bloc n'est masqué.
+   Rien n'attend à l'opacité 0 : sur iPhone, Safari peut ignorer un toucher pendant qu'un lien passe de
+   l'invisible au visible. Ce qui attend est à un millième d'opacité (--faint).
+   Au repos, rien n'est en 3D : une tuile ne l'est que le temps de se redresser ou de pencher. */
+
+@keyframes rise-in { from { opacity: var(--faint); transform: translate3d(0, 1.5rem, 0); } }
+@keyframes word-in { from { opacity: var(--faint); transform: translate3d(0, 100%, 0); } }
+@keyframes fade-in { from { opacity: var(--faint); } }
+/* Le panneau d'ouverture arrive couché en arrière et se redresse face au visiteur. L'axe de bascule,
+   le bord bas, est posé par la règle qui lance l'animation : les images clés ne portent que l'opacité
+   et la transformation, que le navigateur anime sans repeindre. */
+@keyframes hero-stand {
+  from { opacity: var(--faint); transform: perspective(110rem) rotateX(15deg) scale(0.965); }
+}
+/* Une tuile se redresse depuis son bord bas : elle ne dépasse jamais sa propre largeur. */
+@keyframes tile-stand {
+  from { transform: perspective(70rem) rotateX(20deg); }
+}
+@keyframes title-shine { from { background-position: 100% 0; } to { background-position: 0 0; } }
+@keyframes glow-drift {
+  from { transform: translate3d(-5%, 0, 0) scaleY(0.92); }
+  to { transform: translate3d(5%, 0, 0) scaleY(1.04); }
+}
+@keyframes glow-drift-back {
+  from { transform: translate3d(6%, 0, 0) scaleY(1.06); }
+  to { transform: translate3d(-6%, 0, 0) scaleY(0.94); }
+}
+@keyframes dot-ping {
+  0% { opacity: 0.55; transform: scale(1); }
+  70%, 100% { opacity: 0; transform: scale(3.4); }
+}
+@keyframes hero-recede { to { scale: 0.93; } }
+@keyframes panel-advance { from { scale: 0.94; } }
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+
+  /* Changement de page et de thème : fondu enchaîné, dans les navigateurs qui gèrent les transitions de vue. */
+  @view-transition { navigation: auto; }
+  ::view-transition-old(root),
+  ::view-transition-new(root) { animation-duration: 0.45s; animation-timing-function: var(--ease-hover); }
+
+  /* Survols */
+  .btn, .case-chip, .lang-switch, .theme-toggle, .motion-toggle, .crumb a, .case-card-more, .site-nav a {
+    transition: border-color 0.3s var(--ease-hover), background-color 0.3s var(--ease-hover), color 0.3s var(--ease-hover);
+  }
+  .btn-label, .btn::after { transition: transform 0.45s var(--ease-hover), opacity 0.3s var(--ease-hover); }
+  .arrow { transition: transform 0.45s var(--ease-hover); }
+  .site-nav a::after { transition: transform 0.5s var(--ease-out); }
+  .case-card, .pager-link { transition: box-shadow 0.45s var(--ease-hover), transform 0.45s var(--ease-hover); }
+  .case-card:hover, .pager-link:hover { transform: translate3d(0, -3px, 0); }
+
+  .site-header { transition: transform 0.55s var(--ease-out); }
+
+  /* Lueur vivante, qui s'écarte du pointeur (--gx, posé par site.js), et pastille de disponibilité.
+     Dérive et écart cumulés restent sous la marge de 12 % que la lueur garde de chaque côté. */
+  .art::before {
+    animation: glow-drift-back 26s ease-in-out infinite alternate;
+    translate: calc(var(--gx, 0) * -4%) 0;
+    transition: translate 1.4s var(--ease-out);
+  }
+  .art::after {
+    animation: glow-drift 18s ease-in-out infinite alternate;
+    translate: calc(var(--gx, 0) * -7%) 0;
+    transition: translate 1.1s var(--ease-out);
+  }
+  .status-dot::after { animation: dot-ping 2.8s cubic-bezier(0, 0, 0.2, 1) 1.8s infinite; }
+  /* Fin du comptage d'un chiffre clé : chaque chiffre passe de la largeur commune à la sienne
+     (durée reprise dans site.js, SETTLE_MS). */
+  .figure-num[data-settling] .digit { transition: width 0.35s var(--ease-out); }
+
+  /* 1. Entrée de page : le panneau d'ouverture se redresse, les éléments du haut de page montent l'un
+     après l'autre, le titre mot à mot, la lueur se lève, les chiffres clés suivent. Jouée une seule
+     fois : la classe .entered sur <html> la désactive. Elle est posée avant le premier rendu quand la
+     page a déjà été vue dans cet onglet (script en ligne), sinon par site.js une fois l'entrée passée. */
+  :root:not(.entered) .art::before { animation: fade-in 2.4s var(--ease-out) 0.3s backwards, glow-drift-back 26s ease-in-out infinite alternate; }
+  :root:not(.entered) .art::after { animation: fade-in 2.4s var(--ease-out) 0.3s backwards, glow-drift 18s ease-in-out infinite alternate; }
+  :root:not(.entered) .hero { transform-origin: 50% 100%; animation: hero-stand 1.2s var(--ease-out) backwards; }
+  :root:not(.entered) :is(.hero .kicker, .hero-lead, .hero-actions, .availability, .figures-band,
+  .crumb, .case-index, .case-lead, .facts,
+  .notfound h1, .notfound h1 ~ p, .notfound-alt) {
+    animation: rise-in 1.1s var(--ease-out) var(--enter, 0ms) backwards;
+  }
+  :root:not(.entered) :is(.hero h1, .case-head h1) .w {
+    animation: word-in 1.2s var(--ease-out) backwards;
+    animation-delay: calc(var(--i) * var(--step, 45ms) + var(--enter, 0ms));
+  }
+  .hero .kicker { --enter: 120ms; }
+  .hero h1 { --enter: 220ms; }
+  .hero-lead { --enter: 620ms; }
+  .hero-actions { --enter: 760ms; }
+  .availability { --enter: 900ms; }
+  .figures-band { --enter: 1000ms; }
+  .case-index { --enter: 100ms; }
+  .case-head h1 { --enter: 160ms; }
+  .case-lead { --enter: 520ms; }
+  .facts { --enter: 660ms; }
+  .notfound h1 { --enter: 80ms; }
+  .notfound h1 ~ p { --enter: 220ms; }
+  .notfound-alt { --enter: 380ms; }
+
+  /* 2. Apparition au défilement */
+  .reveal-wait {
+    opacity: var(--faint);
+    transform: translate3d(0, 1.5rem, 0);
+    will-change: opacity, transform;
+  }
+  .reveal-wait[data-reveal="focus"] { filter: blur(12px); transform: translate3d(0, 1rem, 0); }
+  /* Tuile : sa montée passe par « translate », pour laisser « transform » à l'animation qui la redresse. */
+  .reveal-wait[data-reveal="tile"] { transform: none; translate: 0 1.5rem; }
+  .reveal-wait:focus-within { opacity: 1; transform: none; translate: none; filter: none; }
+  .reveal-wait.reveal-in {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition:
+      opacity 1.1s var(--ease-out) var(--reveal-delay, 0ms),
+      transform 1.1s var(--ease-out) var(--reveal-delay, 0ms),
+      filter 1.3s var(--ease-out) var(--reveal-delay, 0ms);
+  }
+  /* Tuile (carte, lien de pagination) : elle se redresse depuis son bord bas en arrivant, puis ce
+     qu'elle contient monte dans l'ordre. */
+  .reveal-wait.reveal-in[data-reveal="tile"] {
+    translate: none;
+    transform-origin: 50% 100%;
+    transition:
+      opacity 1s var(--ease-out) var(--reveal-delay, 0ms),
+      translate 1s var(--ease-out) var(--reveal-delay, 0ms);
+    animation: tile-stand 1s var(--ease-out) var(--reveal-delay, 0ms) backwards;
+  }
+  .reveal-in[data-reveal="tile"] > * {
+    animation: rise-in 0.9s var(--ease-out) backwards;
+    animation-delay: calc(var(--reveal-delay, 0ms) + 180ms);
+  }
+  .reveal-in[data-reveal="tile"] > :nth-child(2) { animation-delay: calc(var(--reveal-delay, 0ms) + 250ms); }
+  .reveal-in[data-reveal="tile"] > :nth-child(3) { animation-delay: calc(var(--reveal-delay, 0ms) + 320ms); }
+  .reveal-in[data-reveal="tile"] > :nth-child(n+4) { animation-delay: calc(var(--reveal-delay, 0ms) + 390ms); }
+  /* Le titre d'une carte arrive avec elle, sans animation propre : il porte le lien étiré sur toute la
+     carte. Transformé, il en deviendrait le repère ; même en simple fondu, il le retiendrait sous le
+     reste du contenu, et le clic ne suivrait plus le lien le temps de l'arrivée. */
+  .reveal-in[data-reveal="tile"] > .case-card-title { animation: none; }
+  /* Une tuile qui a déjà le focus (navigation au clavier) est montrée telle quelle : rejouer son
+     arrivée ferait disparaître un instant le lien actif et son contour. */
+  .reveal-in[data-reveal="tile"]:focus-within,
+  .reveal-in[data-reveal="tile"]:focus-within > * { animation: none; }
+  /* En-tête de rubrique : le bloc reste en place, son numéro, les mots du titre puis le chapeau arrivent tour à tour. */
+  .reveal-wait[data-reveal="head"] { opacity: 1; transform: none; will-change: auto; }
+  .reveal-wait[data-reveal="head"] > :not(h2),
+  .reveal-wait[data-reveal="head"] .w { opacity: var(--faint); }
+  .reveal-wait[data-reveal="head"] > :not(h2) { transform: translate3d(0, 1.25rem, 0); }
+  .reveal-wait[data-reveal="head"] .w { transform: translate3d(0, 100%, 0); }
+  .reveal-in[data-reveal="head"] > :not(h2),
+  .reveal-in[data-reveal="head"] .w {
+    opacity: 1;
+    transform: none;
+    transition: opacity 1.1s var(--ease-out) var(--reveal-delay, 0ms), transform 1.2s var(--ease-out) var(--reveal-delay, 0ms);
+  }
+  .reveal-in[data-reveal="head"] .w { transition-delay: calc(var(--i) * var(--step, 45ms) + 70ms + var(--reveal-delay, 0ms)); }
+  .reveal-in[data-reveal="head"] > .section-intro { transition-delay: calc(280ms + var(--reveal-delay, 0ms)); }
+}
+
+/* Une lumière traverse le titre de l'ouverture, mot après mot, une fois les mots posés. Le texte est
+   alors peint par un dégradé : jamais en contrastes forcés, où les fonds disparaissent. */
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  @media screen and (prefers-reduced-motion: no-preference) and (forced-colors: none) {
+    :root:not(.entered) .hero h1 .w {
+      /* La boîte du mot déborde un peu de ses lettres (marge négative rendue en remplissage, mise en page
+         inchangée) : sans cela le dégradé rogne les jambages et le bord de la dernière lettre. */
+      margin: -0.14em -0.08em;
+      padding: 0.14em 0.08em;
+      background: linear-gradient(100deg, currentColor 42%, rgb(var(--art-glow-1)) 50%, currentColor 58%) 100% 0 / 320% 100% no-repeat;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: word-in 1.2s var(--ease-out) backwards, title-shine 1s ease-in-out backwards;
+      animation-delay: calc(var(--i) * var(--step, 45ms) + var(--enter, 0ms)), calc(var(--i) * 60ms + 1500ms);
+    }
+  }
+}
+
+/* 3. Effets liés au défilement : l'ouverture recule en quittant l'écran, les autres panneaux prennent
+   leur taille en y entrant. Seule l'échelle est animée : le navigateur n'a rien à repeindre. */
+@supports (animation-timeline: view()) {
+  @media screen and (prefers-reduced-motion: no-preference) {
+    .hero .art {
+      animation: hero-recede linear both;
+      animation-timeline: view(block);
+      animation-range: exit 0% exit 80%;
+    }
+    .section--panel > .panel,
+    .section--cta > .panel {
+      animation: panel-advance linear both;
+      animation-timeline: view(block);
+      animation-range: entry 0% cover 30%;
+    }
+  }
+}
+
+/* 4. Pointeur, à la souris seulement. Deux lumières suivent la souris sur une tuile (--mx et --my,
+   posés par site.js) : une lueur douce sous le contenu, un trait le long du bord, au plus près du
+   pointeur. Ce n'est pas un mouvement : elles restent pour qui demande moins d'animations. Sur un
+   écran tactile, qui n'a pas de pointeur à suivre, rien n'est dessiné. */
+@media (hover: hover) and (pointer: fine) {
+  .case-card, .pager-link, .skill-group, .facts { isolation: isolate; }
+  .pager-link, .skill-group, .facts { position: relative; }
+  :is(.case-card, .pager-link, .skill-group, .facts)::before,
+  :is(.case-card, .pager-link, .skill-group, .facts)::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: var(--faint);
+    transition: opacity 0.35s ease;
+  }
+  :is(.case-card, .pager-link, .skill-group, .facts)::before {
+    z-index: -1;
+    background: radial-gradient(22rem circle at var(--mx, 50%) var(--my, 50%), var(--tile-glow), transparent 70%);
+  }
+  :is(.case-card, .pager-link, .skill-group, .facts)::after {
+    padding: 1.5px;
+    background: radial-gradient(15rem circle at var(--mx, 50%) var(--my, 50%), var(--tile-edge), var(--tile-edge-soft) 35%, transparent 70%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask-composite: exclude;
+  }
+  :is(.case-card, .pager-link, .skill-group, .facts):hover::before,
+  :is(.case-card, .pager-link, .skill-group, .facts):hover::after { opacity: 1; }
+}
+
+/* Les cartes cliquables penchent vers le pointeur, en plus de se soulever (classe .leaning et angles
+   --lean-x, --lean-y posés par site.js, jamais pendant une apparition ni sous l'en-tête collant). */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .case-card.leaning:hover,
+  .pager-link.leaning:hover {
+    transform: perspective(60rem) rotateX(var(--lean-x, 0deg)) rotateY(var(--lean-y, 0deg)) translate3d(0, -3px, 0);
+  }
+}
+
+/* Changement de thème : les transitions de couleur des boutons ne traînent pas derrière le reste de la page. */
+:root[data-theme-switching] *,
+:root[data-theme-switching] *::before,
+:root[data-theme-switching] *::after { transition: none !important; }
+
+/* Bouton « Réduire les animations » du pied de page : même effet que le réglage du système. */
+:root[data-motion="off"] { scroll-behavior: auto; }
+:root[data-motion="off"] *,
+:root[data-motion="off"] *::before,
+:root[data-motion="off"] *::after {
+  animation: none !important;
+  transition: none !important;
+}
+:root[data-motion="off"]::view-transition-group(*),
+:root[data-motion="off"]::view-transition-old(*),
+:root[data-motion="off"]::view-transition-new(*) { animation: none !important; }
+:root[data-motion="off"] .site-header,
+:root[data-motion="off"] .case-card:hover,
+:root[data-motion="off"] .pager-link:hover { transform: none; }
+:root[data-motion="off"] .art::before,
+:root[data-motion="off"] .art::after { translate: none; }
+:root[data-motion="off"] .reveal-wait,
+:root[data-motion="off"] .reveal-wait[data-reveal="head"] > *,
+:root[data-motion="off"] .reveal-wait .w {
+  opacity: 1 !important;
+  transform: none !important;
+  translate: none !important;
+  filter: none !important;
+}
+
+/* Contrastes forcés : les décors tracés en couleur de fond disparaissent, on s'en passe. */
+@media (forced-colors: active) {
+  .btn::after, .site-nav a::after, .status-dot::after,
+  :is(.case-card, .pager-link, .skill-group, .facts)::before,
+  :is(.case-card, .pager-link, .skill-group, .facts)::after { display: none; }
+  .btn:hover .btn-label, .btn:focus-visible .btn-label { transform: none; }
+  .site-nav a[aria-current] { text-decoration: underline; }
+  /* L'état du bouton de mouvement tient à sa pastille : elle garde son remplissage. */
+  .motion-toggle[aria-pressed="true"]::before { forced-color-adjust: none; border-color: ButtonText; background: ButtonText; }
+}
+
+/* ---------- Impression (pensée pour les études de cas) ---------- */
+
+@media print {
+  :root {
+    --bg: #ffffff !important;
+    --surface: #ffffff !important;
+    --surface-2: #f3f3f3 !important;
+    --text: #000000 !important;
+    --muted: #333333 !important;
+    --border: #bbbbbb !important;
+    --border-strong: #888888 !important;
+    --accent: #2f5068 !important;
+    --accent-soft: #eef2f4 !important;
+    --on-accent: #ffffff !important;
+    --diagram-canvas: #ffffff !important;
+    --diagram-fg: #000000 !important;
+    --diagram-muted: #333333 !important;
+    --diagram-surface: #ffffff !important;
+    --diagram-border: #777777 !important;
+    --diagram-accent: #2f5068 !important;
+    --diagram-accent-soft: #eef2f4 !important;
+    color-scheme: light !important;
+  }
+  @page { margin: 16mm 15mm; }
+  body { font-size: 10.5pt; line-height: 1.5; }
+  .skip-link, .site-header, .site-footer, .crumb, .pager, .theme-toggle, .motion-toggle { display: none !important; }
+  .wrap { max-width: none; padding-inline: 0; }
+  .panel { width: auto; max-width: none; padding: 0; border-radius: 0; }
+  .art { background: none; color: #000000; padding-bottom: 0; }
+  .art::before, .art::after, .btn::after, .status-dot::after,
+  :is(.case-card, .pager-link, .skill-group, .facts)::before,
+  :is(.case-card, .pager-link, .skill-group, .facts)::after { display: none; }
+  .case-card, .pager-link { transform: none !important; }
+  .case { padding-block: 0; }
+  .case-head h1 { max-width: none; font-size: 20pt; }
+  .case-head p.case-lead { font-size: 12pt; }
+  .facts { padding: 0; }
+  .case-body { margin-top: 1.25rem; }
+  .case-section { display: block; padding-block: 0.6rem; }
+  .case-section > :not(h2) { max-width: none; }
+  .case-section h2 { margin-bottom: 0.4rem; font-size: 13pt; }
+  .case-section.case-result, .case-section.case-note { margin-block: 0.4rem; padding: 0.6rem 0.8rem; border: 1px solid #bbbbbb; }
+  a { color: inherit; text-decoration: none; }
+  .case-section a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.85em; }
+  .badge { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .diagram-scroll { overflow: visible; padding: 0; }
+  .diagram-scroll svg { min-width: 0 !important; max-width: 100%; }
+  .diagram, .facts, .action-list li, .case-note, .case-result { break-inside: avoid; }
+  h1, h2, h3 { break-after: avoid; }
+}

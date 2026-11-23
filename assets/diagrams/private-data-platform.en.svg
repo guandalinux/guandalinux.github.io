@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 610" width="880" height="610" role="img" aria-labelledby="private-data-platform-title private-data-platform-desc" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" lang="en">
+<title id="private-data-platform-title">Private-network data platform on Azure</title>
+<desc id="private-data-platform-desc">From the internal network, users reach the Azure data services (Data Factory, Data Lake Gen2 storage, Synapse, a search service, the Purview catalog) through the VPN and private endpoints placed in a virtual network. DNS resolution is hybrid: the corporate DNS forwards the services' suffixes to a DNS forwarder in the virtual network, which queries the Azure-provided DNS and its Private DNS zones. Network and services are defined in Terraform.</desc>
+<style>
+.dg-fg{fill:var(--diagram-fg,#1c2330)}
+.dg-mu{fill:var(--diagram-muted,#5b6676)}
+.dg-box{fill:var(--diagram-surface,#ffffff);stroke:var(--diagram-border,#c4ccd8);stroke-width:1.5}
+.dg-acc{fill:var(--diagram-accent-soft,#e6effc);stroke:var(--diagram-accent,#2a6fdb);stroke-width:2}
+.dg-zone{fill:none;stroke:var(--diagram-border,#c4ccd8);stroke-width:1.5;stroke-dasharray:6 4}
+.dg-ln{fill:none;stroke:var(--diagram-fg,#1c2330);stroke-width:1.5}
+.dg-lna{fill:none;stroke:var(--diagram-accent,#2a6fdb);stroke-width:2.5}
+.dg-dash{stroke-dasharray:5 4}
+.dg-mk{fill:var(--diagram-fg,#1c2330)}
+.dg-mka{fill:var(--diagram-accent,#2a6fdb)}
+.dg-pill{fill:var(--diagram-surface,#ffffff);stroke:var(--diagram-fg,#1c2330);stroke-width:1.5}
+.dg-chip{fill:var(--diagram-surface,#ffffff);stroke:var(--diagram-accent,#2a6fdb);stroke-width:1.5}
+</style>
+<defs><marker id="private-data-platform-h" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dg-mk"/></marker><marker id="private-data-platform-ha" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dg-mka"/></marker></defs>
+<rect x="8" y="40" width="196" height="414" rx="10" class="dg-zone"/><text x="22" y="64" font-size="16" font-weight="700" class="dg-fg">Internal network</text>
+<rect x="250" y="40" width="622" height="414" rx="10" class="dg-zone"/><text x="264" y="64" font-size="16" font-weight="700" class="dg-fg">Azure: network and services defined in Terraform</text>
+<rect x="262" y="72" width="224" height="374" rx="10" class="dg-zone"/><text x="276" y="96" font-size="16" font-weight="700" class="dg-fg">Virtual network</text>
+<rect x="500" y="72" width="360" height="290" rx="10" class="dg-zone"/><text x="514" y="96" font-size="16" font-weight="700" class="dg-fg">Data services</text>
+<path d="M190,178 H271" class="dg-lna" marker-end="url(#private-data-platform-ha)"/>
+<path d="M476,178 H499" class="dg-lna" marker-end="url(#private-data-platform-ha)"/>
+<path d="M106,206 V369" class="dg-ln" marker-end="url(#private-data-platform-h)"/>
+<path d="M190,406 H271" class="dg-ln" marker-end="url(#private-data-platform-h)"/>
+<path d="M476,406 H511" class="dg-ln" marker-end="url(#private-data-platform-h)"/>
+<path d="M652,406 H699" class="dg-ln" marker-end="url(#private-data-platform-h)"/>
+<path d="M18,579 H44" class="dg-lna"/>
+<rect x="22" y="150" width="168" height="56" rx="8" class="dg-box"/><text x="106" y="182.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Internal users</text>
+<rect x="22" y="370" width="168" height="72" rx="8" class="dg-box"/><text x="106" y="392.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Corporate DNS</text><text x="106" y="410.5" font-size="14" text-anchor="middle" class="dg-mu">conditional</text><text x="106" y="428.5" font-size="14" text-anchor="middle" class="dg-mu">forwarders</text>
+<rect x="272" y="142" width="204" height="72" rx="8" class="dg-acc"/><text x="374" y="164.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Private endpoints</text><text x="374" y="182.5" font-size="14" text-anchor="middle" class="dg-mu">15 endpoints,</text><text x="374" y="200.5" font-size="14" text-anchor="middle" class="dg-mu">5 services</text>
+<rect x="272" y="378" width="204" height="56" rx="8" class="dg-box"/><text x="374" y="401.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">DNS forwarder</text><text x="374" y="419.5" font-size="14" text-anchor="middle" class="dg-mu">(virtual machine)</text>
+<rect x="516" y="104" width="328" height="52" rx="8" class="dg-acc"/><text x="680" y="125.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Data Factory: orchestration</text><text x="680" y="143.5" font-size="14" text-anchor="middle" class="dg-mu">reads storage via a managed endpoint</text>
+<rect x="516" y="164" width="328" height="36" rx="8" class="dg-acc"/><text x="680" y="186.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Data Lake Gen2 storage</text>
+<rect x="516" y="208" width="328" height="36" rx="8" class="dg-acc"/><text x="680" y="230.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Synapse: data warehouse</text>
+<rect x="516" y="252" width="328" height="36" rx="8" class="dg-acc"/><text x="680" y="274.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Search service</text>
+<rect x="516" y="296" width="328" height="36" rx="8" class="dg-acc"/><text x="680" y="318.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Data catalog (Purview)</text>
+<rect x="512" y="378" width="140" height="56" rx="8" class="dg-box"/><text x="582" y="401.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Azure-provided</text><text x="582" y="419.5" font-size="14" text-anchor="middle" class="dg-mu">DNS</text>
+<rect x="700" y="378" width="164" height="56" rx="8" class="dg-box"/><text x="782" y="401.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Private DNS zones</text><text x="782" y="419.5" font-size="14" text-anchor="middle" class="dg-mu">privatelink.*</text>
+<rect x="207" y="166" width="40" height="24" rx="12" class="dg-chip"/><text x="227" y="183" font-size="14" font-weight="700" text-anchor="middle" class="dg-fg">VPN</text>
+<circle cx="106" cy="288" r="11" class="dg-pill"/><text x="106" y="293" font-size="14" font-weight="700" text-anchor="middle" class="dg-fg">1</text>
+<circle cx="227" cy="406" r="11" class="dg-pill"/><text x="227" y="411" font-size="14" font-weight="700" text-anchor="middle" class="dg-fg">2</text>
+<circle cx="499" cy="406" r="11" class="dg-pill"/><text x="499" y="411" font-size="14" font-weight="700" text-anchor="middle" class="dg-fg">3</text>
+<circle cx="676" cy="406" r="11" class="dg-pill"/><text x="676" y="411" font-size="14" font-weight="700" text-anchor="middle" class="dg-fg">4</text>
+<text x="14" y="26" font-size="14" text-anchor="start" class="dg-mu">Simplified view: DNS resolution in 4 steps, then the private connection.</text>
+<circle cx="30" cy="483" r="11" class="dg-pill"/><text x="30" y="488" font-size="14" font-weight="700" text-anchor="middle" class="dg-fg">1</text>
+<text x="54" y="488" font-size="14" text-anchor="start" class="dg-fg">The workstation asks the corporate DNS for the service's public name.</text>
+<circle cx="30" cy="507" r="11" class="dg-pill"/><text x="30" y="512" font-size="14" font-weight="700" text-anchor="middle" class="dg-fg">2</text>
+<text x="54" y="512" font-size="14" text-anchor="start" class="dg-fg">A conditional forwarder sends the query to the DNS forwarder in the virtual network.</text>
+<circle cx="30" cy="531" r="11" class="dg-pill"/><text x="30" y="536" font-size="14" font-weight="700" text-anchor="middle" class="dg-fg">3</text>
+<text x="54" y="536" font-size="14" text-anchor="start" class="dg-fg">The forwarder queries the Azure-provided DNS.</text>
+<circle cx="30" cy="555" r="11" class="dg-pill"/><text x="30" y="560" font-size="14" font-weight="700" text-anchor="middle" class="dg-fg">4</text>
+<text x="54" y="560" font-size="14" text-anchor="start" class="dg-fg">Azure answers from the Private DNS zone linked to the network: a private address.</text>
+<text x="54" y="584" font-size="14" text-anchor="start" class="dg-fg">Thick line: the workstation connects through the VPN to the private endpoint, then the service.</text>
+</svg>

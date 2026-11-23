@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 486" width="880" height="486" role="img" aria-labelledby="gitops-pipeline-title gitops-pipeline-desc" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" lang="fr">
+<title id="gitops-pipeline-title">Chaîne GitOps : de la construction de l'image au déploiement</title>
+<desc id="gitops-pipeline-desc">Un commit déclenche Jenkins, qui construit l'image et la pousse vers un registre privé, puis écrit le nouveau tag dans l'overlay Kustomize de l'environnement, dans le dépôt de manifestes. ArgoCD détecte ce commit et met à jour le Deployment du cluster Kubernetes, qui tire la nouvelle image depuis le registre.</desc>
+<style>
+.dg-fg{fill:var(--diagram-fg,#1c2330)}
+.dg-mu{fill:var(--diagram-muted,#5b6676)}
+.dg-box{fill:var(--diagram-surface,#ffffff);stroke:var(--diagram-border,#c4ccd8);stroke-width:1.5}
+.dg-acc{fill:var(--diagram-accent-soft,#e6effc);stroke:var(--diagram-accent,#2a6fdb);stroke-width:2}
+.dg-zone{fill:none;stroke:var(--diagram-border,#c4ccd8);stroke-width:1.5;stroke-dasharray:6 4}
+.dg-ln{fill:none;stroke:var(--diagram-fg,#1c2330);stroke-width:1.5}
+.dg-lna{fill:none;stroke:var(--diagram-accent,#2a6fdb);stroke-width:2.5}
+.dg-dash{stroke-dasharray:5 4}
+.dg-mk{fill:var(--diagram-fg,#1c2330)}
+.dg-mka{fill:var(--diagram-accent,#2a6fdb)}
+.dg-pill{fill:var(--diagram-surface,#ffffff);stroke:var(--diagram-fg,#1c2330);stroke-width:1.5}
+.dg-chip{fill:var(--diagram-surface,#ffffff);stroke:var(--diagram-accent,#2a6fdb);stroke-width:1.5}
+</style>
+<defs><marker id="gitops-pipeline-h" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dg-mk"/></marker><marker id="gitops-pipeline-ha" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dg-mka"/></marker></defs>
+<rect x="12" y="10" width="856" height="136" rx="10" class="dg-zone"/><text x="26" y="34" font-size="16" font-weight="700" class="dg-fg">Construction de l'image</text>
+<rect x="12" y="176" width="856" height="136" rx="10" class="dg-zone"/><text x="26" y="200" font-size="16" font-weight="700" class="dg-fg">Promotion GitOps</text>
+<path d="M200,86 H239" class="dg-ln" marker-end="url(#gitops-pipeline-h)"/>
+<path d="M416,86 H455" class="dg-ln" marker-end="url(#gitops-pipeline-h)"/>
+<path d="M328,122 V215" class="dg-lna" marker-end="url(#gitops-pipeline-ha)"/>
+<path d="M416,252 H455" class="dg-lna" marker-end="url(#gitops-pipeline-ha)"/>
+<path d="M632,252 H671" class="dg-lna" marker-end="url(#gitops-pipeline-ha)"/>
+<path d="M632,86 H760 V215" class="dg-ln" marker-end="url(#gitops-pipeline-h)"/>
+<rect x="24" y="50" width="176" height="72" rx="8" class="dg-box"/><text x="112" y="81.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Dépôt applicatif</text><text x="112" y="99.5" font-size="14" text-anchor="middle" class="dg-mu">commit ou tag</text>
+<rect x="240" y="50" width="176" height="72" rx="8" class="dg-box"/><text x="328" y="72.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Jenkins</text><text x="328" y="90.5" font-size="14" text-anchor="middle" class="dg-mu">construit l'image</text><text x="328" y="108.5" font-size="14" text-anchor="middle" class="dg-mu">et écrit le tag</text>
+<rect x="456" y="50" width="176" height="72" rx="8" class="dg-box"/><text x="544" y="81.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Registre privé</text><text x="544" y="99.5" font-size="14" text-anchor="middle" class="dg-mu">image:tag</text>
+<rect x="240" y="216" width="176" height="72" rx="8" class="dg-acc"/><text x="328" y="238.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Dépôt GitOps</text><text x="328" y="256.5" font-size="14" text-anchor="middle" class="dg-mu">overlay Kustomize</text><text x="328" y="274.5" font-size="14" text-anchor="middle" class="dg-mu">par environnement</text>
+<rect x="456" y="216" width="176" height="72" rx="8" class="dg-acc"/><text x="544" y="238.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">ArgoCD</text><text x="544" y="256.5" font-size="14" text-anchor="middle" class="dg-mu">détecte le commit</text><text x="544" y="274.5" font-size="14" text-anchor="middle" class="dg-mu">et synchronise</text>
+<rect x="672" y="216" width="176" height="72" rx="8" class="dg-acc"/><text x="760" y="238.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Cluster Kubernetes</text><text x="760" y="256.5" font-size="14" text-anchor="middle" class="dg-mu">Deployment</text><text x="760" y="274.5" font-size="14" text-anchor="middle" class="dg-mu">mis à jour</text>
+<circle cx="220" cy="62" r="11" class="dg-pill"/><text x="220" y="67" font-size="14" font-weight="700" text-anchor="middle" class="dg-fg">1</text>
+<circle cx="436" cy="62" r="11" class="dg-pill"/><text x="436" y="67" font-size="14" font-weight="700" text-anchor="middle" class="dg-fg">2</text>
+<circle cx="328" cy="161" r="11" class="dg-pill"/><text x="328" y="166" font-size="14" font-weight="700" text-anchor="middle" class="dg-fg">3</text>
+<circle cx="436" cy="228" r="11" class="dg-pill"/><text x="436" y="233" font-size="14" font-weight="700" text-anchor="middle" class="dg-fg">4</text>
+<circle cx="652" cy="228" r="11" class="dg-pill"/><text x="652" y="233" font-size="14" font-weight="700" text-anchor="middle" class="dg-fg">5</text>
+<circle cx="760" cy="161" r="11" class="dg-pill"/><text x="760" y="166" font-size="14" font-weight="700" text-anchor="middle" class="dg-fg">6</text>
+<circle cx="30" cy="343" r="11" class="dg-pill"/><text x="30" y="348" font-size="14" font-weight="700" text-anchor="middle" class="dg-fg">1</text>
+<text x="54" y="348" font-size="14" text-anchor="start" class="dg-fg">Un commit ou un tag déclenche Jenkins (webhook).</text>
+<circle cx="30" cy="367" r="11" class="dg-pill"/><text x="30" y="372" font-size="14" font-weight="700" text-anchor="middle" class="dg-fg">2</text>
+<text x="54" y="372" font-size="14" text-anchor="start" class="dg-fg">Jenkins construit l'image et la pousse vers le registre privé.</text>
+<circle cx="30" cy="391" r="11" class="dg-pill"/><text x="30" y="396" font-size="14" font-weight="700" text-anchor="middle" class="dg-fg">3</text>
+<text x="54" y="396" font-size="14" text-anchor="start" class="dg-fg">Jenkins écrit le nouveau tag dans l'overlay Kustomize de l'environnement, puis le commite.</text>
+<circle cx="30" cy="415" r="11" class="dg-pill"/><text x="30" y="420" font-size="14" font-weight="700" text-anchor="middle" class="dg-fg">4</text>
+<text x="54" y="420" font-size="14" text-anchor="start" class="dg-fg">ArgoCD détecte le changement et récupère la configuration.</text>
+<circle cx="30" cy="439" r="11" class="dg-pill"/><text x="30" y="444" font-size="14" font-weight="700" text-anchor="middle" class="dg-fg">5</text>
+<text x="54" y="444" font-size="14" text-anchor="start" class="dg-fg">ArgoCD met à jour le Deployment dans le cluster.</text>
+<circle cx="30" cy="463" r="11" class="dg-pill"/><text x="30" y="468" font-size="14" font-weight="700" text-anchor="middle" class="dg-fg">6</text>
+<text x="54" y="468" font-size="14" text-anchor="start" class="dg-fg">Le cluster tire la nouvelle image depuis le registre.</text>
+</svg>

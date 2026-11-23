@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Une application de santé conteneurisée sur cloud public : bleu/vert, sauvegarde verrouillée, restauration testée — Alexandre Guandalini</title>
+<meta name="description" content="Sur une application de santé en conteneurs, j&#x27;ai décrit chaque service par Ansible, remplacé la bascule bleu/vert manuelle par trois jobs et refait la chaîne de sauvegarde. J&#x27;ai testé la restauration : 11 minutes pour le serveur de fichiers, 9 minutes 40 pour la base de données.">
+<meta name="author" content="Alexandre Guandalini">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f7f5ef" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121211" media="(prefers-color-scheme: dark)">
+<link rel="alternate" hreflang="fr" href="index.html">
+<link rel="alternate" hreflang="en" href="../../en/work/health-app-blue-green/index.html">
+<link rel="alternate" hreflang="x-default" href="index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Une application de santé conteneurisée sur cloud public : bleu/vert, sauvegarde verrouillée, restauration testée — Alexandre Guandalini">
+<meta property="og:description" content="Sur une application de santé en conteneurs, j&#x27;ai décrit chaque service par Ansible, remplacé la bascule bleu/vert manuelle par trois jobs et refait la chaîne de sauvegarde. J&#x27;ai testé la restauration : 11 minutes pour le serveur de fichiers, 9 minutes 40 pour la base de données.">
+<meta property="og:site_name" content="Alexandre Guandalini">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:locale:alternate" content="en_GB">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<script>(function(){var r=document.documentElement;try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")r.setAttribute("data-theme",t);if(localStorage.getItem("motion")==="off")r.setAttribute("data-motion","off")}catch(e){}try{var k="seen:"+location.pathname.replace(/index\.html$/,""),n=performance.getEntriesByType("navigation")[0];if(location.hash||(sessionStorage.getItem(k)&&!(n&&n.type==="reload")))r.classList.add("entered");sessionStorage.setItem(k,"1")}catch(e){}})();</script>
+<link rel="stylesheet" href="../../assets/css/site.css">
+<script src="../../assets/js/site.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Aller au contenu</a>
+<header class="site-header">
+  <div class="header-bar">
+    <a class="brand" href="../../index.html">Alexandre Guandalini</a>
+    <nav class="site-nav"><ul><li><a href="../../index.html#cases">Études de cas</a></li><li><a href="../../index.html#offer">Prestations</a></li><li><a href="../../index.html#skills">Compétences</a></li><li><a href="../../index.html#approach">Méthode</a></li><li><a href="../../index.html#about">À propos</a></li><li><a href="../../index.html#contact">Contact</a></li></ul></nav>
+    <div class="header-tools">
+      <a class="lang-switch" href="../../en/work/health-app-blue-green/index.html" hreflang="en" lang="en"><span class="lang-full">English</span> <span class="lang-code">EN</span></a>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Changer de thème" title="Changer de thème" hidden><svg class="icon icon-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><svg class="icon icon-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="main">
+<article class="case">
+  <div class="wrap">
+  <p class="crumb"><a href="../../index.html#cases"><span class="arrow" aria-hidden="true">←</span>Toutes les études de cas</a></p>
+  <header class="case-head">
+    <p class="case-index">04 / 08</p>
+    <h1 aria-label="Une application de santé conteneurisée sur cloud public : bleu/vert, sauvegarde verrouillée, restauration testée"><span class="words" aria-hidden="true" style="--step:41ms"><span class="w" style="--i:0">Une</span> <span class="w" style="--i:1">application</span> <span class="w" style="--i:2">de</span> <span class="w" style="--i:3">santé</span> <span class="w" style="--i:4">conteneurisée</span> <span class="w" style="--i:5">sur</span> <span class="w" style="--i:6">cloud</span> <span class="w" style="--i:7">public :</span> <span class="w" style="--i:8">bleu/vert,</span> <span class="w" style="--i:9">sauvegarde</span> <span class="w" style="--i:10">verrouillée,</span> <span class="w" style="--i:11">restauration</span> <span class="w" style="--i:12">testée</span></span></h1>
+    <p class="case-lead">Sur une application de santé en conteneurs, j'ai décrit chaque service par Ansible, remplacé la bascule bleu/vert manuelle par trois jobs et refait la chaîne de sauvegarde. J'ai testé la restauration : 11 minutes pour le serveur de fichiers, 9 minutes 40 pour la base de données.</p>
+    <dl class="facts">
+      <div class="fact fact-period"><dt>Période</dt><dd>Avril 2024 à mars 2025 ; pare-feu applicatif en septembre et octobre 2026</dd></div>
+      <div class="fact fact-role"><dt>Mon rôle</dt><dd><span class="badge badge--initiator"><svg class="badge-mark" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><circle cx="6" cy="6" r="4.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M6 1.75a4.25 4.25 0 0 0 0 8.5z" fill="currentColor"/></svg>Initiateur, puis repris par d'autres</span><p>Initiateur, puis repris par d'autres. L'application, ses images et une première procédure bleu/vert existaient avant moi. J'ai créé le dépôt d'infrastructure et écrit 69 de ses 139 commits hors fusions.</p></dd></div>
+    </dl>
+  </header>
+  <div class="case-body">
+  <section class="case-section" aria-labelledby="context-title" data-reveal>
+    <h2 id="context-title">Contexte</h2>
+    <p>L'application tourne sous Docker Swarm sur AWS, et ses mises en production passaient par des commandes manuelles de bascule bleu/vert. Fin août 2024, un changement de rétention a fait resynchroniser au job de sauvegarde plus de quatre ans de fichiers, ce qui a fortement ralenti les disques de production ; le service a été arrêté. L'arrivée de plusieurs milliers d'utilisateurs a ensuite chargé le nœud principal.</p>
+  </section>
+  <section class="case-section" aria-labelledby="actions-title" data-reveal>
+    <h2 id="actions-title">Ce que j'ai fait</h2>
+    <ol class="action-list">
+      <li>En avril 2024, j'ai créé un stockage objet verrouillé contre la modification et la suppression, avec un rôle d'instance limité au dépôt de fichiers ; la copie régulière des sauvegardes y a été mise en service en septembre 2024.</li>
+      <li>En septembre 2024, j'ai documenté la cause du ralentissement et ajouté un playbook Ansible de copie des sauvegardes, puis en mars 2025 remplacé l'ancien service de sauvegarde par un playbook complet.</li>
+      <li>Après avoir constaté une interruption des sauvegardes restée inaperçue, j'ai redéployé le service et ajouté un contrôle quotidien de leur présence.</li>
+      <li>Le 16 janvier 2025, j'ai créé le dépôt d'infrastructure ; jusqu'à mi-mars, j'y ai décrit chaque service par Ansible : reverse proxy, services applicatifs, bases, sauvegarde, secrets et configurations par environnement.</li>
+      <li>J'ai remplacé les commandes manuelles de bascule par trois jobs (préparer la nouvelle couleur, basculer, nettoyer l'ancienne) et réécrit la procédure ; les deux premiers sont aussi proposés aux développeurs en préproduction.</li>
+      <li>J'ai ajouté des instantanés quotidiens du volume conservés 30 jours et écrit le guide de restauration pas à pas, y compris la panne rencontrée après restauration.</li>
+      <li>J'ai complété la supervision : exporteurs des conteneurs, de la base et du reverse proxy, sonde HTTP dédiée, journaux d'accès envoyés vers la plateforme de journaux centralisée.</li>
+      <li>En 2026, j'ai reconstruit l'image du reverse proxy avec un pare-feu applicatif : sources épinglées par somme de contrôle, règles OWASP, détection seule par défaut, journal d'audit coupé pour ne pas écrire de données de patients.</li>
+    </ol>
+  </section>
+  <section class="case-section" aria-labelledby="stack-title" data-reveal>
+    <h2 id="stack-title">Technologies</h2>
+    <ul class="tags"><li>AWS (EC2, EBS, S3 Object Lock, IAM)</li><li>Docker Swarm</li><li>Ansible</li><li>Jenkins</li><li>Rundeck</li><li>nginx</li><li>ModSecurity / OWASP CRS</li><li>MongoDB</li><li>Prometheus</li><li>cAdvisor</li></ul>
+  </section>
+  <section class="case-section case-diagram" aria-labelledby="diagram-title" data-reveal>
+    <h2 id="diagram-title">Schéma</h2>
+    <figure class="diagram">
+      <div class="diagram-scroll" tabindex="0" role="region" aria-label="Déploiement bleu/vert derrière un reverse proxy">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 476" width="880" height="476" role="img" aria-labelledby="blue-green-title blue-green-desc" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" lang="fr">
+<title id="blue-green-title">Déploiement bleu/vert derrière un reverse proxy</title>
+<desc id="blue-green-desc">Les utilisateurs passent par un reverse proxy nginx, placé sur un hôte distinct de celui qui porte la base de données et le serveur de fichiers. Le proxy envoie le trafic vers la couleur active ; la nouvelle couleur est préparée à côté et ne reçoit le trafic qu'après la bascule. Trois jobs Jenkins remplacent les commandes manuelles : préparer la nouvelle couleur, basculer, nettoyer l'ancienne.</desc>
+<style>
+.dg-fg{fill:var(--diagram-fg,#1c2330)}
+.dg-mu{fill:var(--diagram-muted,#5b6676)}
+.dg-box{fill:var(--diagram-surface,#ffffff);stroke:var(--diagram-border,#c4ccd8);stroke-width:1.5}
+.dg-acc{fill:var(--diagram-accent-soft,#e6effc);stroke:var(--diagram-accent,#2a6fdb);stroke-width:2}
+.dg-zone{fill:none;stroke:var(--diagram-border,#c4ccd8);stroke-width:1.5;stroke-dasharray:6 4}
+.dg-ln{fill:none;stroke:var(--diagram-fg,#1c2330);stroke-width:1.5}
+.dg-lna{fill:none;stroke:var(--diagram-accent,#2a6fdb);stroke-width:2.5}
+.dg-dash{stroke-dasharray:5 4}
+.dg-mk{fill:var(--diagram-fg,#1c2330)}
+.dg-mka{fill:var(--diagram-accent,#2a6fdb)}
+.dg-pill{fill:var(--diagram-surface,#ffffff);stroke:var(--diagram-fg,#1c2330);stroke-width:1.5}
+.dg-chip{fill:var(--diagram-surface,#ffffff);stroke:var(--diagram-accent,#2a6fdb);stroke-width:1.5}
+</style>
+<defs><marker id="blue-green-h" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dg-mk"/></marker><marker id="blue-green-ha" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dg-mka"/></marker></defs>
+<rect x="8" y="8" width="864" height="292" rx="10" class="dg-zone"/><text x="22" y="32" font-size="16" font-weight="700" class="dg-fg">Production sur cloud public</text>
+<rect x="166" y="48" width="186" height="236" rx="10" class="dg-zone"/><text x="180" y="72" font-size="16" font-weight="700" class="dg-fg">Hôte du proxy</text>
+<rect x="648" y="48" width="216" height="236" rx="10" class="dg-zone"/><text x="662" y="72" font-size="16" font-weight="700" class="dg-fg">Hôte des données</text>
+<rect x="8" y="316" width="864" height="112" rx="10" class="dg-zone"/><text x="22" y="340" font-size="16" font-weight="700" class="dg-fg">Bascule bleu/vert : trois jobs Jenkins</text>
+<path d="M154,148 H183" class="dg-lna" marker-end="url(#blue-green-ha)"/>
+<path d="M334,140 H363 V92 H391" class="dg-lna" marker-end="url(#blue-green-ha)"/>
+<path d="M334,156 H363 V204 H391" class="dg-ln dg-dash" marker-end="url(#blue-green-h)"/>
+<path d="M622,92 H647" class="dg-ln" marker-end="url(#blue-green-h)"/>
+<path d="M622,204 H647" class="dg-ln dg-dash" marker-end="url(#blue-green-h)"/>
+<path d="M280,384 H311" class="dg-ln" marker-end="url(#blue-green-h)"/>
+<path d="M568,384 H599" class="dg-ln" marker-end="url(#blue-green-h)"/>
+<rect x="24" y="120" width="130" height="56" rx="8" class="dg-box"/><text x="89" y="152.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Utilisateurs</text>
+<rect x="184" y="120" width="150" height="56" rx="8" class="dg-acc"/><text x="259" y="143.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Reverse proxy</text><text x="259" y="161.5" font-size="14" text-anchor="middle" class="dg-mu">nginx</text>
+<rect x="392" y="64" width="230" height="56" rx="8" class="dg-acc"/><text x="507" y="87.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Couleur active (verte)</text><text x="507" y="105.5" font-size="14" text-anchor="middle" class="dg-mu">sert le trafic</text>
+<rect x="392" y="168" width="230" height="72" rx="8" class="dg-box dg-dash"/><text x="507" y="190.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Nouvelle couleur (bleue)</text><text x="507" y="208.5" font-size="14" text-anchor="middle" class="dg-mu">prête, reçoit le trafic</text><text x="507" y="226.5" font-size="14" text-anchor="middle" class="dg-mu">après la bascule</text>
+<rect x="664" y="72" width="184" height="44" rx="8" class="dg-box"/><text x="756" y="98.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Base de données</text>
+<rect x="664" y="182" width="184" height="44" rx="8" class="dg-box"/><text x="756" y="208.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Serveur de fichiers</text>
+<rect x="24" y="356" width="256" height="56" rx="8" class="dg-box"/><text x="152" y="379.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">1. Préparer</text><text x="152" y="397.5" font-size="14" text-anchor="middle" class="dg-mu">démarrer la nouvelle couleur</text>
+<rect x="312" y="356" width="256" height="56" rx="8" class="dg-acc"/><text x="440" y="379.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">2. Basculer</text><text x="440" y="397.5" font-size="14" text-anchor="middle" class="dg-mu">diriger le trafic vers elle</text>
+<rect x="600" y="356" width="256" height="56" rx="8" class="dg-box"/><text x="728" y="379.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">3. Nettoyer</text><text x="728" y="397.5" font-size="14" text-anchor="middle" class="dg-mu">arrêter l'ancienne couleur</text>
+<text x="24" y="456" font-size="14" text-anchor="start" class="dg-mu">Les jobs 1 et 2 sont aussi proposés aux développeurs, en préproduction.</text>
+</svg>
+      </div>
+      <figcaption><span class="diagram-title">Déploiement bleu/vert derrière un reverse proxy</span>La nouvelle version est préparée à côté de l'ancienne, puis le reverse proxy bascule le trafic.</figcaption>
+    </figure>
+  </section>
+  <section class="case-section case-result" aria-labelledby="result-title" data-reveal>
+    <h2 id="result-title">Résultat</h2>
+    <p>Restauration testée le 19 mars 2025 : 11 minutes pour le serveur de fichiers, 9 minutes 40 pour la base de données. Lors de l'arrivée de plusieurs milliers d'utilisateurs, la charge processeur du nœud principal est passée de plus de 95 % à moins de 70 % après doublement d'un second nœud et déplacement de services vers lui, puis à moins de 40 % après désactivation du pare-feu applicatif, identifié comme la cause.</p>
+  </section>
+  <section class="case-section" aria-labelledby="handover-title" data-reveal>
+    <h2 id="handover-title">Suite et passage de relais</h2>
+    <p>D'avril 2025 à juin 2026, l'exploitation courante du dépôt a été assurée principalement par d'autres, avec quelques interventions de ma part. À la demande de l'équipe de développement, j'ai permis à des développeurs de modifier eux-mêmes certaines configurations de développement et de préproduction, en bornant le reste par un fichier de propriétaires et un contrôle automatique des chemins modifiés. Le mode blocage du pare-feu applicatif a ensuite été activé en développement.</p>
+  </section>
+  </div>
+  <nav class="pager" aria-label="Études de cas">
+    <a class="pager-link pager-prev" rel="prev" href="../incidents-de-production/index.html" data-reveal="tile"><span class="pager-dir"><span class="arrow" aria-hidden="true">←</span> Étude précédente</span><span class="pager-title">Incidents de production : du diagnostic au correctif versionné</span></a>
+<a class="pager-link pager-next" rel="next" href="../fin-de-support-machines-virtuelles/index.html" data-reveal="tile"><span class="pager-dir">Étude suivante <span class="arrow" aria-hidden="true">→</span></span><span class="pager-title">Système en fin de support : refaire en code les machines virtuelles d'un logiciel livré dans des établissements de santé</span></a>
+  </nav>
+  </div>
+</article>
+</main>
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <p class="footer-author">Alexandre Guandalini</p>
+    <p class="footer-note">Employeur, produits, clients et hébergeurs ne sont pas nommés. Chaque étude de cas dit mon rôle exact.</p>
+    <div class="footer-tools">
+      <a class="footer-lang" href="../../en/work/health-app-blue-green/index.html" hreflang="en" lang="en">English</a>
+      <button class="motion-toggle" type="button" data-motion-toggle aria-pressed="false" hidden>Réduire les animations</button>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

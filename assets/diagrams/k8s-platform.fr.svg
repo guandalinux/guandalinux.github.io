@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 680" width="880" height="680" role="img" aria-labelledby="k8s-platform-title k8s-platform-desc" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" lang="fr">
+<title id="k8s-platform-title">Socle d'une plateforme Kubernetes sur site, par couches</title>
+<desc id="k8s-platform-desc">Cluster Kubernetes sans fournisseur de cloud : réseau Cilium avec annonces L2 et pools d'adresses IP, entrée du trafic par Envoy Gateway (Gateway API), service d'authentification avec sondes de santé et mise à jour progressive, ProxySQL devant une base MySQL externe et Redis Sentinel derrière HAProxy, stockage Longhorn, secrets synchronisés depuis un coffre par External Secrets Operator, déploiement par ArgoCD et Kustomize, journaux envoyés vers une plateforme centralisée. Trois nœuds de plan de contrôle et trois nœuds de travail.</desc>
+<style>
+.dg-fg{fill:var(--diagram-fg,#1c2330)}
+.dg-mu{fill:var(--diagram-muted,#5b6676)}
+.dg-box{fill:var(--diagram-surface,#ffffff);stroke:var(--diagram-border,#c4ccd8);stroke-width:1.5}
+.dg-acc{fill:var(--diagram-accent-soft,#e6effc);stroke:var(--diagram-accent,#2a6fdb);stroke-width:2}
+.dg-zone{fill:none;stroke:var(--diagram-border,#c4ccd8);stroke-width:1.5;stroke-dasharray:6 4}
+.dg-ln{fill:none;stroke:var(--diagram-fg,#1c2330);stroke-width:1.5}
+.dg-lna{fill:none;stroke:var(--diagram-accent,#2a6fdb);stroke-width:2.5}
+.dg-dash{stroke-dasharray:5 4}
+.dg-mk{fill:var(--diagram-fg,#1c2330)}
+.dg-mka{fill:var(--diagram-accent,#2a6fdb)}
+.dg-pill{fill:var(--diagram-surface,#ffffff);stroke:var(--diagram-fg,#1c2330);stroke-width:1.5}
+.dg-chip{fill:var(--diagram-surface,#ffffff);stroke:var(--diagram-accent,#2a6fdb);stroke-width:1.5}
+</style>
+<defs><marker id="k8s-platform-h" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dg-mk"/></marker><marker id="k8s-platform-ha" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dg-mka"/></marker></defs>
+<rect x="12" y="36" width="628" height="634" rx="10" class="dg-zone"/><text x="26" y="60" font-size="16" font-weight="700" class="dg-fg">Cluster Kubernetes sur site</text>
+<rect x="652" y="36" width="216" height="634" rx="10" class="dg-zone"/><text x="666" y="60" font-size="16" font-weight="700" class="dg-fg">Hors cluster</text>
+<path d="M420,6 V75" class="dg-lna" marker-end="url(#k8s-platform-ha)"/>
+<path d="M420,128 V151" class="dg-lna" marker-end="url(#k8s-platform-ha)"/>
+<path d="M420,204 V227" class="dg-lna" marker-end="url(#k8s-platform-ha)"/>
+<path d="M420,280 V303" class="dg-ln" marker-end="url(#k8s-platform-h)"/>
+<path d="M624,330 H667" class="dg-ln" marker-end="url(#k8s-platform-h)"/>
+<path d="M624,454 H667" class="dg-ln" marker-end="url(#k8s-platform-h)"/>
+<path d="M624,578 H667" class="dg-ln" marker-end="url(#k8s-platform-h)"/>
+<rect x="28" y="76" width="596" height="52" rx="8" class="dg-box"/><text x="44" y="107.5" font-size="16" font-weight="700" class="dg-fg">Réseau</text><text x="242" y="97.5" font-size="14" font-weight="600" class="dg-fg">Cilium (CNI)</text><text x="242" y="115.5" font-size="14" class="dg-mu">annonces L2 et pools d'adresses IP</text>
+<rect x="28" y="152" width="596" height="52" rx="8" class="dg-box"/><text x="44" y="183.5" font-size="16" font-weight="700" class="dg-fg">Entrée du trafic</text><text x="242" y="173.5" font-size="14" font-weight="600" class="dg-fg">Envoy Gateway (Gateway API)</text><text x="242" y="191.5" font-size="14" class="dg-mu">HTTP, HTTPS et TCP</text>
+<rect x="28" y="228" width="596" height="52" rx="8" class="dg-acc"/><text x="44" y="259.5" font-size="16" font-weight="700" class="dg-fg">Application</text><text x="242" y="249.5" font-size="14" font-weight="600" class="dg-fg">Service d'authentification</text><text x="242" y="267.5" font-size="14" class="dg-mu">sondes de santé, mise à jour progressive</text>
+<rect x="28" y="304" width="596" height="52" rx="8" class="dg-box"/><text x="44" y="335.5" font-size="16" font-weight="700" class="dg-fg">Services de données</text><text x="242" y="325.5" font-size="14" font-weight="600" class="dg-fg">ProxySQL (3 réplicas) vers la base</text><text x="242" y="343.5" font-size="14" class="dg-mu">Redis Sentinel derrière HAProxy</text>
+<rect x="28" y="366" width="596" height="52" rx="8" class="dg-box"/><text x="44" y="397.5" font-size="16" font-weight="700" class="dg-fg">Stockage</text><text x="242" y="387.5" font-size="14" font-weight="600" class="dg-fg">Longhorn</text><text x="242" y="405.5" font-size="14" class="dg-mu">stockage bloc distribué</text>
+<rect x="28" y="428" width="596" height="52" rx="8" class="dg-box"/><text x="44" y="459.5" font-size="16" font-weight="700" class="dg-fg">Secrets</text><text x="242" y="449.5" font-size="14" font-weight="600" class="dg-fg">External Secrets Operator</text><text x="242" y="467.5" font-size="14" class="dg-mu">authentification Kubernetes au coffre</text>
+<rect x="28" y="490" width="596" height="52" rx="8" class="dg-box"/><text x="44" y="521.5" font-size="16" font-weight="700" class="dg-fg">Déploiement GitOps</text><text x="242" y="511.5" font-size="14" font-weight="600" class="dg-fg">ArgoCD et ApplicationSets</text><text x="242" y="529.5" font-size="14" class="dg-mu">surcharges Kustomize par environnement</text>
+<rect x="28" y="552" width="596" height="52" rx="8" class="dg-box"/><text x="44" y="583.5" font-size="16" font-weight="700" class="dg-fg">Observabilité</text><text x="242" y="573.5" font-size="14" font-weight="600" class="dg-fg">Collecte des journaux</text><text x="242" y="591.5" font-size="14" class="dg-mu">par découverte automatique</text>
+<rect x="28" y="616" width="596" height="40" rx="8" class="dg-box"/><text x="326" y="640.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Nœuds : 3 de plan de contrôle, 3 de travail</text>
+<rect x="668" y="304" width="186" height="52" rx="8" class="dg-box"/><text x="761" y="325.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Base MySQL</text><text x="761" y="343.5" font-size="14" text-anchor="middle" class="dg-mu">externe</text>
+<rect x="668" y="428" width="186" height="52" rx="8" class="dg-box"/><text x="761" y="449.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Coffre de secrets</text><text x="761" y="467.5" font-size="14" text-anchor="middle" class="dg-mu">(Vault)</text>
+<rect x="668" y="552" width="186" height="52" rx="8" class="dg-box"/><text x="761" y="573.5" font-size="14" font-weight="600" text-anchor="middle" class="dg-fg">Plateforme de</text><text x="761" y="591.5" font-size="14" text-anchor="middle" class="dg-mu">journaux centralisée</text>
+<text x="432" y="26" font-size="14" text-anchor="start" class="dg-mu">trafic entrant</text>
+</svg>

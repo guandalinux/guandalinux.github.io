@@ -1,0 +1,77 @@
+[
+  {
+    "id": "gitops-pipeline",
+    "files": {
+      "fr": "assets/diagrams/gitops-pipeline.fr.svg",
+      "en": "assets/diagrams/gitops-pipeline.en.svg"
+    },
+    "title": {
+      "fr": "Chaîne GitOps : de la construction de l'image au déploiement",
+      "en": "GitOps pipeline: from image build to deployment"
+    },
+    "caption": {
+      "fr": "Le pipeline construit l'image, écrit son tag dans Git, et ArgoCD aligne le cluster sur ce dépôt.",
+      "en": "The pipeline builds the image, writes its tag to Git, and ArgoCD brings the cluster in line with that repository."
+    }
+  },
+  {
+    "id": "k8s-platform",
+    "files": {
+      "fr": "assets/diagrams/k8s-platform.fr.svg",
+      "en": "assets/diagrams/k8s-platform.en.svg"
+    },
+    "title": {
+      "fr": "Socle d'une plateforme Kubernetes sur site, par couches",
+      "en": "Layered foundation of an on-premises Kubernetes platform"
+    },
+    "caption": {
+      "fr": "Les briques d'un cluster Kubernetes sans fournisseur de cloud, de l'entrée du trafic aux journaux.",
+      "en": "The building blocks of a Kubernetes cluster without a cloud provider, from traffic entry to logs."
+    }
+  },
+  {
+    "id": "image-factory",
+    "files": {
+      "fr": "assets/diagrams/image-factory.fr.svg",
+      "en": "assets/diagrams/image-factory.en.svg"
+    },
+    "title": {
+      "fr": "De l'image de machine au cluster Kubernetes",
+      "en": "From machine image to Kubernetes cluster"
+    },
+    "caption": {
+      "fr": "Des gabarits Packer aux clusters créés par Terraform, avec états chiffrés et raccordement au coffre et à ArgoCD.",
+      "en": "From Packer templates to Terraform-built clusters, with encrypted state and connections to the vault and ArgoCD."
+    }
+  },
+  {
+    "id": "blue-green",
+    "files": {
+      "fr": "assets/diagrams/blue-green.fr.svg",
+      "en": "assets/diagrams/blue-green.en.svg"
+    },
+    "title": {
+      "fr": "Déploiement bleu/vert derrière un reverse proxy",
+      "en": "Blue/green deployment behind a reverse proxy"
+    },
+    "caption": {
+      "fr": "La nouvelle version est préparée à côté de l'ancienne, puis le reverse proxy bascule le trafic.",
+      "en": "The new version is prepared next to the old one, then the reverse proxy switches the traffic."
+    }
+  },
+  {
+    "id": "private-data-platform",
+    "files": {
+      "fr": "assets/diagrams/private-data-platform.fr.svg",
+      "en": "assets/diagrams/private-data-platform.en.svg"
+    },
+    "title": {
+      "fr": "Plateforme de données en réseau privé sur Azure",
+      "en": "Private-network data platform on Azure"
+    },
+    "caption": {
+      "fr": "Les services de données ne sont joignables que par des points d'accès privés, résolus par un DNS hybride.",
+      "en": "The data services are reachable only through private endpoints, resolved by hybrid DNS."
+    }
+  }
+]

@@ -1,0 +1,370 @@
+{
+  "lang": "en",
+  "site": {
+    "title": "Alexandre Guandalini, freelance DevOps / Cloud engineer",
+    "description": "Freelance DevOps / Cloud engineer: Kubernetes with GitOps, infrastructure as code, production operations. Eight case studies, exact role stated.",
+    "author": "Alexandre Guandalini",
+    "url": "https://guandalinux.github.io/"
+  },
+  "nav": [
+    {"id": "cases", "label": "Case studies"},
+    {"id": "offer", "label": "Services"},
+    {"id": "skills", "label": "Skills"},
+    {"id": "approach", "label": "How I work"},
+    {"id": "about", "label": "About"},
+    {"id": "contact", "label": "Contact"}
+  ],
+  "hero": {
+    "kicker": "Freelance DevOps / Cloud engineer",
+    "title": "I move your applications to Kubernetes and your infrastructure into Git",
+    "lead": "I have been a DevOps engineer at a healthcare software publisher since October 2022, building foundations that my colleagues have taken over and extended. Every case study states my exact role, the dates, and what was actually measured.",
+    "availability": "Available from 20 January 2027",
+    "primaryCta": "See the case studies",
+    "secondaryCta": "Get in touch"
+  },
+  "figures": [
+    {"value": "214 / 251", "label": "commits in the first GitOps repository of the Kubernetes platform are mine", "detail": "Excluding merges, that is 85%. Sole human author until 31 March 2026."},
+    {"value": "11 min", "label": "to restore the file server of a healthcare application", "detail": "And 9 min 40 for the database, in the test of 19 March 2025."},
+    {"value": "6", "label": "infrastructure repositories where I made the first commit", "detail": "Between August 2024 and February 2026."},
+    {"value": "84", "label": "incident tickets assigned to me", "detail": "From 2023 to 2026."},
+    {"value": "99 / 212", "label": "files in today's Kubernetes platform repository still identical to mine", "detail": "A colleague created the shared repository from my files, then extended it."},
+    {"value": "660", "label": "commits under my identities across 8 infrastructure repositories", "detail": "From 2022 to 2026, 381 of them in 2026."}
+  ],
+  "offer": {
+    "title": "Services",
+    "intro": "Five kinds of engagement, each backed by case studies. Documentation and handover are part of every one.",
+    "items": [
+      {"title": "Move an application to Kubernetes with GitOps", "text": "On private infrastructure or a private cloud: a GitOps repository organised by environment, networking, ingress, storage, secrets in a vault, monitoring, pre-production then production.", "caseIds": ["cas-1", "cas-2"]},
+      {"title": "Lay an infrastructure-as-code foundation your team can take over", "text": "Packer templates, Terraform modules, remote state, Ansible roles, deliverable machines. Each new target is a variables file.", "caseIds": ["cas-2", "cas-5"]},
+      {"title": "Make production more reliable", "text": "Monitoring and alerts, backups with a tested restore, incident reports followed by a fix written in code.", "caseIds": ["cas-3", "cas-4"]},
+      {"title": "Deliver a production environment without Kubernetes", "text": "Machines as code, Ansible, blue/green deployments, logs, metrics, an architecture document and a deployment job for developers.", "caseIds": ["cas-7", "cas-4", "cas-6"]},
+      {"title": "Handle a security deadline or an end-of-support system", "text": "Survey of what exists, rebuild as code, smaller exposed surface, deny-by-default firewall, documentation for support.", "caseIds": ["cas-5", "cas-6"]}
+    ]
+  },
+  "cases": {
+    "title": "Case studies",
+    "intro": "Eight projects from 2023 to 2026. Each one states my exact role, the dates, what others did next, and a result only when it was measured.",
+    "roleLegend": {
+      "solo": "Sole author",
+      "initiator": "Initiator, later taken over by others",
+      "contributor": "One contributor among several"
+    },
+    "items": [
+      {
+        "id": "cas-1",
+        "slug": "kubernetes-gitops-migration",
+        "title": "Moving an authentication service from virtual machines to Kubernetes with GitOps",
+        "summary": "I wrote the GitOps repository that moved an authentication service from virtual machines to Kubernetes, with no public cloud provider. A colleague then built a shared platform repository from it and extended it to a new product.",
+        "period": "March 2025 to April 2026 (repository built from 8 January to 26 March 2026)",
+        "roleKind": "initiator",
+        "role": "Initiator, later taken over by others. I wrote 214 of the 251 non-merge commits in the GitOps repository and remained its only human author until 31 March 2026.",
+        "context": "An authentication service ran on four virtual machines: two in production, two in pre-production. It relied on an external database and on shared sessions. The target was Kubernetes on private infrastructure, with no public cloud provider.",
+        "actions": [
+          "I opened the project in March 2025 and split it into work packages: infrastructure, application and monitoring, then CI/CD and security in September 2025.",
+          "I prototyped a local cluster on 3 virtual machines, then built a pre-production cluster with 3 control-plane nodes and 3 worker nodes.",
+          "On 8 January 2026 I created the GitOps repository: 141 files, 13 infrastructure components, three ArgoCD application generators, and a Kustomize base with per-environment overlays.",
+          "Without a cloud provider, I set up load balancing through L2 announcements and IP pools in the CNI, ingress through Gateway API with Envoy Gateway (HTTP, HTTPS and TCP), and Longhorn distributed storage.",
+          "I handed the cluster's secrets to an external secrets operator backed by a vault, then replaced its token authentication with Kubernetes authentication.",
+          "I made data and session access redundant (a 3-replica SQL proxy in front of the external database, Redis Sentinel behind HAProxy) and tuned the application's health probes and rolling updates.",
+          "I prepared continuous delivery: the pipeline writes the image tag into Git, ArgoCD deploys, and the CI agent has its own service account with roles limited to two namespaces.",
+          "On 10 March 2026 I added the production environment for the platform and the service in a single 99-file commit, then on 17 March switched its production configuration to the final domain name."
+        ],
+        "stack": ["Kubernetes (RKE2)", "Rancher", "ArgoCD (ApplicationSets)", "Kustomize", "Helm", "Cilium", "Gateway API / Envoy Gateway", "Longhorn", "Vault", "External Secrets Operator", "ProxySQL", "Redis Sentinel"],
+        "result": "Production was running on Kubernetes before 23 April 2026, and the retirement of the 4 old servers was scheduled.",
+        "handover": "A colleague created and restructured a shared platform repository from my files (130 of the 138 imported files identical to mine), reorganised it by cluster, then extended it to a new product in autumn 2026. We grew it together, with that colleague doing most of the work; 99 of its 212 current files are still identical to the ones I wrote. In July 2026 I connected a fourth cluster to it through 19 overlay files (5 components), without touching the shared bases.",
+        "diagramId": "gitops-pipeline",
+        "note": ""
+      },
+      {
+        "id": "cas-2",
+        "slug": "packer-terraform-foundation",
+        "title": "From machine image to cluster: Packer templates and a Terraform foundation the team took over",
+        "summary": "I built the chain that produces virtual machine templates, then machines and Kubernetes clusters, with one variables file per target. The Terraform foundation has become a team effort: others now add servers and clusters to it.",
+        "period": "May 2025 to March 2026; additions until November 2026",
+        "roleKind": "initiator",
+        "role": "Initiator of both repositories, then one contributor among several. I wrote about 95% of the current template code, and 19 of the 79 non-merge commits in the Terraform repository, including the nine that laid the foundation.",
+        "context": "The Kubernetes clusters and virtual machines run on two VMware platforms: vSphere and a Cloud Director private cloud. I created the template repository in May 2025, then the Terraform repository on 8 January 2026. The goal: go from a machine image to a cluster connected to the secrets vault and to ArgoCD, all in code.",
+        "actions": [
+          "I built the template repository around two parameterised Packer definitions, one for Kubernetes nodes and one for virtual machines.",
+          "These two definitions produce 14 variants: two Debian versions, compute or storage Kubernetes nodes, and application, database or mixed machines.",
+          "In January 2026 I replaced the encrypted secrets file that was committed to the repository with secrets read from a vault at build time.",
+          "I made the templates exportable to OVF and ready for cloud-init, with volumes resized on first boot and hot-add of CPU and memory.",
+          "From 8 January to 4 March 2026 I laid the Terraform foundation: modules for machines, clusters, vault integration and GitOps tool installation.",
+          "I stored Terraform state on internal object storage, encrypted and locked, with one workspace per cluster or server.",
+          "I wrote the repository's first Kubernetes cluster module: Cilium networking, a virtual IP for the control plane, etcd backups every 5 hours (5 kept), and upgrades one node at a time with worker nodes drained first.",
+          "In October 2026 I fixed a failed template import into the private cloud by reworking the disk sizes."
+        ],
+        "stack": ["Packer", "Terraform", "Rancher / RKE2", "Cilium", "kube-vip", "cloud-init", "LVM", "Debian", "VMware vSphere", "VMware Cloud Director", "Vault", "ArgoCD"],
+        "result": "As of 18 November 2026, the Terraform repository declares 7 Kubernetes clusters, 3 of them built with my module, and 37 variables files (one per cluster, server or environment, plus a shared file).",
+        "handover": "Eight days after my commit of 16 February 2026, a colleague added a second cluster module variant following the same layout: Makefile, state backend, one variables file per target. Since then, other team members have been adding servers and clusters, mostly through new variables files, and most commits now come from them.",
+        "diagramId": "image-factory",
+        "note": ""
+      },
+      {
+        "id": "cas-3",
+        "slug": "production-incidents",
+        "title": "Production incidents: from diagnosis to a versioned fix",
+        "summary": "I handle incidents with the operations team, write them up to a fixed outline and, where I can, finish with a fix written in code. One example: a MySQL cluster whose Ansible role I had written went down during an update, and I turned the cause into code in that same role.",
+        "period": "February 2023 to October 2026",
+        "roleKind": "contributor",
+        "role": "One responder among several in the operations team. I wrote the incident reports and the versioned fixes cited here.",
+        "context": "84 incident tickets were assigned to me from 2023 to 2026: 32 in 2023, 21 in 2024, 8 in 2025 and 23 in 2026. They involve APIs, proxies, a CI server and databases. The causes often sit between the application and the infrastructure: system limits, abnormal requests, automatic updates.",
+        "actions": [
+          "My incident reports follow a fixed outline (summary, timeline, root cause, resolution, preventive action): of the 13 incidents assigned to me in the first half of 2023, I wrote up 11 this way.",
+          "On a slow CI server, I found 4,944 open files against a limit of 4,096, raised the limit to 30,000 in the systemd unit, and wrote a diagnostic memo for the team.",
+          "On an API with abnormal disk I/O, I found a URL returning more than 140,000 items and made the proxy answer it with a rate-limiting status code.",
+          "On an API that kept falling over, I worked with a colleague, using tracing, to identify a paginated call for 100,000 items that exhausted the JVM's memory, then blocked those requests in the load balancer's versioned configuration.",
+          "On an API returning 502 errors, with memory at 96% and swap at 99%, I cut the HTTP cache from more than 10 GB to 6 GB, then enabled the database query cache and raised its index buffer to absorb the cache purge.",
+          "On a reverse proxy returning 502 errors, I established that it was running out of connections and fixed it in the infrastructure code: persistent upstream connections and a metrics exporter.",
+          "In 2026 I wrote the Ansible role for a 3-node MySQL InnoDB cluster, with a custom Python module that creates the cluster or adds a node to it, and a local lab of 3 virtual machines.",
+          "In autumn 2026 that cluster went down during an automatic update (a third-party package had taken over the database configuration file); I turned the cause into code in my role: enforced configuration, a node-by-node restart that refuses to proceed if a node is offline, a memory buffer reduced from 2 GB to 1 GB, and a working check mode."
+        ],
+        "stack": ["Linux (systemd)", "nginx", "HAProxy", "Varnish", "Tomcat", "MySQL InnoDB Cluster", "Python", "Ansible", "Vagrant", "Prometheus", "Datadog"],
+        "result": "Measured incident by incident: open-file limit raised from 4,096 to 30,000; database CPU down from over 400% to under 200% during the cache purge; instance type change for a saturated proxy with 15 minutes of downtime, followed by a dedicated probe and alert rule.",
+        "handover": "The MySQL role ships with separate inventories (local, pre-production, production) and a documented local lab, so someone else can test it on their own.",
+        "diagramId": null,
+        "note": "The October 2026 fix was written with the help of an AI coding assistant, as the commit states."
+      },
+      {
+        "id": "cas-4",
+        "slug": "health-app-blue-green",
+        "title": "A containerised health application on public cloud: blue/green deployments, locked backups, tested restore",
+        "summary": "On a containerised health application, I described every service in Ansible, replaced the manual blue/green switch with three jobs, and rebuilt the backup chain. I tested the restore: 11 minutes for the file server, 9 minutes 40 for the database.",
+        "period": "April 2024 to March 2025; web application firewall in September and October 2026",
+        "roleKind": "initiator",
+        "role": "Initiator, later taken over by others. The application, its images and a first blue/green procedure existed before me. I created the infrastructure repository and wrote 69 of its 139 non-merge commits.",
+        "context": "The application runs on Docker Swarm on AWS, and releases relied on manual blue/green switch commands. In late August 2024, a retention change made the backup job resync more than four years of files, which badly slowed the production disks; the service was stopped. The arrival of several thousand users then loaded the main node.",
+        "actions": [
+          "In April 2024 I created object storage locked against modification and deletion, with an instance role limited to uploading files; regular copying of backups to it went live in September 2024.",
+          "In September 2024 I documented the cause of the slowdown and added an Ansible playbook to copy backups, then in March 2025 replaced the old backup service with a full playbook.",
+          "After spotting a backup outage that had gone unnoticed, I redeployed the service and added a daily check that backups exist.",
+          "On 16 January 2025 I created the infrastructure repository; by mid-March I had described every service in Ansible: reverse proxy, application services, databases, backup, secrets and per-environment configuration.",
+          "I replaced the manual switch commands with three jobs (prepare the new colour, switch, clean up the old one) and rewrote the procedure; the first two are also available to developers in pre-production.",
+          "I added daily volume snapshots kept for 30 days and wrote the step-by-step restore guide, including the failure encountered after a restore.",
+          "I extended monitoring: exporters for the containers, the database and the reverse proxy, a dedicated HTTP probe, and reverse proxy access logs shipped to the central logging platform.",
+          "In 2026 I rebuilt the reverse proxy image with a web application firewall: sources pinned by checksum, OWASP rules, detection-only by default, and audit logging turned off so no patient data gets written."
+        ],
+        "stack": ["AWS (EC2, EBS, S3 Object Lock, IAM)", "Docker Swarm", "Ansible", "Jenkins", "Rundeck", "nginx", "ModSecurity / OWASP CRS", "MongoDB", "Prometheus", "cAdvisor"],
+        "result": "Restore tested on 19 March 2025: 11 minutes for the file server, 9 minutes 40 for the database. When several thousand users arrived, CPU load on the main node went from over 95% to under 70% after doubling a second node and moving services onto it, then to under 40% after disabling the web application firewall, identified as the cause.",
+        "handover": "From April 2025 to June 2026, day-to-day operation of the repository was mainly handled by others, with occasional work from me. At the development team's request, I let developers change some development and pre-production settings themselves, with everything else fenced off by a code owners file and an automatic check of the paths changed in each merge request. Blocking mode for the web application firewall was later enabled in development.",
+        "diagramId": "blue-green",
+        "note": ""
+      },
+      {
+        "id": "cas-5",
+        "slug": "end-of-support-virtual-machines",
+        "title": "End-of-support OS: rebuilding, as code, the virtual machines of software delivered to healthcare facilities",
+        "summary": "Software delivered as virtual machines to healthcare facilities ran on an operating system reaching end of support; I wrote the Packer and Ansible chain that builds these machines on Debian 12, configures them and exports them. In June 2026 I added a deny-by-default firewall and delivered 8 templates with their documentation.",
+        "period": "April to December 2024 (built from 20 November to 10 December); hardening in June 2026",
+        "roleKind": "initiator",
+        "role": "Main author of the framework, later taken over by others: 28 of the 56 non-merge commits and more than 95% of the current code. I started from an open-source public template and stripped most of it out to rebuild the repository.",
+        "context": "The software is delivered as virtual machines installed in healthcare facilities, and its operating system was reaching end of support. An initial scoping by the product team had settled on Debian 11 or 12, to be confirmed. The deliverable had to remain an exportable virtual machine.",
+        "actions": [
+          "When I took over the project, I chose Debian 12 after discussing it with a colleague, ran the database in a container because the required version was not packaged, and handled most of the follow-up on the scoping ticket (10 of 13 comments).",
+          "I wrote the Packer build for a Debian 12 template with 4 disks and one volume group per purpose: system, application, data, logs.",
+          "On 21 and 22 November 2024 I added 11 Ansible roles, written or adapted from public roles: containerised database, single sign-on, message queue, web server, secure file transfer, among others.",
+          "I organised two Ansible projects in web, application and database tiers, then created the pre-production, acceptance and support environments in late November 2024.",
+          "I automated preparation of the deliverable: machine clean-up (machine ID, SSH host keys, histories), taken from a public template and extended, followed by OVF export.",
+          "I worked around an application installer blocker on Debian 12 and wrote the procedure for migrating the database from the old system to the new one, handed to the deployment lead.",
+          "Building on a public tutorial, I wrote the guide for connecting an Active Directory over LDAPS to single sign-on, and prepared an implementation session for one facility with the deployment lead.",
+          "In June 2026 I added a firewall role that blocks inbound traffic by default and documented the flow matrix."
+        ],
+        "stack": ["Packer", "Ansible", "Debian 12", "VMware vSphere", "OVF", "LVM", "Docker", "MongoDB", "Keycloak", "Active Directory (LDAPS)", "RabbitMQ", "UFW"],
+        "result": "On 25 June 2026, 8 templates with a firewall installed by default were delivered to the deployment lead with their documentation; a colleague confirmed there was no regression.",
+        "handover": "After me, at least four other people made occasional changes to the repository in 2025 and 2026. Its operations documentation was written by a colleague.",
+        "diagramId": null,
+        "note": ""
+      },
+      {
+        "id": "cas-6",
+        "slug": "php-vulnerability-static-site",
+        "title": "Responding to a PHP vulnerability: replacing a CMS with a static site",
+        "summary": "Two websites ran on a PHP CMS hit by a vulnerability; I rebuilt the servers as code and, once the product team chose a static site, removed PHP and the database. The project opened on 22 October and closed on 30 October 2026.",
+        "period": "22 to 30 October 2026",
+        "roleKind": "solo",
+        "role": "Sole author of the project's commits. The decision to drop the CMS was the product team's, and the rebuild followed a colleague's security recommendations.",
+        "context": "Two websites for a product ran on a PHP CMS hit by a vulnerability. A colleague had written security recommendations for a clean rebuild. The static site itself is supplied by the product's developers.",
+        "actions": [
+          "I surveyed the configuration of the exposed servers (OS, web server, PHP version, CMS and plugins) and rebuilt from scratch following the security recommendations.",
+          "I configured two Debian 13 servers with Ansible: key-only SSH, a firewall where only web traffic is public, automatic banning of SSH attempts, and system and process metrics exporters.",
+          "A first phase kept the CMS on a patched PHP version; the same day, the product team chose a static site, and I removed PHP, the old web server and the database from both servers after exporting content and data.",
+          "I wrote the Ansible project that hosts the static site: web server, content security policy, permanent redirects from old URLs, and a maintenance page.",
+          "I wrote the playbook that issues the certificate and renews it automatically, with renewal checked in a dry run.",
+          "I added both sites to the certificate expiry check, which alerts 21 days before expiry, and fixed the first alert raised by removing an unneeded mail service that failed at startup.",
+          "I set up publishing for developers without server access: a CI job triggers an orchestration job that checks the list of allowed files before copying and checks the pages afterwards."
+        ],
+        "stack": ["Ansible", "Debian 13", "nginx", "Let's Encrypt", "fail2ban", "Prometheus", "Jenkins", "Rundeck", "DNS"],
+        "result": "Production moved to the new servers on 28 October 2026, with no PHP and no database. The project closed on 30 October 2026.",
+        "handover": "",
+        "diagramId": null,
+        "note": "All eight commits in this project were written with an AI assistant, and each one says so; I validated, signed and applied them to the servers."
+      },
+      {
+        "id": "cas-7",
+        "slug": "search-engine-without-kubernetes",
+        "title": "Pre-production and production for a containerised search engine, without Kubernetes",
+        "summary": "I built, as code, the pre-production and production environments for a search engine (index, dashboard, API) on Docker hosts, with no Kubernetes cluster. Both environments were delivered in April 2026, and the setup was reused for a second search engine.",
+        "period": "February to April 2026; adjustments until July 2026",
+        "roleKind": "initiator",
+        "role": "Sole author of the operations project when it was created, later taken over by others. The application is developed by another team.",
+        "context": "A development team was building a search engine: an index, a dashboard and a Python API. They initially planned to run it on Kubernetes. They needed a pre-production and a production environment.",
+        "actions": [
+          "After a scoping meeting with the development team, I defined and documented an architecture on Docker hosts: proxy, search index and dashboard in containers, Python API, log and metrics collection.",
+          "I created the pre-production and production machines with Terraform.",
+          "I wrote the initial Ansible project: Docker and the proxy, the containerised search index with its certificates, security configuration and encrypted secrets, the dashboard and the Python API.",
+          "I set up blue/green deployment for the API (new instance, health check, traffic switch, old instance removed) with a job for developers.",
+          "I connected the logs to the central logging chain with a dedicated dashboard, and collected metrics from the system, processes, containers, proxy and application server.",
+          "I wrote version 1.0 of the architecture document for the hosting provider (deployment, upgrade, rollback), installed the security agent and added the firewall rules for the exposed zone.",
+          "I gave the development team read access to the project's secrets stored in the job scheduler."
+        ],
+        "stack": ["Terraform", "Ansible", "Docker", "OpenSearch", "OpenSearch Dashboards", "nginx", "Python (uWSGI)", "Filebeat", "ELK", "Prometheus", "cAdvisor", "Rundeck"],
+        "result": "Both environments were delivered in April 2026.",
+        "handover": "The setup was reused for a second search engine: I created the project and broke down the work, and a colleague carried it on. After the development team's test feedback, I fixed the permissions of two index roles there. The original operations project was later taken over by others.",
+        "diagramId": null,
+        "note": ""
+      },
+      {
+        "id": "cas-8",
+        "slug": "private-data-platform",
+        "title": "A private-network data platform on public cloud: Terraform, private endpoints and hybrid DNS",
+        "summary": "On an Azure data platform closed to the internet, I followed the Terraform work for pre-production and documented the private endpoints, service by service. I explained in 9 steps how a DNS query travels from the corporate network to the cloud's private zones.",
+        "period": "November 2023 to March 2024",
+        "roleKind": "contributor",
+        "role": "One contributor among several, sole author of the documentation. The Terraform code was pushed under a team account and its merge requests were merged by a colleague, except one; the original DNS architecture predates my arrival.",
+        "context": "A data platform relied on Azure managed services: storage, orchestration, search, data warehouse and catalogue. Their endpoints had to be made private while staying reachable over VPN from the corporate network. Everything hinged on DNS resolution between that network and the cloud.",
+        "actions": [
+          "I checked that the data orchestrator read storage through a managed private endpoint, then provisioned it with Terraform.",
+          "I opened and followed the tickets for the pre-production Terraform modules: network, storage, orchestration, search, data warehouse.",
+          "I identified a subscription limit on the data warehouse instances and had the flow needed for VPN access opened.",
+          "I wrote 7 documentation pages in eight days, each with an architecture diagram, listing 15 endpoints to make private across 5 services.",
+          "I configured and documented step by step the private-access setup of the data catalogue, covering everything Terraform cannot configure: permissions, integration runtime, managed private endpoints, storage connection and scanning.",
+          "I added to the existing DNS documentation the 9-step path of a query, from corporate DNS to the cloud's private zones.",
+          "I deployed in pre-production the application container that uses the storage and search services, wrote its playbook and deployment job, then handed that job to the project team."
+        ],
+        "stack": ["Terraform (azurerm)", "Azure Data Lake Storage Gen2", "Azure Data Factory", "Azure AI Search", "Azure Synapse", "Microsoft Purview", "Private Endpoint", "Private DNS", "VPN", "Docker", "Rundeck"],
+        "result": "",
+        "handover": "",
+        "diagramId": "private-data-platform",
+        "note": ""
+      }
+    ]
+  },
+  "skills": {
+    "title": "Skills",
+    "intro": "Each skill points to the case studies that show it.",
+    "groups": [
+      {
+        "name": "Kubernetes and GitOps",
+        "items": [
+          {"name": "Kubernetes on private infrastructure: RKE2, Rancher, Cilium, Gateway API, Longhorn, kube-vip", "proof": "Case studies 1 and 2"},
+          {"name": "GitOps: ArgoCD and ApplicationSets, Kustomize, Helm", "proof": "Case study 1: 214 of the 251 non-merge commits in the GitOps repository"},
+          {"name": "Managed Kubernetes on AWS", "proof": "In 2024: cluster rebuilt with Terraform, autoscaler, node image"}
+        ]
+      },
+      {
+        "name": "Infrastructure as code",
+        "items": [
+          {"name": "Terraform (vSphere, Cloud Director, Rancher, Vault, Helm, Azure) and remote state", "proof": "Case studies 2 and 8"},
+          {"name": "Machine images: Packer, preseed, cloud-init, OVF, LVM", "proof": "Case studies 2 and 5"},
+          {"name": "Ansible: roles, custom Python module, per-environment inventories, Ansible Vault", "proof": "Case studies 3 to 7"}
+        ]
+      },
+      {
+        "name": "Containers and delivery",
+        "items": [
+          {"name": "Docker, Docker Swarm, blue/green deployments", "proof": "Case studies 4 and 7"},
+          {"name": "CI/CD and self-service deployments: Jenkins, Rundeck, pull requests, code owners", "proof": "Case studies 1, 4 and 6"}
+        ]
+      },
+      {
+        "name": "Observability and incidents",
+        "items": [
+          {"name": "Prometheus, exporters, probes, Grafana, Filebeat, OpenSearch, ELK, Datadog", "proof": "Case studies 1, 4 and 7"},
+          {"name": "Structured incident reports, runbooks, architecture documents", "proof": "Case studies 3, 4 and 7"}
+        ]
+      },
+      {
+        "name": "Databases in production",
+        "items": [
+          {"name": "MySQL InnoDB Cluster, ProxySQL, MongoDB, Redis Sentinel", "proof": "Case studies 3, 4 and 1"}
+        ]
+      },
+      {
+        "name": "Secrets and operational security",
+        "items": [
+          {"name": "Vault, External Secrets Operator", "proof": "Case studies 1 and 2"},
+          {"name": "UFW, fail2ban, ModSecurity web application firewall, TLS", "proof": "Case studies 4, 5 and 6"}
+        ]
+      },
+      {
+        "name": "Public cloud and virtualisation",
+        "items": [
+          {"name": "AWS: EC2, EBS, S3 Object Lock, IAM, AWS Backup", "proof": "Case study 4"},
+          {"name": "Azure: private endpoints, private DNS, data services (2023 and 2024)", "proof": "Case study 8"},
+          {"name": "VMware vSphere, VMware Cloud Director, Debian", "proof": "Case studies 2 and 5"}
+        ]
+      }
+    ]
+  },
+  "approach": {
+    "title": "How I work",
+    "intro": "I build so the team can carry on without me. Here is the evidence.",
+    "sections": [
+      {
+        "title": "Foundations others take over",
+        "text": "A colleague created the shared Kubernetes platform repository from a copy of my files, reorganised it by cluster, then extended it to a new product in autumn 2026. On the Terraform foundation I laid, a colleague added a cluster module variant following its layout, then several people added servers and clusters through variables files. Two Ansible projects I created were carried on by colleagues."
+      },
+      {
+        "title": "Work broken down and documented",
+        "text": "120 tickets I opened are now owned by other people: requests received by email or chat that I qualified, projects I broke down, and Kubernetes migration tasks spread across five colleagues. I write guides for whoever comes next: a step-by-step restore, connecting a repository to the CI server, a flow matrix for on-site customer deployments. I shipped an Ansible role for a database cluster with a local lab and a README, and wrote technical architecture documents for the hosting provider."
+      },
+      {
+        "title": "Autonomy for the teams I work with",
+        "text": "I gave a product's development team more autonomy: self-service test deployments, a bounded contribution scope, website publishing without server access, and access to test logs. I prepared a session and sent the directory integration guide to a product's deployment lead. I delivered 8 virtual machine templates to the support team, with a firewall installed by default and its documentation."
+      },
+      {
+        "title": "How to read the case studies",
+        "text": "Each case study carries a role label: sole author, initiator later taken over by others, or one contributor among several. The figures come from Git history and tickets; a commit is not a measure of effort. Where an AI assistant co-signed commits, the case study says so. Employer, products, customers and hosting providers are not named."
+      }
+    ]
+  },
+  "about": {
+    "title": "About",
+    "paragraphs": [
+      "I have been a DevOps engineer at a healthcare software publisher since October 2022. I start freelancing as a DevOps / Cloud engineer on 20 January 2027.",
+      "There I have run production, written infrastructure as code, industrialised a containerised application and laid the foundation of a Kubernetes platform managed with GitOps. Since I joined, 1,082 tickets have been assigned to me, 1,066 of them now closed as done.",
+      "I am looking for engagements where something has to be built and then handed over: moving to Kubernetes, putting infrastructure into Git, making production more reliable."
+    ]
+  },
+  "contact": {
+    "title": "Contact",
+    "text": "Available from 20 January 2027 for DevOps / Cloud engagements. Tell me about your context and timeline.",
+    "links": [
+      {"label": "GitHub", "href": "https://github.com/guandalinux"}
+    ],
+    "pending": ["Email address", "LinkedIn"]
+  },
+  "footer": {
+    "note": "Employer, products, customers and hosting providers are not named. Each case study states my exact role."
+  },
+  "labels": {
+    "period": "Period",
+    "role": "My role",
+    "context": "Context",
+    "actions": "What I did",
+    "stack": "Technologies",
+    "result": "Result",
+    "handover": "What happened next",
+    "note": "Note",
+    "readCase": "Read the case study",
+    "allCases": "All case studies",
+    "previousCase": "Previous case study",
+    "nextCase": "Next case study",
+    "otherLanguage": "Français",
+    "themeToggle": "Toggle theme",
+    "motionToggle": "Reduce motion",
+    "skipToContent": "Skip to content",
+    "diagram": "Diagram",
+    "draftNotice": "Working draft: some details still need to be completed before publication."
+  }
+}
